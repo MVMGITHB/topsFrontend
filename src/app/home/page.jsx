@@ -9,7 +9,7 @@ import { CardBody, CardContainer } from "@/components/ui/Card3d";
 
 function Page() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 p-5">
+    <div className="flex flex-col min-h-screen bg-gray-100 p-10">
 
       {/* Responsive Layout for Header + Categories */}
       <div className="flex flex-col lg:flex-row">
