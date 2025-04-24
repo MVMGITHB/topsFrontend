@@ -22,50 +22,117 @@ export default async function BlogListingPage() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
-      <h1 className="text-4xl md:text-5xl font-bold text-black text-center mb-16">
-        Discover Our Latest Blogs
-      </h1>
-
-      <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {blogs.map((blog) => (
-          <a
-            key={blog._id}
-            href={`/blogs/${blog.slug}`}
-            className="group relative bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.015] hover:shadow-amber-300/10"
+    <section className="max-w-7xl mx-auto px-4 py-14 text-white">
+    <div className="flex flex-col lg:flex-row gap-10">
+  
+      {/* Left Sidebar - Mobile: stacked on top */}
+      <aside className="w-full lg:max-w-xs flex flex-col gap-6 order-1 lg:order-none">
+        {[1, 2, 3].map((_, i) => (
+          <div
+            key={i}
+            className="bg-gradient-to-br from-indigo-700/30 to-indigo-900/30 border border-white/10 rounded-2xl p-5 shadow-lg transition hover:scale-105 duration-300 text-center backdrop-blur-sm"
           >
-            {blog.image && (
-              <div className="overflow-hidden h-56">
-                <img
-                  src={typeof blog.image === "string" ? blog.image : blog.image?.url}
-                  alt={blog.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-            )}
-            <div className="p-6 md:p-7 text-black space-y-4">
-              <h2 className="text-2xl font-semibold leading-snug group-hover:text-amber-400">
-                {blog.mtitle || blog.title}
-              </h2>
-              <p className="text-black text-sm leading-relaxed line-clamp-3">
-                {blog.mdesc || blog.body?.slice(0, 120)}...
-              </p>
-              <div className="flex justify-between items-center pt-4 border-t border-black">
-                <span className="text-sm text-amber-300 font-medium">
-                  Read more →
-                </span>
-                <span className="text-xs text-black">
-                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </span>
-              </div>
-            </div>
-          </a>
+            <img
+              src="https://cdn.logojoy.com/wp-content/uploads/20250107124119/nike-shoe-logo.webp"
+              alt="Special Offer"
+              className="w-full aspect-video object-cover rounded-xl shadow-md"
+            />
+            <h3 className="text-white font-semibold text-base mt-4 tracking-wide">
+              Special Offer
+            </h3>
+            <button className="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+              Buy now
+            </button>
+          </div>
         ))}
-      </div>
-    </section>
+      </aside>
+  
+      {/* Blog Main Content */}
+      <main className="w-full lg:flex-1 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-xl space-y-8">
+        <header className="border-b pb-4 mb-6 border-gray-200">
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
+            {blog.mtitle || blog.title}
+          </h1>
+          {blog.mdesc && (
+            <p className="mt-3 text-lg text-gray-600 max-w-3xl">{blog.mdesc}</p>
+          )}
+        </header>
+  
+        {blog.image && (
+          <img
+            src={typeof blog.image === "string" ? blog.image : blog.image.url}
+            alt={blog.title}
+            className="w-full h-auto aspect-video object-cover rounded-xl shadow-lg"
+          />
+        )}
+  
+        <div className="text-sm text-gray-600 space-y-3">
+          <p>
+            <strong className="text-gray-800">Posted:</strong>{" "}
+            {new Date(blog.createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+          <p>
+            <strong className="text-gray-800">Category:</strong>{" "}
+            {Array.isArray(blog.subcategories)
+              ? blog.subcategories.map((cat, i) => (
+                  <span key={i} className="text-indigo-600 font-medium mr-2 underline">
+                    {cat.name}
+                  </span>
+                ))
+              : "Uncategorized"}
+          </p>
+          <p>
+            <strong className="text-gray-800">Tags:</strong>{" "}
+            {Array.isArray(blog.tags)
+              ? blog.tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 text-xs rounded-full mr-2"
+                  >
+                    #{tag.name}
+                  </span>
+                ))
+              : "No tags"}
+          </p>
+        </div>
+  
+        <article
+          className="prose prose-lg max-w-none text-gray-800 prose-headings:font-semibold prose-img:rounded-xl prose-a:text-indigo-600 hover:prose-a:underline"
+          dangerouslySetInnerHTML={{ __html: blog.body }}
+        />
+  
+        <div className="mt-10 overflow-hidden rounded-xl shadow-md">
+          <AutoCrousel />
+        </div>
+      </main>
+  
+      {/* Right Sidebar - Mobile: stacked at the bottom */}
+      <aside className="w-full lg:max-w-xs flex flex-col gap-6 order-2 lg:order-none">
+        {[1, 2, 3].map((_, i) => (
+          <div
+            key={i}
+            className="bg-white border border-gray-200 rounded-xl p-4 shadow-md hover:shadow-xl transition duration-300 text-center"
+          >
+            <img
+              src="https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg"
+              alt="New Arrival"
+              className="w-full aspect-video object-cover rounded-lg shadow-sm"
+            />
+            <h3 className="text-gray-900 font-semibold text-base mt-4 tracking-wide">
+              New Arrival
+            </h3>
+            <button className="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-md text-sm font-medium transition">
+              Shop now
+            </button>
+          </div>
+        ))}
+      </aside>
+    </div>
+  </section>
+  
   );
 }
