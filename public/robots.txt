@@ -1,0 +1,21 @@
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /server/
+Disallow: /private/
+Disallow: /login
+Disallow: /register
+Disallow: /account/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /orders/
+Disallow: /settings/
+Disallow: /*?*
+Disallow: /*.json$
+
+Allow: /
+
+Crawl-delay: 2
+
+Sitemap: https://top5shots.com/sitemap.xml
