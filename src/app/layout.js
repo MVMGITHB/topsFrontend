@@ -3,8 +3,6 @@ import "./globals.css";
 import Footer from "@/components/footer/Footer";
 import { AuthProvider } from "@/components/context/auth";
 import Breadcrumb from "@/components/breadcrumb/breadcrumb";
-import { BackgroundBeamsWithCollision } from "@/components/ui/BackgroundBeamwithCollision";
-import SurveyPopup from "@/components/popupsurvey/popupsurvey";
 
 export const metadata = {
   title :{
@@ -17,6 +15,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+      <meta name="robots" content="noindex, nofollow"></meta> 
+      </head>
       <body className="bg-white text-white min-h-screen flex flex-col overflow-x-hidden">
        
        
