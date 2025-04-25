@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ChevronDown, Search, Star } from "lucide-react";
@@ -37,41 +38,39 @@ export default function ComparisonPage({ id }) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 py-12">
-      {/* Top 3 Picks Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 mb-16">
-        <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">
-          <span className="font-medium">Last Updated:</span> Apr 2025
-        </p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-8">
-          Our Top 3 Picks
-        </h2>
+    <div className="bg-white dark:bg-gray-950 py-16 px-4 sm:px-6 lg:px-8">
+      {/* Top 3 Picks */}
+      <div className="max-w-7xl mx-auto mb-20">
+        <div className="mb-8">
+          <p className="text-sm text-gray-500 dark:text-gray-400">Last Updated: Apr 2025</p>
+          <h2 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+            Our Top 3 Picks
+          </h2>
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid gap-8 md:grid-cols-3">
           {topPicks.map((app, i) => (
             <div
               key={i}
-              className="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all"
+              className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-xl transition hover:scale-105"
             >
               {i === 0 && (
                 <span className="absolute -top-3 left-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
                   ✅ We Recommend
                 </span>
               )}
-
-              <div className="flex items-center gap-4 mb-5">
+              <div className="flex items-center gap-4 mb-4">
                 <img
                   src={app.logo || "/images/placeholder.png"}
                   alt={app.websiteName}
                   className="w-14 h-14 object-contain rounded-md"
                 />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {app.websiteName}
                 </h3>
               </div>
-
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-medium text-green-700 dark:text-green-400">
+                <span className="text-sm font-medium text-green-600 dark:text-green-400">
                   {getLabel(app.rating)}
                 </span>
                 <div className="flex items-center text-yellow-500">
@@ -83,27 +82,24 @@ export default function ComparisonPage({ id }) {
                   {app.rating?.toFixed(1)}
                 </span>
               </div>
-
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 {app.features?.[0] || "Trusted by thousands"}
               </p>
-
               <a
                 href={app.visitSiteUrl}
-                className="inline-block text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-block mt-auto text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
               >
-                Visit Site <span className="ml-1">→</span>
+                Visit Site →
               </a>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* Comparison Table Section */}
-      <div className="relative overflow-x-auto shadow-lg rounded-xl bg-white dark:bg-gray-900 mb-10 mx-4 md:mx-auto max-w-7xl">
-        {/* Search Bar */}
-        <div className="flex justify-between items-center px-4 py-4 border-b dark:border-gray-700">
-          <div className="relative w-full max-w-sm">
+      {/* Comparison Table */}
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <div className="relative w-full max-w-md">
             <Search className="absolute top-2.5 left-3 w-4 h-4 text-gray-500 dark:text-gray-400" />
             <input
               type="text"
@@ -115,9 +111,9 @@ export default function ComparisonPage({ id }) {
           </div>
         </div>
 
-        {/* Desktop Table */}
+        {/* Desktop View */}
         <div className="hidden md:block">
-          <table className="w-full text-sm text-left text-gray-600 dark:text-gray-300">
+          <table className="w-full text-sm text-left text-gray-600 dark:text-gray-300 shadow-md rounded-xl overflow-hidden">
             <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
               <tr>
                 <th className="px-6 py-3">Brand</th>
@@ -134,13 +130,11 @@ export default function ComparisonPage({ id }) {
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      {card?.logo && (
-                        <img
-                          src={card?.logo}
-                          alt={card?.websiteName}
-                          className="w-12 h-12 object-contain rounded"
-                        />
-                      )}
+                      <img
+                        src={card?.logo}
+                        alt={card?.websiteName}
+                        className="w-12 h-12 object-contain rounded"
+                      />
                       <Link
                         href={`/company/${card.slug}`}
                         className="text-base font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
@@ -168,7 +162,7 @@ export default function ComparisonPage({ id }) {
                   </td>
                   <td className="px-6 py-4">
                     <Link
-                      href={`/company/${card.visitSiteUrl}`}
+                      href={card.visitSiteUrl}
                       className="text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-sm font-semibold px-4 py-2 rounded-lg shadow"
                     >
                       Visit Site
@@ -180,8 +174,8 @@ export default function ComparisonPage({ id }) {
           </table>
         </div>
 
-        {/* Mobile Cards */}
-        <div className="md:hidden space-y-4 px-4 py-6">
+        {/* Mobile View */}
+        <div className="md:hidden space-y-4 mt-6">
           {filteredCompanies?.map((card, index) => (
             <div
               key={index}
@@ -211,7 +205,7 @@ export default function ComparisonPage({ id }) {
                   </span>
                 </div>
                 <Link
-                  href={`/company/${card._id}`}
+                  href={card.visitSiteUrl}
                   className="text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-sm font-semibold px-4 py-2 rounded-lg shadow"
                 >
                   Visit Site

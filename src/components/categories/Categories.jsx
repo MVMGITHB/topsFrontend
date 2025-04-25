@@ -9,7 +9,7 @@ import base_url from "../helper/baseurl";
 const fallbackIcons = {
   Automobile: "/svg/yellowcar.svg",
   "Fashion and Lifestyle": "/svg/fashion.svg",
-  Home: "/svg/home.svg",
+ 
   Fitness: "/svg/fitness.svg",
   Ecommerce: "/svg/ecommerce.svg",
   Finance: "/svg/finance.svg",

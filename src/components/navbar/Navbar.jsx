@@ -46,7 +46,7 @@ export default function Navbar() {
           }`}
         >
           {[
-  { name: "Home", path: "/" },
+  { name: "Blogs", path: "/blog" },
   { name: "News", path: "/news" },
   { name: "Viral Stories", path: "/viralstories" },
   { name: "Results", path: "/results" },

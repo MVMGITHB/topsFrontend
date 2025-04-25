@@ -14,14 +14,7 @@ export default function Header() {
         <p className="mt-6 text-sm sm:text-base text-gray-400 max-w-md">
           Whether you're browsing, comparing, or discovering—Top5shots brings you the internet’s finest, in five.
         </p>
-        <div className="mt-8">
-          <a
-            href="#explore"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full shadow-md transition transform hover:scale-105"
-          >
-            Explore Now
-          </a>
-        </div>
+        
       </div>
     </div>
   );

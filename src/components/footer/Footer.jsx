@@ -7,7 +7,7 @@ const Footer = () => {
     {
       label: "Quick Links",
       items: [
-        { href: "/home", name: "Home" },
+        { href: "/blog", name: "Blog" },
         { href: "/news", name: "News" },
         { href: "/viralstories", name: "Viral Stories" },
         { href: "/matchscore", name: "Match Score" },
