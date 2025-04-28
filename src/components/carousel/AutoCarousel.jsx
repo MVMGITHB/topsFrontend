@@ -21,7 +21,7 @@ export default function AutoCarousel() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 2000,
+    speed: 5000,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -54,23 +54,26 @@ export default function AutoCarousel() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-r from-amber-300 to-indigo-700 sm:px-6 lg:px-8 my-14">
-      <Slider {...settings}>
-        {categories.map((item, index) => (
-          <div key={index} className="px-2">
-            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:scale-105">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-[140px] sm:h-[160px] object-cover"
-              />
-              <div className="p-3 text-center text-black font-semibold text-sm sm:text-base">
-                {item.title}
+    <section className="bg-gradient-to-r from-gray-100 to-gray-200 py-12 px-6 md:px-16 mb-20">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Top Shots</h2>
+      <div className="max-w-6xl mx-auto">
+        <Slider {...settings}>
+          {categories.map((item, index) => (
+            <div key={index} className="px-2">
+              <div className="bg-white rounded-2xl shadow-md border border-gray-200 hover:shadow-xl transition duration-300 ease-in-out">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-[140px] sm:h-[160px] object-cover rounded-t-2xl"
+                />
+                <div className="p-4 text-center text-black font-semibold text-sm sm:text-base">
+                  {item.title}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      </div>
+    </section>
   );
 }

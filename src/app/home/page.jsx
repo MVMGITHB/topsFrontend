@@ -19,12 +19,13 @@ function Page() {
         </div>
 
         {/* Categories on right side (desktop) or below header (mobile) */}
-        <div className="w-full lg:w-2/3 px-4 py-4">
+        <div className="w-full lg:w-2/3">
           <CategoryPage />
         </div>
       </div>
 
       {/* Other components below the header/categories section */}
+    
       <AutoPlay />
       
       <AdsSection />

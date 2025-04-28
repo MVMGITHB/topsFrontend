@@ -58,7 +58,7 @@ const PrevArrow = ({ onClick }) => (
 
 // ----> SHOT SLIDE
 const CarouselCard = ({ shot }) => (
-  <div className="relative w-full h-80 overflow-hidden rounded-xl shadow-md">
+  <div className="relative w-full h-80 overflow-hidden rounded-xl shadow-md ">
     <img
       src={shot.image}
       alt={shot.title}
@@ -81,7 +81,7 @@ const CarouselCard = ({ shot }) => (
 // ----> SIDE CARD
 const SideCard = ({ title, imageUrl, cta }) => (
   <div
-    className="flex flex-col justify-end h-72 w-full rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 bg-cover bg-center"
+    className="flex flex-col justify-between h-80 w-114 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 bg-cover bg-center"
     style={{ backgroundImage: `url(${imageUrl})` }}
   >
     <div className="p-4 bg-black/40 backdrop-blur-sm h-full flex flex-col justify-end">
@@ -98,7 +98,7 @@ export default function TopShotsAndPopularSection() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 2,
     autoplay: true,
     autoplaySpeed: 4000,
@@ -115,14 +115,15 @@ export default function TopShotsAndPopularSection() {
   };
 
   return (
-    <section className="w-full px-6 py-16 bg-gradient-to-r bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-11/12 px-6 py-16 bg-gradient-to-r bg-white ">
+      <div className="max-w-7xl mx-auto ml-14">
+        
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">
           🔥 Trending Shots
         </h2>
 
         {/* Carousel Section */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-12 gap-4">
           <div className="w-full max-w-5xl px-4">
             <Slider {...settings}>
               {shotData.map((shot) => (
@@ -135,12 +136,16 @@ export default function TopShotsAndPopularSection() {
           </div>
         </div>
 
+      
         {/* Side Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {sideCards.map((card, i) => (
-            <SideCard key={i} {...card} />
-          ))}
-        </div>
+<div className="flex flex-col md:flex-row gap-4">
+  {sideCards.map((card, i) => (
+    <div key={i} className="flex-1 flex justify-center">
+      <SideCard {...card} />
+    </div>
+  ))}
+</div>
+
       </div>
     </section>
   );

@@ -12,9 +12,13 @@ export default function Navbar() {
     localStorage.removeItem("auth");
   };
 
+  const handleLinkClick = () => {
+    setIsOpen(false); // Close navbar when a link is clicked
+  };
+
   return (
-    <nav className="bg-white  shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center ">
+    <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold text-black border-black tracking-tight font-serif mr-3">
           <Link href="/">Top5shots</Link>
@@ -38,32 +42,31 @@ export default function Navbar() {
           <span className="text-xl">{isOpen ? "✕" : "☰"}</span>
         </button>
 
-      
-       
-           <ul
-          className={`md:flex md:items-center md:space-x-6 absolute md:static left-0 top-12 w-full md:w-auto bg-white  shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 z-40 ${
+        {/* Navigation Links */}
+        <ul
+          className={`md:flex md:items-center md:space-x-6 absolute md:static left-0 top-12 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 z-40 ${
             isOpen ? "block" : "hidden"
           }`}
         >
           {[
-  { name: "Blogs", path: "/blog" },
-  { name: "News", path: "/news" },
-  { name: "Viral Stories", path: "/viralstories" },
-  { name: "Results", path: "/results" },
-  { name: "Match Score", path: "/matchscore" },
-  { name: "Contest", path: "/contest" },
-].map((item, index) => (
-  <li key={index} className="group py-1 md:py-0">
-    <Link
-      href={item.path}
-      className="relative inline-block text-gray-700 dark:text-gray-300 font-medium transition duration-200 hover:text-purple-600 dark:hover:text-purple-400"
-    >
-      {item.name}
-      <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
-    </Link>
-  </li>
-))}
-
+            { name: "Blogs", path: "/blog" },
+            { name: "News", path: "/news" },
+            { name: "Viral Stories", path: "/viralstories" },
+            { name: "Results", path: "/results" },
+            { name: "Match Score", path: "/matchscore" },
+            { name: "Contest", path: "/contest" },
+          ].map((item, index) => (
+            <li key={index} className="group py-1 md:py-0">
+              <Link
+                href={item.path}
+                onClick={handleLinkClick} // Close the navbar on link click
+                className="relative inline-block text-gray-700 dark:text-gray-300 font-medium transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
+              >
+                {item.name}
+                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            </li>
+          ))}
 
           {auth?.user ? (
             <li className="flex items-center space-x-2 mt-4 md:mt-0">

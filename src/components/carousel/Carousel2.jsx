@@ -56,7 +56,7 @@ export default function Crousel() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 1500,
+    speed: 4000,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,

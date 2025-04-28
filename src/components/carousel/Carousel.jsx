@@ -61,12 +61,12 @@ export default function AutoCarousel({children}) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 2000,
+    speed: 5000,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 0,
-    cssEase: "linear", 
+    cssEase: "linear",
     arrows: false,
     centerMode: true,
     centerPadding: "40px",
@@ -74,6 +74,9 @@ export default function AutoCarousel({children}) {
 
   return (
     <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-r from-amber-300 to-indigo-700 p-8 my-20">
+      {/* Updated styling for h1 */}
+      
+
       <Slider {...settings}>
         {categories.map((item, index) => (
           <div key={index} className="px-3">
