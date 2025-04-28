@@ -1,5 +1,5 @@
 
-import NewComp from "@/components/comparison/NewComp";
+
 import ComparisonPage from "@/components/comparison/toppicks";
 
  const page = async({params}) => {

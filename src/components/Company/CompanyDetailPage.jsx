@@ -101,7 +101,7 @@ export default function CompanyDetailPage({slug}) {
         <Section title="Pros & Cons" isOpen={openSections.prosCons} onToggle={() => toggleSection("prosCons")}>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-300 dark:border-gray-700">
-              <thead className="bg-gray-100 dark:bg-gray-800">
+              <thead className="bg-white dark:bg-gray-800">
                 <tr>
                   <th className="text-left p-3 border-b dark:border-gray-700 text-green-600">Pros</th>
                   <th className="text-left p-3 border-b dark:border-gray-700 text-red-600">Cons</th>

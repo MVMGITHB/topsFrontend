@@ -7,6 +7,29 @@
     -1px  1px 0 black,
      1px  1px 0 black;
 }
+
+/* globals.css */
+
+/* Ensure consistent background and text color */
+body {
+  background-color: #ffffff; /* White background */
+  color: #333333; /* Dark text color */
+}
+
+/* Override any default styles for themes or mobile */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #ffffff !important; /* Ensure white background even in dark mode */
+    color: #333333 !important; /* Ensure dark text color even in dark mode */
+  }
+}
+
+/* Optionally add a fixed background style for any container */
+.main-container {
+  background-color: #ffffff !important; /* Fixed background for the content */
+  color: #333333 !important; /* Ensure text color doesn't change */
+}
+
 /* 
 :root {
   --background: #ffffff;

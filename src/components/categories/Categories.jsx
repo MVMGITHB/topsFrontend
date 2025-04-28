@@ -46,9 +46,9 @@ export default function CategoryPage() {
 
   return (
     <div className="px-4 py-10 max-w-7xl mx-auto min-h-screen">
-      <h2 className="text-4xl font-extrabold mb-10 text-center text-black tracking-wide font-serif">
+      {/* <h2 className="text-4xl font-extrabold mb-10 text-center text-black tracking-wide font-serif">
         🎯 Explore Categories
-      </h2>
+      </h2> */}
 
       <div className="px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">

@@ -16,12 +16,12 @@ export default function Navbar() {
     <nav className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center ">
         {/* Logo */}
-        <div className="text-xl font-bold text-black tracking-tight font-serif mr-3">
+        <div className="text-xl font-bold text-black border-black tracking-tight font-serif mr-3">
           <Link href="/">Top5shots</Link>
         </div>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1 shadow-sm mr-50">
+        <div className="hidden md:flex items-center bg-white dark:bg-gray-800 rounded-full px-3 py-1 shadow-sm mr-50">
           <input
             type="text"
             placeholder="Search..."

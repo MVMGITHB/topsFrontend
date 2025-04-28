@@ -15,7 +15,7 @@ const Chatbot = () => {
       setMessages([
         {
           sender: "AI",
-          text: `👋 Hi there! Welcome to Top5Shots — your personalized hub to discover the top 5 highlights in any niche! Whether you're a content lover or just exploring, I’m here to help.`,
+          text: `👋 Hi there! Welcome to Top5Shots. What top 5 highlights would you like to explore today? You can choose from tech, sports, movies, and more!`,
         },
       ]);
     }, 20000);
@@ -70,6 +70,15 @@ const Chatbot = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCategorySelect = (category) => {
+    setMessages((prev) => [
+      ...prev,
+      { sender: "User", text: `I'd like to see the top 5 in ${category}` },
+      { sender: "AI", text: `Here are the top 5 highlights in ${category}:` },
+    ]);
+    // You can replace this with logic for fetching category-specific content
   };
 
   return (

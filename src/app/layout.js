@@ -1,11 +1,11 @@
 import Navbar from "@/components/navbar/Navbar";
-import "./globals.css";
+import "./globals.css";  // Assuming your global CSS file is linked here
 import Footer from "@/components/footer/Footer";
 import { AuthProvider } from "@/components/context/auth";
 import Breadcrumb from "@/components/breadcrumb/breadcrumb";
 
 export const metadata = {
-  title :{
+  title: {
     template: "%s | Top 5 Shots - Latest Trends, Reviews & Insights",
   },
   title: "Top5Shots - Compare & Advertise",
@@ -16,15 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <meta name="robots" content="noindex, nofollow"></meta> 
+        <meta name="robots" content="noindex, nofollow"></meta>
       </head>
-      <body className="bg-white text-white min-h-screen flex flex-col overflow-x-hidden">
-       
-       
+      <body className="bg-white text-black min-h-screen flex flex-col overflow-x-hidden">
         <AuthProvider>
-          
           <Navbar />
-         
           <Breadcrumb />
           <main className="flex-grow w-full px-4 sm:px-8 mx-auto max-w-7xl">
             {children}

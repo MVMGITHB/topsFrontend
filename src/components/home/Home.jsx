@@ -9,7 +9,7 @@ import Crousel from "../carousel/Carousel2";
 
 function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 p-5">
+    <div className="flex flex-col min-h-screen bg-white p-5">
       <div className="flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/3">
           <Header />

@@ -1,5 +1,7 @@
 import AutoCrousel from "../../../components/article/AutoCrousel";
 import base_url from "@/components/helper/baseurl";
+import parse from "html-react-parser";
+
 export const dynamic = "force-dynamic";
 
 // Dynamic metadata
@@ -46,6 +48,14 @@ export async function generateMetadata({ params }) {
   }
 }
 
+// Helper function to wrap table in a responsive div
+function wrapTablesInDiv(htmlString) {
+  return htmlString.replace(
+    /<table(.*?)>([\s\S]*?)<\/table>/g,
+    `<div class="overflow-x-auto my-6"><table class="min-w-full table-auto border border-gray-300 text-sm"$1>$2</table></div>`
+  );
+}
+
 // Page content
 export default async function Article({ params }) {
   const { slug } = await params;
@@ -71,9 +81,8 @@ export default async function Article({ params }) {
   return (
     <section className="max-w-7xl mx-auto px-4 py-14 text-white">
       <div className="flex flex-col lg:flex-row gap-10">
-
         {/* Left Sidebar */}
-        <aside className="w-full max-w-xs flex flex-col gap-6">
+        <aside className="w-full lg:w-1/4 flex flex-col gap-6">
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
@@ -95,7 +104,7 @@ export default async function Article({ params }) {
         </aside>
 
         {/* Blog Main Content */}
-        <main className="w-full lg:w-[70%] bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-xl space-y-8">
+        <main className="w-full lg:w-2/3 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-xl space-y-8">
           <header className="border-b pb-4 mb-6 border-gray-200">
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
               {blog.mtitle || blog.title}
@@ -109,7 +118,7 @@ export default async function Article({ params }) {
             <img
               src={typeof blog.image === "string" ? blog.image : blog.image.url}
               alt={blog.title}
-              className="w-full h-96 object-cover rounded-xl shadow-lg"
+              className="w-full h-auto max-h-96 object-cover rounded-xl shadow-lg"
             />
           )}
 
@@ -122,35 +131,17 @@ export default async function Article({ params }) {
                 day: "numeric",
               })}
             </p>
-            <p>
-              <strong className="text-gray-800">Category:</strong>{" "}
-              {Array.isArray(blog.subcategories)
-                ? blog.subcategories.map((cat, i) => (
-                    <span key={i} className="text-indigo-600 font-medium mr-2 underline">
-                      {cat.name}
-                    </span>
-                  ))
-                : "Uncategorized"}
-            </p>
-            <p>
-              <strong className="text-gray-800">Tags:</strong>{" "}
-              {Array.isArray(blog.tags)
-                ? blog.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 text-xs rounded-full mr-2"
-                    >
-                      #{tag.name}
-                    </span>
-                  ))
-                : "No tags"}
-            </p>
           </div>
 
+          {/* Render Blog Content */}
           <article
-            className="prose prose-lg max-w-none text-gray-800 prose-headings:font-semibold prose-img:rounded-xl prose-a:text-indigo-600 hover:prose-a:underline"
-            dangerouslySetInnerHTML={{ __html: blog.body }}
-          />
+            className="prose prose-lg max-w-4xl w-full px-4 sm:px-6 text-gray-800 
+                       prose-headings:font-semibold prose-img:rounded-xl 
+                       prose-a:text-indigo-600 hover:prose-a:underline mx-auto"
+          >
+            {/* Wrap tables in the responsive wrapper */}
+            {parse(wrapTablesInDiv(blog.body))}
+          </article>
 
           <div className="mt-10 overflow-hidden rounded-xl shadow-md">
             <AutoCrousel />
@@ -158,7 +149,7 @@ export default async function Article({ params }) {
         </main>
 
         {/* Right Sidebar */}
-        <aside className="w-full max-w-xs flex flex-col gap-6">
+        <aside className="w-full lg:w-1/4 flex flex-col gap-6">
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
