@@ -47,7 +47,7 @@ export default function CompanyDetailPage({slug}) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg space-y-10">
+      <div className="bg-white  p-6 rounded-2xl shadow-lg space-y-10">
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row gap-6 items-center">

@@ -52,7 +52,7 @@ export default function ComparisonPage({ id }) {
           {topPicks.map((app, i) => (
             <div
               key={i}
-              className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-xl transition hover:scale-105"
+              className="relative bg-white  border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-xl transition hover:scale-105"
             >
               {i === 0 && (
                 <span className="absolute -top-3 left-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
@@ -126,7 +126,7 @@ export default function ComparisonPage({ id }) {
               {filteredCompanies?.map((card, index) => (
                 <tr
                   key={index}
-                  className="bg-white dark:bg-gray-900 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+                  className="bg-white  border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">

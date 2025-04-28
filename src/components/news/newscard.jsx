@@ -3,7 +3,7 @@ import React from "react";
 
 export default function NewsCard({ article }) {
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+    <div className="bg-white  rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
       {article.image_url && (
         <img
           src={article.image_url}
