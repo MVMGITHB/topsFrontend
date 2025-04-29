@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <div className="bg-gradient-to-r from-gray-950 via-gray-900 to-black text-white p-10 sm:p-12 text-left shadow-xl rounded-2xl h-9/12 relative overflow-hidden animate-fadeIn">
+    <div className="bg-gradient-to-r from-gray-950 via-gray-900 to-black text-white p-10 sm:p-12 text-left shadow-xl rounded-2xl h-8/12 relative overflow-hidden animate-fadeIn">
       {/* Background Glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500 opacity-20 blur-3xl rounded-full transform translate-x-1/3 -translate-y-1/3 z-0" />
 

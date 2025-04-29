@@ -73,7 +73,7 @@ export default function AutoCarousel({children}) {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-r from-amber-300 to-indigo-700 p-8 my-20">
+    <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-r from-amber-300 to-indigo-700 p-8 my-10">
       {/* Updated styling for h1 */}
       
 

@@ -43,7 +43,7 @@ export default function ComparisonPage({ id }) {
       <div className="max-w-7xl mx-auto mb-20">
         <div className="mb-8">
           <p className="text-sm text-gray-500 dark:text-gray-400">Last Updated: Apr 2025</p>
-          <h2 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+          <h2 className="text-4xl font-bold tracking-tight text-gray-900  sm:text-5xl">
             Our Top 3 Picks
           </h2>
         </div>
@@ -65,7 +65,7 @@ export default function ComparisonPage({ id }) {
                   alt={app.websiteName}
                   className="w-14 h-14 object-contain rounded-md"
                 />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold text-gray-900 ">
                   {app.websiteName}
                 </h3>
               </div>
@@ -78,7 +78,7 @@ export default function ComparisonPage({ id }) {
                     <Star key={i} size={16} fill="currentColor" />
                   ))}
                 </div>
-                <span className="bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-white text-xs font-semibold px-2 py-1 rounded">
+                <span className="bg-blue-100 dark:bg-blue-700 text-blue-800  text-xs font-semibold px-2 py-1 rounded">
                   {app.rating?.toFixed(1)}
                 </span>
               </div>
@@ -106,7 +106,7 @@ export default function ComparisonPage({ id }) {
               placeholder="Search companies..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900  focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -155,7 +155,7 @@ export default function ComparisonPage({ id }) {
                       {[...Array(Math.floor(card?.rating))].map((_, i) => (
                         <Star key={i} size={14} fill="currentColor" />
                       ))}
-                      <span className="ml-1 text-gray-800 dark:text-white">
+                      <span className="ml-1 text-gray-800 ">
                         {card?.rating.toFixed(1)}
                       </span>
                     </div>
@@ -200,7 +200,7 @@ export default function ComparisonPage({ id }) {
                   {[...Array(Math.floor(card.rating))].map((_, i) => (
                     <Star key={i} size={14} fill="currentColor" />
                   ))}
-                  <span className="ml-1 text-gray-800 dark:text-white">
+                  <span className="ml-1 text-gray-800 ">
                     {card.rating.toFixed(1)}
                   </span>
                 </div>

@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold text-black border-black tracking-tight font-serif mr-3">
           <Link href="/">Top5shots</Link>
@@ -29,14 +29,14 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search..."
-            className="outline-none bg-transparent text-sm px-2 w-44 text-gray-800 dark:text-white placeholder:text-gray-500"
+            className="outline-none bg-transparent text-sm px-2 w-44 text-gray-800  placeholder:text-gray-500"
           />
           <button className="text-gray-500 dark:text-gray-300">🔍</button>
         </div>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-gray-800 dark:text-white"
+          className="md:hidden text-gray-800 dark:text-black"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="text-xl">{isOpen ? "✕" : "☰"}</span>
@@ -59,7 +59,7 @@ export default function Navbar() {
             <li key={index} className="group py-1 md:py-0">
               <Link
                 href={item.path}
-                onClick={handleLinkClick} // Close the navbar on link click
+                onClick={handleLinkClick}
                 className="relative inline-block text-gray-700 dark:text-gray-300 font-medium transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
               >
                 {item.name}
@@ -69,10 +69,12 @@ export default function Navbar() {
           ))}
 
           {auth?.user ? (
-            <li className="flex items-center space-x-2 mt-4 md:mt-0">
-              <span className="bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-white px-3 py-1 rounded-full text-sm font-medium">
-                {auth?.user?.firstName}
-              </span>
+            <li className="flex items-center space-x-3 mt-4 md:mt-0">
+              <Link href="/profile">
+                <span className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-4 py-1 rounded-full text-sm font-medium cursor-pointer transition">
+                  {auth.user.firstName}
+                </span>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="bg-blue-600 hover:bg-blue-500 text-white text-sm px-4 py-1 rounded-full font-semibold transition"

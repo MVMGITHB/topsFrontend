@@ -9,7 +9,7 @@ export const Subcategory = ({ category, data }) => {
   const hasData = data && data.length > 0;
 
   return (
-    <div className="text-black dark:text-white">
+    <div className="text-black ">
       {/* Category Heading */}
       <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-10 text-gray-800 dark:text-gray-100 tracking-wide">
         {category.toUpperCase()}
@@ -23,7 +23,7 @@ export const Subcategory = ({ category, data }) => {
               key={index}
               className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-3xl shadow-sm hover:shadow-xl p-6 transition duration-300 ease-in-out"
             >
-              <h4 className="text-xl text-center font-semibold text-gray-800 dark:text-white mb-4 underline decoration-sky-500 decoration-2 underline-offset-4">
+              <h4 className="text-xl text-center font-semibold text-gray-800  mb-4 underline decoration-sky-500 decoration-2 underline-offset-4">
                 {item?.subcategories?.name}
               </h4>
 

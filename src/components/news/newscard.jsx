@@ -12,7 +12,7 @@ export default function NewsCard({ article }) {
         />
       )}
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-black dark:text-white mb-2">
+        <h2 className="text-lg font-semibold text-black  mb-2">
           {article.title}
         </h2>
         <p className="text-sm text-gray-700 dark:text-gray-400 mb-3">

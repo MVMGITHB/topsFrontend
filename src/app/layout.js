@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Navbar />
           <Breadcrumb />
-          <main className="flex-grow w-full px-4 sm:px-8 mx-auto max-w-7xl">
+          <main className="flex-grow w-full px-4 sm:px-8 mx-auto max-w-7xl bg-white text-black">
             {children}
           </main>
           <Footer />

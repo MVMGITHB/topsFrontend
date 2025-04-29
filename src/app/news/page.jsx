@@ -37,7 +37,7 @@ export default function NewsPage() {
 
   return (
     <div className="p-6 bg-white dark:bg-black min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-black dark:text-white">
+      <h1 className="text-3xl font-bold mb-6 text-black ">
         Latest Tech News
       </h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

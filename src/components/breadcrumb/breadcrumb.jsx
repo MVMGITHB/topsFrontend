@@ -18,8 +18,8 @@ export default function Breadcrumb() {
   const pathSegments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav className="w-full px-4 sm:px-6 md:px-12 mt-4 md:mt-6 mb-4 text-sm font-medium text-gray-600 overflow-x-auto whitespace-nowrap">
-      <ol className="flex items-center flex-nowrap space-x-2">
+    <nav className="w-full px-4 sm:px-6 md:px-12 mt-4 md:mt-6 mb-4 text-sm font-medium text-gray-600 overflow-x-auto whitespace-nowrap ">
+      <ol className="flex items-center flex-nowrap space-x-2 bg-amber-200 w-2xs">
         <li>
           <Link
             href="/"
@@ -34,8 +34,8 @@ export default function Breadcrumb() {
           const isLast = index === pathSegments.length - 1;
 
           return (
-            <li key={index} className="flex items-center">
-              <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
+            <li key={index} className="flex items-center ">
+              <ChevronRight className="w-4 h-4 mx-2 text-gray-400 " />
               {isLast ? (
                 <span className="text-gray-900 capitalize tracking-wide">
                   {decodeURIComponent(segment.replace(/-/g, " "))}

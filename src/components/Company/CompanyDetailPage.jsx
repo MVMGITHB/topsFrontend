@@ -57,7 +57,7 @@ export default function CompanyDetailPage({slug}) {
             className="w-40 h-40 object-contain"
           />
           <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{company.websiteName}</h1>
+            <h1 className="text-3xl font-bold text-gray-900  mb-2">{company.websiteName}</h1>
             <p className="text-xl text-gray-700 dark:text-gray-300">{company.mainHeading}</p>
             <div className="mt-3 text-yellow-500 text-lg font-semibold">
               {company.rating} ⭐
@@ -144,7 +144,7 @@ function Section({ title, isOpen, onToggle, children }) {
     <div>
       <button
         onClick={onToggle}
-        className="flex justify-between items-center w-full text-left text-xl font-semibold text-gray-800 dark:text-white mb-2"
+        className="flex justify-between items-center w-full text-left text-xl font-semibold text-gray-800  mb-2"
       >
         <span>{title}</span>
         {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}

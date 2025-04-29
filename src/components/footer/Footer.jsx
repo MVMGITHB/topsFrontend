@@ -1,8 +1,12 @@
 "use client";
-import Link from "next/link";
-import { FaFacebook, FaTwitter, FaInstagram, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { useState } from "react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const footerNavs = [
     {
       label: "Quick Links",
@@ -32,6 +36,40 @@ const Footer = () => {
     },
   ];
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    setLoading(true);
+  
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("access_key", "8d887b6d-94e3-48cf-9455-a85001f477b7"); // ✅ Add this line
+  
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+  
+      const result = await res.json();
+      if (result.success) {
+        {submitted && (
+          <p className="text-green-500 text-sm mt-2">Thanks for subscribing!</p>
+        )}
+        setSubmitted(true);
+        setEmail("");
+      } else {
+        console.error("Web3Forms error:", result);
+      }
+    } catch (error) {
+      console.error("Submit failed:", error);
+    }
+  
+    setLoading(false);
+  };
+  
+  
+
   return (
     <footer className="bg-gray-900 text-gray-300 py-5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-10">
@@ -42,22 +80,27 @@ const Footer = () => {
               Stay Updated with Top5Shots
             </h3>
             <p className="text-gray-400 mt-2 text-sm">
-              Subscribe to our newsletter for the latest trending stories and
-              updates.
+              Subscribe to our newsletter for the latest trending stories and updates.
             </p>
           </div>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-6 md:mt-0 flex items-center gap-3"
-          >
+          <form onSubmit={handleSubmit} className="mt-6 md:mt-0 flex items-center gap-3">
+          <input type="hidden" name="access_key" value="8d887b6d-94e3-48cf-9455-a85001f477b7" />
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Enter your email"
               className="w-full md:w-80 px-4 py-2 text-gray-900 bg-white outline-none border border-gray-300 focus:border-purple-500 shadow-sm rounded-lg"
             />
-            <button className="bg-purple-600 text-white px-5 py-2 text-sm font-medium rounded-lg shadow-md hover:bg-purple-500 transition">
-              Subscribe
+            <button
+              type="submit"
+              disabled={!email || loading}
+              className={`bg-purple-600 text-white px-5 py-2 text-sm font-medium rounded-lg shadow-md hover:bg-purple-500 transition ${
+                loading ? "bg-gray-400 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? "Sending..." : "Subscribe"}
             </button>
           </form>
         </div>
@@ -70,10 +113,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 {nav.items.map((item, index) => (
                   <li key={index}>
-                    <a
-                      href={item.href}
-                      className="hover:text-gray-400 transition"
-                    >
+                    <a href={item.href} className="hover:text-gray-400 transition">
                       {item.name}
                     </a>
                   </li>
