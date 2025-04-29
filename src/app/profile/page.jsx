@@ -13,7 +13,7 @@ export default function Page() {
     const fetchUserDetails = async () => {
       try {
         if (!auth?.user?._id) return;
-        const res = await fetch(`https://api.top5shots.com/getUsers/${auth.user._id}`);
+        const res = await fetch(`https://api.top5shots.com/getUsers/${auth.user.username}`);
         const data = await res.json();
         setUserData(data);
       } catch (err) {
