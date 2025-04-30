@@ -115,7 +115,7 @@ export default function TopShotsAndPopularSection() {
   };
 
   return (
-    <section className="w-11/12 px-6 py-16 bg-gradient-to-r bg-white ">
+    <section className="w-11/12 px-6 py-16 bg-gradient-to-r bg-white ml-12">
       <div className="max-w-7xl mx-auto ml-14">
         
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">

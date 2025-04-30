@@ -3,15 +3,7 @@ import React from "react";
 import { User, ShieldCheck, Mail } from "lucide-react";
 
 export default function ProfilePage({ user }) {
-  const {
-    firstName,
-    lastName,
-    username,
-    email,
-    role,
-    status,
-    createdAt,
-  } = user;
+  const { firstName, lastName, username, email, role, status, createdAt } = user;
 
   const formattedDate = new Date(createdAt).toLocaleDateString();
 
@@ -38,12 +30,16 @@ export default function ProfilePage({ user }) {
 
           <div className="flex items-center gap-3">
             <ShieldCheck className="text-gray-600" />
-            <span className="font-medium">Role:</span> {role.toUpperCase()}
+            <span className="font-medium">Role:</span> {role ? role.toUpperCase() : "N/A"}
           </div>
 
           <div className="flex items-center gap-3">
             <span className="font-medium">Status:</span>
-            <span className={`px-2 py-1 text-xs font-semibold rounded-full ${status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            <span
+              className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              }`}
+            >
               {status}
             </span>
           </div>
