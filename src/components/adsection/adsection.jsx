@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-// ----> DATA
 const shotData = [
   {
     id: 1,
@@ -35,12 +34,22 @@ const sideCards = [
     imageUrl: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c",
     cta: "Grab Deals",
   },
+  {
+    title: "Contests",
+    imageUrl: "https://images.unsplash.com/photo-1605902711622-cfb43c44367b",
+    cta: "Join Now",
+  },
+  {
+    title: "Top5deals",
+    imageUrl: "https://images.unsplash.com/photo-1605902711622-cfb43c44367b",
+    cta: "Join Now",
+  },
 ];
 
-// ----> ARROWS
+// Arrows
 const NextArrow = ({ onClick }) => (
   <div
-    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-60 hover:bg-opacity-80 text-white p-2 rounded-full cursor-pointer"
+    className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 hover:bg-opacity-80 text-white p-2 rounded-full cursor-pointer"
     onClick={onClick}
   >
     <FaChevronRight size={16} />
@@ -49,103 +58,93 @@ const NextArrow = ({ onClick }) => (
 
 const PrevArrow = ({ onClick }) => (
   <div
-    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-60 hover:bg-opacity-80 text-white p-2 rounded-full cursor-pointer"
+    className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 hover:bg-opacity-80 text-white p-2 rounded-full cursor-pointer"
     onClick={onClick}
   >
     <FaChevronLeft size={16} />
   </div>
 );
 
-// ----> SHOT SLIDE
-const CarouselCard = ({ shot }) => (
-  <div className="relative w-full h-80 overflow-hidden rounded-xl shadow-md ">
-    <img
-      src={shot.image}
-      alt={shot.title}
-      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-    />
-    <div className="absolute inset-0 bg-opacity-50 p-4 flex flex-col justify-end">
-      <span className="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded-sm">
-        {shot.label}
-      </span>
-      <h2 className="text-white text-lg font-semibold">{shot.title}</h2>
-      <div className="flex items-center gap-2 text-xs text-gray-200 mt-1">
-        <span>{shot.date}</span>
-        <span className="text-black">•</span>
-        <span>{shot.author}</span>
-      </div>
+// Card Base Layout
+const CardLayout = ({ image, title, label, cta, date, author }) => (
+  <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden shadow-md">
+    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-end p-4">
+      {label && (
+        <span className="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded-sm">
+          {label}
+        </span>
+      )}
+      <h2 className="text-white text-lg font-semibold mb-1">{title}</h2>
+      {date && author && (
+        <div className="flex items-center gap-2 text-xs text-gray-200">
+          <span>{date}</span>
+          <span className="text-white">•</span>
+          <span>{author}</span>
+        </div>
+      )}
+      {cta && (
+        <button className="mt-3 bg-white text-black py-1 px-4 rounded hover:bg-gray-100 text-sm w-fit">
+          {cta}
+        </button>
+      )}
     </div>
   </div>
 );
 
-// ----> SIDE CARD
-const SideCard = ({ title, imageUrl, cta }) => (
-  <div
-    className="flex flex-col justify-between h-80 w-114 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 bg-cover bg-center"
-    style={{ backgroundImage: `url(${imageUrl})` }}
-  >
-    <div className="p-4 bg-black/40 backdrop-blur-sm h-full flex flex-col justify-end">
-      <p className="text-white text-xl font-semibold mb-3">{title}</p>
-      <button className="px-2 py-2 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition">
-        {cta}
-      </button>
-    </div>
-  </div>
-);
-
-// ----> FINAL COMPONENT
 export default function TopShotsAndPopularSection() {
-  const settings = {
+  const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 2000,
-    slidesToShow: 2,
+    speed: 1000,
+    slidesToShow: 1,
     autoplay: true,
     autoplaySpeed: 4000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
   };
 
   return (
-    <section className="w-11/12 px-6 py-16 bg-gradient-to-r bg-white ml-12">
-      <div className="max-w-7xl mx-auto ml-14">
-        
+    <section className="w-full bg-white py-16 px-4">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">
           🔥 Trending Shots
         </h2>
 
-        {/* Carousel Section */}
-        <div className="flex justify-center mb-12 gap-4">
-          <div className="w-full max-w-5xl px-4">
-            <Slider {...settings}>
+        {/* Two-column layout */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          
+          {/* Left - Carousel */}
+          <div className="flex-1 min-w-0">
+            <Slider {...sliderSettings}>
               {shotData.map((shot) => (
                 <div key={shot.id} className="px-2">
-                  {/* 👈 Adds horizontal gap */}
-                  <CarouselCard shot={shot} />
+                  <CardLayout
+                    image={shot.image}
+                    title={shot.title}
+                    label={shot.label}
+                    date={shot.date}
+                    author={shot.author}
+                  />
                 </div>
               ))}
             </Slider>
           </div>
+
+          {/* Right - Static Grid */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            {sideCards.map((card, idx) => (
+              <CardLayout
+                key={idx}
+                image={card.imageUrl}
+                title={card.title}
+                cta={card.cta}
+              />
+            ))}
+          </div>
+
         </div>
-
-      
-        {/* Side Cards */}
-<div className="flex flex-col md:flex-row gap-4">
-  {sideCards.map((card, i) => (
-    <div key={i} className="flex-1 flex justify-center">
-      <SideCard {...card} />
-    </div>
-  ))}
-</div>
-
       </div>
     </section>
   );

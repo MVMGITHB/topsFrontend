@@ -55,14 +55,14 @@ export default function CategoryPage() {
               <div
                 key={index}
                 onClick={() => handleCategoryClick(cat)}
-                className="cursor-pointer bg-white text-black rounded-2xl p-4 h-28 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-[#2c003e] hover:to-[#4B0082] hover:text-white hover:shadow-lg hover:scale-105 focus:bg-gradient-to-br focus:from-[#2c003e] focus:to-[#4B0082] focus:text-white focus:shadow-lg focus:scale-105 font-mono"
+                className="cursor-pointer bg-white text-black rounded-2xl p-4 h-28 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-[#2c003e] hover:to-[#4B0082] hover:text-white hover:shadow-lg hover:scale-105 focus:bg-gradient-to-br focus:from-[#2c003e] focus:to-[#4B0082] focus:text-white focus:shadow-lg focus:scale-105 font-serif"
               >
                 <img
                   src={icon}
                   alt={`${title} icon`}
                   className="w-10 h-10 mb-2  transition-transform duration-300"
                 />
-                <span className="font-semibold text-sm sm:text-base transition-colors duration-300">
+                <span className="font-light text-sm sm:text-base transition-colors duration-300">
                   {title}
                 </span>
               </div>

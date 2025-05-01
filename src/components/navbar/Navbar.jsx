@@ -20,7 +20,7 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-xl font-bold text-black border-black tracking-tight font-serif mr-3">
+        <div className="text-xl  text-black border-black tracking-tight font-serif mr-3">
           <Link href="/">Top5shots</Link>
         </div>
 
@@ -36,7 +36,9 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-gray-800 dark:text-black"
+          // className="md:hidden text-black dark:text-black"
+          className="text-black md:text-black dark:text-black md:hidden"
+
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="text-xl">{isOpen ? "✕" : "☰"}</span>
@@ -44,7 +46,7 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <ul
-          className={`md:flex md:items-center md:space-x-6 absolute md:static left-0 top-12 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 z-40 ${
+          className={`text-black md:text-inherit md:flex md:items-center md:space-x-6 absolute md:static left-0 top-12 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 z-40 ${
             isOpen ? "block" : "hidden"
           }`}
         >
@@ -60,7 +62,7 @@ export default function Navbar() {
               <Link
                 href={item.path}
                 onClick={handleLinkClick}
-                className="relative inline-block text-gray-700 dark:text-gray-300 font-medium transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
+                className="relative inline-block text-black dark:text-gray-900 font-medium transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
               >
                 {item.name}
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 transition-all duration-300 group-hover:w-full"></span>

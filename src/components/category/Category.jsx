@@ -12,7 +12,7 @@ export default function CategoryPage() {
     const fetchCategories = async () => {
       try {
         const res = await axios.get("http://localhost:5000/category");
-        console.log("Fetched categories:", res.data); // ✅ Check the response
+        console.log("Fetched categories:", res.data);
         setCategories(res.data);
       } catch (error) {
         console.error("Failed to fetch categories:", error.message);
@@ -22,18 +22,20 @@ export default function CategoryPage() {
   }, []);
 
   const handleCategoryClick = (cat) => {
-    const categoryName = cat.name?.toLowerCase().replace(/\s+/g, "-"); // Format category name
-    const categorySlug = cat.slug; // Use the slug directly from the fetched category
-    
+    const categoryName = cat.name?.toLowerCase().replace(/\s+/g, "-");
+    const categorySlug = cat.slug;
     if (categoryName && categorySlug) {
-      router.push(`/category/${categoryName}/${categorySlug}`); // Construct the correct URL
+      router.push(`/category/${categoryName}/${categorySlug}`);
     }
   };
 
   return (
-    <div className="px-4 py-10 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-        Explore Categories
+    <div
+      className="px-4 py-12 max-w-7xl mx-auto bg-white text-black font-serif"
+      style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}
+    >
+      <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-center text-gray-800 tracking-tight">
+        🗂️ Explore Categories
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -41,7 +43,7 @@ export default function CategoryPage() {
           <div
             key={index}
             onClick={() => handleCategoryClick(cat)}
-            className="cursor-pointer bg-white text-gray-900 rounded-2xl p-6 h-40 flex flex-col items-center justify-center gap-3 text-center border border-gray-200 hover:bg-purple-600 hover:text-white hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
+            className="cursor-pointer bg-white text-black rounded-2xl p-6 h-40 flex flex-col items-center justify-center gap-3 text-center border border-gray-200 hover:bg-purple-600 hover:text-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
           >
             <img
               src={cat.img}

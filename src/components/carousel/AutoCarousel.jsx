@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const categories = [
-  { title: "Fashion and LifeStyle", image: "/images/fash.jpg" },
+  { title: "Fashion and Lifestyle", image: "/images/fash.jpg" },
   { title: "Home", image: "/images/home.jpg" },
   { title: "Fitness", image: "/images/fit.jpg" },
   { title: "Ecommerce", image: "/images/ecom.jpg" },
@@ -29,44 +29,40 @@ export default function AutoCarousel() {
     cssEase: "linear",
     arrows: false,
     centerMode: true,
-    centerPadding: "40px",
+    centerPadding: "32px",
     responsive: [
       {
-        breakpoint: 1024, // tablets & small desktops
-        settings: {
-          slidesToShow: 3,
-        },
+        breakpoint: 1024,
+        settings: { slidesToShow: 3 },
       },
       {
-        breakpoint: 768, // tablets
-        settings: {
-          slidesToShow: 2,
-        },
+        breakpoint: 768,
+        settings: { slidesToShow: 2, centerPadding: "24px" },
       },
       {
-        breakpoint: 480, // mobile
-        settings: {
-          slidesToShow: 1,
-          centerPadding: "20px",
-        },
+        breakpoint: 480,
+        settings: { slidesToShow: 1, centerPadding: "20px" },
       },
     ],
   };
 
   return (
-<section className="bg-gradient-to-r from-gray-100 to-gray-200 py-12 px-8 md:px-16">
-<h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Top Shots</h2>
+    <section className="bg-gradient-to-r from-slate-100 to-slate-200 py-14 px-6 sm:px-10">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-10 tracking-tight">
+         🧨Top Shots
+      </h2>
+
       <div className="max-w-6xl mx-auto">
         <Slider {...settings}>
           {categories.map((item, index) => (
-            <div key={index} className="px-2">
-              <div className="bg-white rounded-2xl shadow-md border border-gray-200 hover:shadow-xl transition duration-300 ease-in-out">
+            <div key={index} className="px-3">
+              <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 transition-transform duration-300 transform hover:-translate-y-1">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-[140px] sm:h-[160px] object-cover rounded-t-2xl"
+                  className="w-full h-40 sm:h-44 object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="p-4 text-center text-black font-semibold text-sm sm:text-base">
+                <div className="p-4 text-center text-gray-800 font-medium text-sm sm:text-base">
                   {item.title}
                 </div>
               </div>
