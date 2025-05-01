@@ -47,7 +47,7 @@ export default function AutoCarousel() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-slate-100 to-slate-200 py-14 px-6 sm:px-10">
+    <section className="bg-gradient-to-r from-slate-100 to-slate-200 py-14 px-6 sm:px-10 mt-20">
       <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-10 tracking-tight">
          🧨Top Shots
       </h2>
