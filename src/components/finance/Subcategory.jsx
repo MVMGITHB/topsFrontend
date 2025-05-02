@@ -11,7 +11,7 @@ export const Subcategory = ({ category, data }) => {
   return (
     <div className="bg-white text-black">
       {/* Category Heading */}
-      <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-10 text-gray-800 tracking-wide">
+      <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-10 mt-10 text-gray-800 tracking-wide">
         {category.toUpperCase()}
       </h2>
 

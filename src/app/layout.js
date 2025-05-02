@@ -3,6 +3,8 @@ import "./globals.css";  // Assuming your global CSS file is linked here
 import Footer from "@/components/footer/Footer";
 import { AuthProvider } from "@/components/context/auth";
 import Breadcrumb from "@/components/breadcrumb/breadcrumb";
+import Ticker from "@/components/moving ticker/ticker";
+import { newsItems } from "@/components/constants/constants";
 
 export const metadata = {
   title: {
@@ -22,6 +24,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Navbar />
           <Breadcrumb />
+          <Ticker items={newsItems} className="p-10 ml-20 mt-15 mb-15" />
           <main className="flex-grow w-full px-4 sm:px-8 mx-auto max-w-7xl bg-white text-black">
             {children}
           </main>
