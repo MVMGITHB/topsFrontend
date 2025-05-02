@@ -7,15 +7,15 @@ import base_url from "../helper/baseurl";
 
 // Optional fallback icons if API doesn’t return them
 const fallbackIcons = {
-  Automobile: "/images/bike.png",
+  Automobile: "/images/car.png",
   "Fashion and Lifestyle": "/images/fashion.png",
   Fitness: "/svg/fitness.svg",
-  Ecommerce: "/svg/ecommerce.svg",
+  Ecommerce: "/images/ecommerce.png",
   Finance: "/images/finance.png",
-  "Real Estate": "/svg/realestate.svg",
-  Gaming: "/svg/gaming.svg",
-  Politics: "/svg/politics.svg",
-  Sport: "/svg/sports.svg",
+  "Real Estate": "/images/realestate.png",
+  Gaming: "/images/gaming.png",
+  Politics: "/images/politics.png",
+  Sport: "/images/sports.png",
   Education: "/images/education.png",
   Travel: "/svg/travel.svg",
 };
@@ -46,21 +46,37 @@ export default function CategoryPage() {
   return (
     <div className="max-w-7xl mx-auto h-auto">
       <div className="px-5">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 ">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4  ">
           {categories.map((cat, index) => {
             const title = cat.title || cat.name || "Unnamed";
-            const icon = cat.icon || fallbackIcons[title] || "/svg/default.svg";
+            const icon =
+              cat.icon || fallbackIcons[title] || "/images/fashion.png";
 
             return (
               <div
                 key={index}
                 onClick={() => handleCategoryClick(cat)}
-                className="cursor-pointer bg-white text-black rounded-2xl p-4 h-28 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-[#2c003e] hover:to-[#4B0082] hover:text-white hover:shadow-lg hover:scale-105 focus:bg-gradient-to-br focus:from-[#2c003e] focus:to-[#4B0082] focus:text-white focus:shadow-lg focus:scale-105 font-serif"
+                className="relative cursor-pointer bg-white text-black rounded-2xl p-4 h-32 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-[#2c003e] hover:to-[#4B0082] hover:text-white hover:shadow-lg hover:scale-105 focus:bg-gradient-to-br focus:from-[#2c003e] focus:to-[#4B0082] focus:text-white focus:shadow-lg focus:scale-105 font-serif"
               >
+                {/* Left Decorative Image */}
+                {/* <img
+                  src="/images/left-decor.png"
+                  alt="Left decoration"
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8"
+                /> */}
+
+                {/* Right Decorative Image */}
+                {/* <img
+                  src="/images/right-decor.png"
+                  alt="Right decoration"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8"
+                /> */}
+
+                {/* Center Icon */}
                 <img
                   src={icon}
                   alt={`${title} icon`}
-                  className="w-10 h-10 mb-2  transition-transform duration-300"
+                  className="w-20 h-18 mb-2 transition-transform duration-300"
                 />
                 <span className="font-light text-sm sm:text-base transition-colors duration-300">
                   {title}
