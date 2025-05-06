@@ -1,21 +1,15 @@
+const fallbackIcons = {
+  headerimage: "/images/top5header.png",
+};
+
 export default function Header() {
   return (
-    <div className="bg-gradient-to-r from-gray-950 via-gray-900 to-black text-white p-10 sm:p-12 text-left shadow-xl rounded-2xl h-fit relative overflow-hidden animate-fadeIn">
-      {/* Background Glow */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500 opacity-20 blur-3xl rounded-full transform translate-x-1/3 -translate-y-1/3 z-0" />
-
-      <div className="max-w-xl z-10 relative">
-        <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight animate-slideUp ">
-          Discover the <span className="text-blue-400">Top 5</span> Shots
-        </h1>
-        <h2 className="text-xl sm:text-2xl mt-4 text-gray-300 font-light">
-          Handpicked excellence in products, services, and more—so you never settle for less.
-        </h2>
-        <p className="mt-6 text-sm sm:text-base text-gray-400 max-w-md">
-          Whether you're browsing, comparing, or discovering—Top5shots brings you the internet’s finest, in five.
-        </p>
-        
-      </div>
+    <div className="w-full">
+      <img
+        src={fallbackIcons.headerimage}
+        alt="Top 5 Header"
+        className="w-full h-auto object-cover"
+      />
     </div>
   );
 }

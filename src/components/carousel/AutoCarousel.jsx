@@ -21,7 +21,7 @@ export default function AutoCarousel() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 5000,
+    speed: 10000,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -47,15 +47,15 @@ export default function AutoCarousel() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-slate-100 to-slate-200 py-14 px-6 sm:px-10 mt-20">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-10 tracking-tight">
-         🧨Top Shots
+    <section className="bg-gradient-to-r from-slate-100 to-slate-200 py-14 px-6 sm:px-10 mt-8">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-6 tracking-tight">
+         Top Shots
       </h2>
 
       <div className="max-w-6xl mx-auto">
         <Slider {...settings}>
           {categories.map((item, index) => (
-            <div key={index} className="px-3">
+            <div key={index} className="px-4">
               <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 transition-transform duration-300 transform hover:-translate-y-1">
                 <img
                   src={item.image}

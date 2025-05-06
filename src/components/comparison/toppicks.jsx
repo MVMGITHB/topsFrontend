@@ -124,12 +124,17 @@ export default function ComparisonPage({ id }) {
                   alt={card.websiteName}
                   className="w-24 h-16 object-contain rounded-md"
                 />
-                <Link
+                {/* <Link
+                  href={`/subCatergory/${card.slug}`}
+                  className="text-xl font-semibold text-gray-900 hover:text-blue-600"
+                > */}
+                {/* <Link
                   href={`/company/${card.slug}`}
                   className="text-xl font-semibold text-gray-900 hover:text-blue-600"
                 >
                   {card.websiteName}
-                </Link>
+                </Link> */}
+                <Link href={`/company/${card.slug}`}>{card.websiteName}</Link>
               </div>
 
               <div className="flex flex-col items-center justify-center min-w-[160px] px-4 py-2">
@@ -200,18 +205,27 @@ export default function ComparisonPage({ id }) {
         </div>
 
         {/* Mobile View */}
+        {/* Mobile View */}
         <div className="md:hidden space-y-4 mt-6">
           {filteredCompanies?.map((card, index) => (
             <div
               key={index}
               className="bg-white p-4 rounded-xl shadow-md space-y-3 border border-gray-100"
             >
-              <div className="flex items-center justify-between gap-4">
-                <img
-                  src={card.logo}
-                  alt={card.websiteName}
-                  className="w-32 h-16 object-contain rounded"
-                />
+              <div className="flex items-center justify-between gap-4 text-black">
+                <div className="flex flex-col">
+                  <img
+                    src={card.logo}
+                    alt={card.websiteName}
+                    className="w-32 h-16 object-contain rounded"
+                  />
+                  <Link
+                    href={`/company/${card.slug}`}
+                    className="mt-2 text-base font-semibold text-gray-900 hover:text-blue-600"
+                  >
+                    {card.websiteName}
+                  </Link>
+                </div>
                 <div className="flex flex-col items-end">
                   <span className="text-3xl font-bold text-gray-900 leading-tight">
                     {card.rating.toFixed(1)}
@@ -223,17 +237,12 @@ export default function ComparisonPage({ id }) {
                         key={i}
                         size={18}
                         fill="currentColor"
-                        className=" transition-transform duration-200 hover:scale-110"
+                        className="transition-transform duration-200 hover:scale-110"
                       />
                     ))}
 
                     {card.rating % 1 >= 0.5 && (
-                      <StarHalf
-                        size={18}
-                        fill="currentColor"
-                        // stroke="black"
-                        // className="drop-shadow-[0_0_2px_rgba(255,215,0,0.8)]"
-                      />
+                      <StarHalf size={18} fill="currentColor" />
                     )}
                   </div>
 
@@ -266,7 +275,7 @@ export default function ComparisonPage({ id }) {
                   </li>
                 ))}
               </ul>
-              {/* 👇 Add Offer + Link Here */}
+
               <div className="flex flex-col items-center justify-center gap-2 mt-4">
                 <span className="text-base text-black font-medium text-center">
                   Get Exclusive Offer

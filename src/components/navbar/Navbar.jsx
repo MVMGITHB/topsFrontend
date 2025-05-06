@@ -3,6 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "../context/auth";
 
+const logo = {
+  top5logo: "/images/Top5Logo1.svg",
+};
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [auth, setAuth] = useAuth();
@@ -18,27 +22,25 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-3 py-2 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-xl  text-black border-black tracking-tight font-serif mr-3">
-          <Link href="/">Top5shots</Link>
-        </div>
+        <Link href="/" className="text-2xl font-bold text-blue-600 flex items-center">
+          <img src="/images/Top5Logo1.png" alt="jobkitayaari logo" style={{ width: "138px", height: "45px" }} />
+        </Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center bg-white dark:bg-gray-800 rounded-full px-3 py-1 shadow-sm mr-50">
+        <div className="hidden md:flex items-center bg-white border-1 rounded-full px-3 py-1 shadow-sm mr-50">
           <input
             type="text"
             placeholder="Search..."
-            className="outline-none bg-transparent text-sm px-2 w-44 text-gray-800  placeholder:text-gray-500"
+            className="outline-none bg-transparent text-sm px-2 w-44 text-gray-800 placeholder:text-gray-500"
           />
           <button className="text-gray-500 dark:text-gray-300">🔍</button>
         </div>
 
         {/* Mobile Toggle */}
         <button
-          // className="md:hidden text-black dark:text-black"
           className="text-black md:text-black dark:text-black md:hidden"
-
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="text-xl">{isOpen ? "✕" : "☰"}</span>
@@ -50,14 +52,7 @@ export default function Navbar() {
             isOpen ? "block" : "hidden"
           }`}
         >
-          {[
-            { name: "Blogs", path: "/blog" },
-            { name: "News", path: "/news" },
-            { name: "Viral Stories", path: "/viralstories" },
-            { name: "Results", path: "/results" },
-            { name: "Match Score", path: "/matchscore" },
-            { name: "Contest", path: "/contest" },
-          ].map((item, index) => (
+          {[{ name: "Blogs", path: "/blog" }, { name: "News", path: "/news" }, { name: "Viral Stories", path: "/viralstories" }, { name: "Results", path: "/results" }, { name: "Match Score", path: "/matchscore" }, { name: "Contest", path: "/contest" }].map((item, index) => (
             <li key={index} className="group py-1 md:py-0">
               <Link
                 href={item.path}

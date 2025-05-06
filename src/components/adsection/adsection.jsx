@@ -96,7 +96,7 @@ export default function TopShotsAndPopularSection() {
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 1000,
+    speed: 8000,
     slidesToShow: 1,
     autoplay: true,
     autoplaySpeed: 4000,
@@ -108,7 +108,7 @@ export default function TopShotsAndPopularSection() {
     <section className="w-full bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">
-          🔥 Trending Shots
+           Trending Shots
         </h2>
 
         {/* Two-column layout */}

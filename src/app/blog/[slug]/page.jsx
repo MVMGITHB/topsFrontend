@@ -2,6 +2,9 @@ import AutoCrousel from "../../../components/article/AutoCrousel";
 import base_url from "@/components/helper/baseurl";
 import parse from "html-react-parser";
 
+import generateBlogSchema from "@/components/helper/blogschema";
+import Link from "next/link";
+
 export const dynamic = "force-dynamic";
 
 // Dynamic metadata
@@ -77,14 +80,13 @@ export default async function Article({ params }) {
     if (!res.ok) throw new Error("Blog not found");
 
     blog = await res.json();
-    console.log(blog)
+    console.log(blog);
 
     // Handle ObjectId or raw string
     const userId =
       typeof blog.postedBy === "object" && blog.postedBy.$oid
         ? blog.postedBy.$oid
         : blog.postedBy;
-        
 
     if (userId) {
       const userRes = await fetch(`${base_url}/singleUser/${userId}`, {
@@ -92,13 +94,12 @@ export default async function Article({ params }) {
       });
       if (userRes.ok) {
         author = await userRes.json();
-        
-   
+
         // {
-//   _id: '68072bb750f0dcc61c301c23',
-//   email: 'anushka@gmail.com',
-//   username: 'anuskasharma'
-// }
+        //   _id: '68072bb750f0dcc61c301c23',
+        //   email: 'anushka@gmail.com',
+        //   username: 'anuskasharma'
+        // }
       }
     }
   } catch (error) {
@@ -109,9 +110,14 @@ export default async function Article({ params }) {
       </div>
     );
   }
+  const blogSchema = generateBlogSchema(blog, author);
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-14 text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
       <div className="flex flex-col lg:flex-row gap-10">
         {/* Left Sidebar */}
         <aside className="w-full lg:w-1/4 flex flex-col gap-6">
@@ -125,16 +131,15 @@ export default async function Article({ params }) {
                 alt="Special Offer"
                 className="aspect-video object-cover rounded-xl shadow-md"
               />
-              <h3 className="text-white font-semibold text-base mt-4 tracking-wide">
+              <p className="text-white font-semibold text-base mt-4 tracking-wide">
                 Special Offer
-              </h3>
+              </p>
               <button className="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 Buy now
               </button>
             </div>
           ))}
         </aside>
-    
 
         {/* Blog Main Content */}
         <main className="w-full lg:w-2/3 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-xl space-y-8">
@@ -142,10 +147,35 @@ export default async function Article({ params }) {
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
               {blog.mtitle || blog.title}
             </h1>
-            
-           
+            <div className="text-sm text-gray-600 space-y-3">
+              <p>
+                <strong className="text-gray-800">Posted:</strong>{" "}
+                {new Date(blog.updatedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+              {/* {blog?.postedBy && (
+              <p className="mt-2 text-sm text-black bg-red">
+                <span className="font-medium text-black bg-white text-transform: uppercase">
+                  {" "}
+                  Author: {blog?.postedBy.username}
+                </span>
+              </p>
+            )} */}
+              {blog?.postedBy && (
+                <p className="mt-2 text-sm text-black bg-red">
+                  <Link
+                    href={`/author/${blog?.postedBy.username}`}
+                    className="text-indigo-600 hover:underline"
+                  >
+                    Author: {blog?.postedBy.username}
+                  </Link>
+                </p>
+              )}
+            </div>
 
-            
             {blog.mdesc && (
               <p className="mt-3 text-lg text-gray-600 max-w-3xl">
                 {blog.mdesc}
@@ -155,31 +185,11 @@ export default async function Article({ params }) {
 
           {blog.image && (
             <img
-              src={
-                typeof blog.image === "string"
-                  ? blog.image
-                  : blog.image.url
-              }
+              src={typeof blog.image === "string" ? blog.image : blog.image.url}
               alt={blog.title}
               className="w-full h-auto max-h-96 object-cover rounded-xl shadow-lg"
             />
           )}
-
-          <div className="text-sm text-gray-600 space-y-3">
-            <p>
-              <strong className="text-gray-800">Posted:</strong>{" "}
-              {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-            {blog?.postedBy && (
-        <p className="mt-2 text-sm text-black bg-red">
-    <span className="font-medium text-black bg-white text-transform: uppercase"> By:{" "}{blog?.postedBy.username}</span>
-  </p>
-)}
-          </div>
 
           <article
             className="prose prose-lg max-w-4xl w-full px-4 sm:px-6 text-gray-800 
@@ -206,9 +216,9 @@ export default async function Article({ params }) {
                 alt="New Arrival"
                 className="aspect-video object-cover rounded-lg shadow-sm"
               />
-              <h3 className="text-gray-900 font-semibold text-base mt-4 tracking-wide">
+              <p className="text-gray-900 font-semibold text-base mt-4 tracking-wide">
                 New Arrival
-              </h3>
+              </p>
               <button className="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-md text-sm font-medium transition">
                 Shop now
               </button>
@@ -218,4 +228,4 @@ export default async function Article({ params }) {
       </div>
     </section>
   );
-} ///in this component check i have added comment what is the problem //and fix it please 
+} ///in this component check i have added comment what is the problem //and fix it please
