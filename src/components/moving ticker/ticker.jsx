@@ -30,26 +30,34 @@ export default function Ticker({ items, speed = 50 }) {
 
   return (
     <div
-      className="relative w-full overflow-hidden bg-gradient-to-r from-white via-gray-100 to-white py-3"
+      className="relative w-full overflow-hidden bg-[#0B1120] text-white py-2 px-2"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Optional fade edges for effect */}
-      <div className="absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-white to-transparent z-10" />
-      <div className="absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-white to-transparent z-10" />
+      {/* Left fade */}
+      <div className="absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-[#0B1120] to-transparent z-10" />
+      {/* Right fade */}
+      <div className="absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#0B1120] to-transparent z-10" />
 
-      <div
-        ref={tickerRef}
-        className="flex gap-12 text-black font-medium text-sm px-4 transition-transform duration-300 ease-linear"
-      >
-        {items.map((item, index) => (
-          <span
-            key={index}
-            className="flex-shrink-0 text-gray-800 hover:text-indigo-600 transition-colors duration-200 cursor-pointer"
-          >
-            🔹 {item}
-          </span>
-        ))}
+      <div className="flex items-center gap-8 text-sm font-small">
+        <span className="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1">
+          <span className="h-2 w-2 bg-green-300 rounded-full animate-pulse" />
+          LIVE
+        </span>
+
+        <div
+          ref={tickerRef}
+          className="flex gap-2 whitespace-nowrap transition-transform duration-300 ease-linear"
+        >
+          {items.map((item, index) => (
+            <span
+              key={index}
+              className="flex-shrink-0 text-gray-200 hover:text-white transition-colors duration-200 cursor-pointer"
+            >
+             <span>|</span> {item}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

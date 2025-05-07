@@ -22,14 +22,21 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-3 py-2 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-3 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600 flex items-center">
-          <img src="/images/Top5Logo1.png" alt="jobkitayaari logo" style={{ width: "138px", height: "45px" }} />
+        <Link
+          href="/"
+          className="text-2xl font-bold text-blue-600 flex items-center"
+        >
+          <img
+            src="/images/Top5Logo1.png"
+            alt="jobkitayaari logo"
+            style={{ width: "138px", height: "45px" }}
+          />
         </Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center bg-white border-1 rounded-full px-3 py-1 shadow-sm mr-50">
+        <div className="hidden md:flex items-center bg-white border-1 rounded-full px-3 py-1 shadow-sm mr-18">
           <input
             type="text"
             placeholder="Search..."
@@ -48,16 +55,31 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <ul
-          className={`text-black md:text-inherit md:flex md:items-center md:space-x-6 absolute md:static left-0 top-12 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 z-40 ${
+          className={`text-black md:text-inherit md:flex md:items-center md:space-x-8 absolute md:static left-0 top-12 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 z-40 ${
             isOpen ? "block" : "hidden"
           }`}
         >
-          {[{ name: "Blogs", path: "/blog" }, { name: "News", path: "/news" }, { name: "Viral Stories", path: "/viralstories" }, { name: "Results", path: "/results" }, { name: "Match Score", path: "/matchscore" }, { name: "Contest", path: "/contest" }].map((item, index) => (
+          {[
+            { name: "Home", path: "/" },
+            { name: "Blogs", path: "/blog" },
+            { name: "Viral Stories", path: "/viralstories" },
+            { name: "Results", path: "/results" },
+            { name: "Match Score", path: "/matchscore" },
+            { name: "Contest", path: "/contest" },
+          ].map((item, index) => (
             <li key={index} className="group py-1 md:py-0">
+              {/* <Link
+                href={item.path}
+                onClick={handleLinkClick}
+                className="relative inline-block text-black dark:text-gray-900 text-xl transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
+              >
+                {item.name}
+                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+              </Link> */}
               <Link
                 href={item.path}
                 onClick={handleLinkClick}
-                className="relative inline-block text-black dark:text-gray-900 font-medium transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
+                className="relative inline-block text-black dark:text-gray-900 text-xl whitespace-nowrap transition duration-200 hover:text-purple-600 dark:hover:text-purple-400 focus:text-purple-600 dark:focus:text-purple-400"
               >
                 {item.name}
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
@@ -68,7 +90,7 @@ export default function Navbar() {
           {auth?.user ? (
             <li className="flex items-center space-x-3 mt-4 md:mt-0">
               <Link href="/profile">
-                <span className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-4 py-1 rounded-full text-sm font-medium cursor-pointer transition">
+                <span className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-4 py-1 rounded-full text-xl font-medium cursor-pointer transition">
                   {auth.user.firstName}
                 </span>
               </Link>

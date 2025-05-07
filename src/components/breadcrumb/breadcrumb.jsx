@@ -19,7 +19,7 @@ export default function Breadcrumb() {
 
   return (
     <nav
-      className="w-full px-4 sm:px-6 md:px-12 mt-6 mb-4 text-sm text-gray-600 overflow-x-auto whitespace-nowrap"
+      className="w-full px-4 sm:px-6 md:px-12 mt-2 mb-2 text-sm text-gray-600 overflow-x-auto whitespace-nowrap"
       aria-label="Breadcrumb"
     >
       <ol className="flex items-center space-x-1 sm:space-x-2">

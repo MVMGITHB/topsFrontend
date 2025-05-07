@@ -8,13 +8,14 @@ import Crousel from "../carousel/Carousel2";
 
 function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white p-5">
+    <div className="flex flex-col min-h-screen bg-white p-2">
+
       <div className="flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/3">
           <Header />
         </div>
 
-        <div className="w-full lg:w-2/3 px-2 py-2 mb-4">
+        <div className="w-full lg:w-2/3 px-2 py-6 mb-2">
           <CategoryPage />
         </div>
       </div>

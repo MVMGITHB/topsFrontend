@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
       <body className="bg-white text-black min-h-screen flex flex-col overflow-x-hidden">
         <AuthProvider>
           <Navbar />
-          <Breadcrumb />
+          {/* <Breadcrumb /> */}
           <Ticker items={newsItems} className="p-10 ml-20 mt-15 mb-15" />
           <main className="flex-grow w-full px-4 sm:px-8 mx-auto max-w-7xl bg-white text-black">
             {children}

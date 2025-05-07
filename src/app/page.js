@@ -1,6 +1,6 @@
 import Home from "@/components/home/Home";
 import SurveyPopup from "@/components/popupsurvey/popupsurvey";
-import BackgroundBeamwithCollision from "@/components/ui/BackgroundBeamwithCollision"
+import BackgroundBeamwithCollision from "@/components/ui/BackgroundBeamwithCollision";
 export const metadata = {
   title: "Top 5 Shots - Latest Trends, Reviews & Insights",
   description:
@@ -117,9 +117,8 @@ export default function Home1() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-     <SurveyPopup/>
-      <Home/>
-      
+      <SurveyPopup />
+      <Home />
     </div>
   );
 }

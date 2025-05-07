@@ -105,9 +105,9 @@ export default function TopShotsAndPopularSection() {
   };
 
   return (
-    <section className="w-full bg-white py-16 px-4">
+    <section className="w-full bg-white py-5 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-4">
            Trending Shots
         </h2>
 
