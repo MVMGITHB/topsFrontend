@@ -105,9 +105,9 @@ export default function TopShotsAndPopularSection() {
   };
 
   return (
-    <section className="w-full bg-white py-5 px-4">
+    <section className="w-full bg-white py-4 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-4">
+        <h2 className="text-3xl font-bold font-serif text-gray-800 text-center mb-4">
            Trending Shots
         </h2>
 
@@ -115,7 +115,7 @@ export default function TopShotsAndPopularSection() {
         <div className="flex flex-col lg:flex-row gap-6">
           
           {/* Left - Carousel */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 mt-2">
             <Slider {...sliderSettings}>
               {shotData.map((shot) => (
                 <div key={shot.id} className="px-2">

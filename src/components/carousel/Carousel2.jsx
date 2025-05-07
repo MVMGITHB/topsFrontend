@@ -69,9 +69,9 @@ export default function Crousel() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-gray-100 to-gray-200 py-4 px-6 md:px-10 mb-5">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">Trending Top Headlines</h2>
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-gradient-to-r from-gray-100 to-gray-200 py-3 px-5 md:px-10 mb-5">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-4 font-serif">Trending Top Headlines</h2>
+      <div className="max-w-7xl mx-auto">
         <Slider {...settings}>
           {news.map((article) => (
             <NewsCard key={article.id} {...article} />
