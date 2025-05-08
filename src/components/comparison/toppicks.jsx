@@ -16,7 +16,7 @@ export default function ComparisonPage({ id }) {
 
   const fetchData = async () => {
     try {
-      console.log("This is the id" +id)
+      console.log("This is the id" + id);
       const response = await axios.get(`${base_url}/getOnecompblogs/${id}`);
       setData(response.data);
       const sorted = [...(response.data?.company || [])].sort(
@@ -72,6 +72,9 @@ export default function ComparisonPage({ id }) {
                   alt={app.websiteName}
                   className="w-30 h-20 object-contain"
                 />
+                <div className="text-lg font-semibold text-gray-900">
+                  {app.websiteName}
+                </div>
                 <div className="text-right">
                   <div className="flex items-center justify-end gap-1 text-black font-semibold text-2xl">
                     <Star
@@ -222,7 +225,7 @@ export default function ComparisonPage({ id }) {
                   />
                   <Link
                     href={`/company/${card.slug}`}
-                    className="mt-2 text-base font-semibold text-gray-900 hover:text-blue-600"
+                    className="mt-2 ml-8 text-base font-semibold text-gray-900 hover:text-blue-600"
                   >
                     {card.websiteName}
                   </Link>
