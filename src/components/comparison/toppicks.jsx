@@ -16,6 +16,7 @@ export default function ComparisonPage({ id }) {
 
   const fetchData = async () => {
     try {
+      console.log("This is the id" +id)
       const response = await axios.get(`${base_url}/getOnecompblogs/${id}`);
       setData(response.data);
       const sorted = [...(response.data?.company || [])].sort(

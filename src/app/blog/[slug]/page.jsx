@@ -1,9 +1,10 @@
-import AutoCrousel from "../../../components/article/AutoCrousel";
+
 import base_url from "@/components/helper/baseurl";
 import parse from "html-react-parser";
 
 import generateBlogSchema from "@/components/helper/blogschema";
 import Link from "next/link";
+import AutoCarousel from "@/components/carousel/AutoCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -200,7 +201,7 @@ export default async function Article({ params }) {
           </article>
 
           <div className="mt-10 overflow-hidden rounded-xl shadow-md">
-            <AutoCrousel />
+            <AutoCarousel />
           </div>
         </main>
 

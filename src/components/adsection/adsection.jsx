@@ -3,48 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
-const shotData = [
-  {
-    id: 1,
-    title: "America Puts Reciprocal Tariffs",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvOlhJpA7cIdQHShXA9t4GXFs3MlgOEf3jw&s",
-    date: "March 11, 2024",
-    author: "NewsExpress",
-    label: "TopShots",
-  },
-  {
-    id: 2,
-    title: "5 Best Laptops for Students in 2024",
-    image: "/images/Laptop.jpg",
-    date: "April 5, 2024",
-    author: "Top5Shots",
-    label: "Top Pick",
-  },
-];
-
-const sideCards = [
-  {
-    title: "Most Searched Shots",
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvOlhJpA7cIdQHShXA9t4GXFs3MlgOEf3jw&s",
-    cta: "Check Searches",
-  },
-  {
-    title: "Top 5 Shopping Offers",
-    imageUrl: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c",
-    cta: "Grab Deals",
-  },
-  {
-    title: "Contests",
-    imageUrl: "https://images.unsplash.com/photo-1605902711622-cfb43c44367b",
-    cta: "Join Now",
-  },
-  {
-    title: "Top5deals",
-    imageUrl: "https://images.unsplash.com/photo-1605902711622-cfb43c44367b",
-    cta: "Join Now",
-  },
-];
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import base_url from "../helper/baseurl";
 
 // Arrows
 const NextArrow = ({ onClick }) => (
@@ -67,9 +28,14 @@ const PrevArrow = ({ onClick }) => (
 
 // Card Base Layout
 const CardLayout = ({ image, title, label, cta, date, author }) => (
-  <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden shadow-md">
-    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
-    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-end p-4">
+  <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden shadow-md cursor-pointer">
+    <img
+      src={image}
+      alt={title}
+      loading="lazy"
+      className="absolute inset-0 w-full h-full object-cover object-center will-change-transform"
+    />
+    <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-4">
       {label && (
         <span className="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded-sm">
           {label}
@@ -93,6 +59,46 @@ const CardLayout = ({ image, title, label, cta, date, author }) => (
 );
 
 export default function TopShotsAndPopularSection() {
+  const [shorts, setShorts] = useState([]);
+  const [blogs, setBlogs] = useState({});
+
+  useEffect(() => {
+    const fetchTopShorts = async () => {
+      try {
+        const res = await fetch(
+          "https://api.top5shots.com/api/trending-shorts/getAllTrendnig"
+        );
+        const data = await res.json();
+        console.log("Top Shorts Raw Data:", data);
+
+        if (Array.isArray(data) && data.length > 0) {
+          const allCompBlogs = data.flatMap((item) => item.compBlog || []);
+          setShorts(allCompBlogs);
+
+          const blogDetails = await Promise.all(
+            allCompBlogs.map(async (blog) => {
+              const res = await axios.get(
+                `${base_url}/getOnecompblogs/${blog.slug}`
+              );
+              return res.data;
+            })
+          );
+
+          const blogMap = {};
+          blogDetails.forEach((blog) => {
+            blogMap[blog.slug] = blog;
+          });
+
+          setBlogs(blogMap);
+        }
+      } catch (err) {
+        console.error("Error fetching top shorts:", err);
+      }
+    };
+
+    fetchTopShorts();
+  }, []);
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -108,24 +114,28 @@ export default function TopShotsAndPopularSection() {
     <section className="w-full bg-white py-4 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold font-serif text-gray-800 text-center mb-4">
-           Trending Shots
+          Trending Shots
         </h2>
 
         {/* Two-column layout */}
         <div className="flex flex-col lg:flex-row gap-6">
-          
           {/* Left - Carousel */}
           <div className="flex-1 min-w-0 mt-2">
             <Slider {...sliderSettings}>
-              {shotData.map((shot) => (
-                <div key={shot.id} className="px-2">
-                  <CardLayout
-                    image={shot.image}
-                    title={shot.title}
-                    label={shot.label}
-                    date={shot.date}
-                    author={shot.author}
-                  />
+              {shorts.slice(0, 2).map((shot, index) => (
+                <div key={shot.id || shot.slug || index} className="px-2">
+                  <a
+                    href={`/${shot?.subcategories?.slug}/${shot?.slug}`}
+                    className="block"
+                  >
+                    <CardLayout
+                      image={shot.image}
+                      title={shot.title}
+                      label={shot.label}
+                      date={shot.date}
+                      author={shot.author}
+                    />
+                  </a>
                 </div>
               ))}
             </Slider>
@@ -133,17 +143,20 @@ export default function TopShotsAndPopularSection() {
 
           {/* Right - Static Grid */}
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-            {sideCards.map((card, idx) => (
-              <CardLayout
-                key={idx}
-                image={card.imageUrl}
-                title={card.title}
-                cta={card.cta}
-              />
+            {shorts.slice(1, 6).map((card, index) => (
+              <a
+                key={card.id || card.slug || index}
+                href={`/${card?.subcategories?.slug}/${card?.slug}`}
+                className="block"
+              >
+                <CardLayout
+                  image={card.image}
+                  title={card.title}
+                  cta={card.cta}
+                />
+              </a>
             ))}
           </div>
-
         </div>
       </div>
     </section>

@@ -17,7 +17,7 @@ export default function Navbar() {
   };
 
   const handleLinkClick = () => {
-    setIsOpen(false); // Close navbar when a link is clicked
+    setIsOpen(false); 
   };
 
   return (
@@ -30,14 +30,14 @@ export default function Navbar() {
         >
           <img
             src="/images/Top5Logo1.png"
-            alt="jobkitayaari logo"
-            className="w-[160px] h-[50px]  "
+            alt="Top5Shots Logo"
+            className="w-[160px] h-[50px]"
 
           />
         </Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center bg-white border-1 rounded-xl px-3 py-2 shadow-sm mr-70 mt-2">
+        <div className="hidden md:flex items-center bg-white border-1 rounded-xl px-4 py-2 shadow-sm mr-60 mt-1">
           <input
             type="text"
             placeholder="Search..."

@@ -52,7 +52,7 @@ export default function Home1() {
     "@type": "Organization",
     name: "Top5Shots",
     url: "https://top5shots.com",
-    logo: "https://top5shots.com/images/logo.png",
+    logo: "https://top5shots.com/images/Top5Logo1.png",
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -72,13 +72,13 @@ export default function Home1() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://top5shots.com/",
+        item: "https://top5shots.com/blog",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "News",
-        item: "https://top5shots.com/news",
+        item: "https://top5shots.com/home",
       },
       {
         "@type": "ListItem",
