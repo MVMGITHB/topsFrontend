@@ -32,13 +32,15 @@ export default function Navbar() {
         </Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center bg-white border rounded-xl px-4 py-2 shadow-sm max-w-xs w-full mr-20 mt-1">
+        <div className="hidden md:flex items-center bg-white border rounded-lg px-3 py-2 shadow-sm max-w-md w-relative mr-8 mt-1">
           <input
             type="text"
             placeholder="Search..."
-            className="outline-none bg-transparent text-sm px-2 w-full text-gray-800 placeholder:text-gray-500"
+            className="outline-none bg-transparent text-xs px-2 w-full text-gray-800 placeholder:text-gray-500"
           />
-          <button className="text-gray-500 dark:text-gray-300">🔍</button>
+          <button className="text-gray-500 dark:text-gray-300 text-sm">
+            🔍
+          </button>
         </div>
 
         {/* Mobile Toggle Button */}
@@ -82,13 +84,13 @@ export default function Navbar() {
           {auth?.user ? (
             <li className="flex items-center space-x-3">
               <Link href="/profile">
-                <span className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-4 py-1 rounded-full text-xl font-medium cursor-pointer transition">
+                <button className="text-black-600 border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-400 dark:hover:bg-white transition">
                   {auth.user.firstName}
-                </span>
+                </button>
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-blue-600 hover:bg-blue-500 text-white text-sm px-4 py-1 rounded-full font-semibold transition"
+                className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition"
               >
                 Logout
               </button>
