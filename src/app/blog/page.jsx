@@ -38,21 +38,22 @@ export default function BlogListingPage() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-14 text-white">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-10 text-center">
-        📝 Latest Blog Posts
+    <section className="max-w-7xl mx-auto px-4 py-6 text-white">
+      <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-5 text-center">
+        Latest Blog Posts
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {blogs.map((blog, index) => (
           <div
             key={index}
-            className="bg-white text-gray-900 rounded-2xl shadow-lg p-6 hover:shadow-xl transition duration-300 flex flex-col"
+
+            className= " h-full bg-white text-gray-900 rounded-2xl shadow-lg p-6 duration-300 flex flex-col border border-gray-200 transition hover:shadow-lg hover:scale-[1.01]"
           >
             <img
               src={typeof blog.image === "string" ? blog.image : blog.image?.url}
               alt={blog.title}
-              className="w-full aspect-video object-cover rounded-xl mb-4"
+              className="w-full aspect-video object-top rounded-xl mb-4"
             />
 
             <h2 className="text-2xl font-bold mb-2">{blog.mtitle || blog.title}</h2>

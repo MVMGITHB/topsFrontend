@@ -15,7 +15,7 @@ function Home() {
           <Header />
         </div>
 
-        <div className="w-full lg:w-2/3 px-2 py-6 mb-2">
+        <div className="w-full lg:w-2/3 px-2 py-1 mb-2">
           <CategoryPage />
         </div>
       </div>

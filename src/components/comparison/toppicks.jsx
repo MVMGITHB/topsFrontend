@@ -44,11 +44,11 @@ export default function ComparisonPage({ id }) {
   };
 
   return (
-    <div className="bg-white text-black py-14 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white text-black py-3 px-2 sm:px-6 lg:px-8 mt-4">
       {/* Top 3 Picks */}
-      <div className="max-w-7xl mx-auto mb-20">
+      <div className="max-w-7xl mx-auto mb-10">
         <div className="mb-8 text-center">
-          <p className="text-sm text-gray-600">Last Updated: Apr 2025</p>
+          {/* <p className="text-sm text-gray-600">Last Updated: Apr 2025</p> */}
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Our Top 3 Picks
           </h2>
@@ -199,7 +199,7 @@ export default function ComparisonPage({ id }) {
                 </span>
                 <Link
                   href={card.visitSiteUrl}
-                  className="ml-10 inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-blue-700 text-sm"
+                  className="ml-8 inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow hover:bg-blue-700 text-sm"
                 >
                   Visit Site →
                 </Link>
@@ -208,7 +208,7 @@ export default function ComparisonPage({ id }) {
           ))}
         </div>
 
-        {/* Mobile View */}
+      
         {/* Mobile View */}
         <div className="md:hidden space-y-4 mt-6">
           {filteredCompanies?.map((card, index) => (

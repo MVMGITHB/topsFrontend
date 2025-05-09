@@ -46,7 +46,7 @@ export default function CategoryPage() {
   return (
     <div className="max-w-7xl mx-auto h-auto">
       <div className="px-5">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4  ">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-7  ">
           {categories.map((cat, index) => {
             const title = cat.title || cat.name || "Unnamed";
             const icon =
@@ -78,7 +78,7 @@ export default function CategoryPage() {
                   alt={`${title} icon`}
                   className="w-20 h-18 mb-2 transition-transform duration-300"
                 />
-                <span className="font-light text-sm sm:text-base transition-colors duration-300">
+                <span className="font-light text-3xl sm:text-base transition-colors duration-300">
                   {title}
                 </span>
               </div>

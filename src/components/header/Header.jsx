@@ -8,7 +8,7 @@ export default function Header() {
       <img
         src={fallbackIcons.headerimage}
         alt="Top 5 Header"
-        className="w-full h-auto object-cover"
+        className="w-[500px] h-[450px] object-contain"
       />
     </div>
   );

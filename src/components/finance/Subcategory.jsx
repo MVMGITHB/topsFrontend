@@ -34,7 +34,7 @@ export const Subcategory = ({ category }) => {
 
   return (
     <div className="bg-white text-black">
-      <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-10 mt-10 text-gray-800 tracking-wide">
+      <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-5 mt-5 text-gray-800 tracking-wide">
         {category.toUpperCase()}
       </h2>
 
@@ -78,7 +78,7 @@ export const Subcategory = ({ category }) => {
         </div>
       )}
 
-      <div className="mt-14 px-4">
+      <div className=" px-4">
         <TopShotsAndPopularSection />
       </div>
     </div>

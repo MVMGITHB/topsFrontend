@@ -95,12 +95,12 @@ export default function AutoCarousel() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-r bg-white py-2 px-2 sm:px-10 mt-3">
+    <section className="bg-gradient-to-r bg-white py-2 px-2 sm:px-10 ">
       <h2 className="text-3xl font-bold font-serif text-center text-gray-800 mb-4">
         Top Shots
       </h2>
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-8xl mx-auto ">
         <Slider {...settings}>
           {shorts.map((item, index) => {
             const blog = blogs[item.slug];
@@ -109,7 +109,7 @@ export default function AutoCarousel() {
             // console.log("From carousel:", blog.subcategories.slug);
 
             return (
-              <div key={index} className="px-4">
+              <div key={index} className="px-4 mb-3">
                 <Link href={`/${blog?.subcategories?.slug}/${blog.slug}`}>
                   <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 transition-transform duration-300 transform hover:-translate-y-1 cursor-pointer h-64 flex flex-col">
                     <img
