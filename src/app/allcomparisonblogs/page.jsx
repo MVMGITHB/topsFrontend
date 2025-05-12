@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import TopShotsAndPopularSection from "@/components/adsection/adsection";
 import base_url from "@/components/helper/baseurl";
+import TopShorts from "@/components/topshots/topshots";
 
 export default function AllBlogsPage() {
   const [blogs, setBlogs] = useState([]);
@@ -18,6 +19,7 @@ export default function AllBlogsPage() {
       try {
         const res = await axios.get(`${base_url}/getALlcompblogs`);
         const data = res.data;
+        console.log("This compblogs " +data)
         setBlogs(data);
 
         // Extract unique categories and subcategories
@@ -74,7 +76,7 @@ export default function AllBlogsPage() {
       <h1 className="text-center text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-12">
         All Comparison Blogs
       </h1>
-
+      <TopShorts/>
       {/* Category Filter */}
       <div className="flex flex-wrap justify-center gap-3 mb-6">
         {allCategories.map((cat) => (

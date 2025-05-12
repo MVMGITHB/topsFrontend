@@ -2,6 +2,7 @@
 import React from "react";
 import { User, ShieldCheck, Mail } from "lucide-react";
 
+
 export default function ProfilePage({ user }) {
   const { firstName, lastName, username, email, role, status, createdAt } = user;
 
@@ -49,6 +50,7 @@ export default function ProfilePage({ user }) {
           </div>
         </div>
       </div>
+      
     </div>
   );
 }

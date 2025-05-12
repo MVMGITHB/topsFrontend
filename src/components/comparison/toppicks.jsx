@@ -16,8 +16,8 @@ export default function ComparisonPage({ id }) {
 
   const fetchData = async () => {
     try {
-      console.log("This is the id" + id);
       const response = await axios.get(`${base_url}/getOnecompblogs/${id}`);
+
       setData(response.data);
       const sorted = [...(response.data?.company || [])].sort(
         (a, b) => b.rating - a.rating
@@ -208,7 +208,6 @@ export default function ComparisonPage({ id }) {
           ))}
         </div>
 
-      
         {/* Mobile View */}
         <div className="md:hidden space-y-4 mt-6">
           {filteredCompanies?.map((card, index) => (
@@ -296,7 +295,9 @@ export default function ComparisonPage({ id }) {
         </div>
       </div>
       <div className="bg-white text-black">
-        <FAQ data={faqData} />
+        {Array.isArray(data.faqs) && data.faqs.length > 0 && (
+          <FAQ data={data.faqs} />
+        )}
       </div>
     </div>
   );
