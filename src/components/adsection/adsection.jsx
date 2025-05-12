@@ -102,13 +102,17 @@ export default function TopShotsAndPopularSection() {
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 8000,
+    speed: 500,             // Transition duration (0.5 seconds)
     slidesToShow: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 4000,    // Wait 4 seconds before autoplaying to next
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    pauseOnHover: true,
+    swipe: true,            // Enables swipe on mobile
+    touchMove: true,        // Touch responsiveness
   };
+  
 
   return (
     <section className="w-full bg-white py-4 px-4">

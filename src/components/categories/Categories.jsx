@@ -78,7 +78,7 @@ export default function CategoryPage() {
                   alt={`${title} icon`}
                   className="w-20 h-18 mb-2 transition-transform duration-300"
                 />
-                <span className="font-light text-3xl sm:text-base transition-colors duration-300">
+                <span className="font-light text-xl sm:text-base transition-colors duration-300">
                   {title}
                 </span>
               </div>
