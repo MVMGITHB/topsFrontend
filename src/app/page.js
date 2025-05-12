@@ -1,6 +1,6 @@
 import Home from "@/components/home/Home";
 import SurveyPopup from "@/components/popupsurvey/popupsurvey";
-import BackgroundBeamwithCollision from "@/components/ui/BackgroundBeamwithCollision";
+
 export const metadata = {
   title: "Top 5 Shots - Latest Trends, Reviews & Insights",
   description:
@@ -9,7 +9,6 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
-
   openGraph: {
     title: "Top 5 Shots",
     description: "Your go-to platform for top 5 trends and insights.",
@@ -24,7 +23,6 @@ export const metadata = {
       },
     ],
   },
-
   other: {
     language: "en",
     "geo.region": "US",
@@ -46,7 +44,7 @@ export const metadata = {
   },
 };
 
-export default function Home1() {
+export default function Page() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -109,6 +107,7 @@ export default function Home1() {
 
   return (
     <div>
+      {/* SEO Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -117,7 +116,11 @@ export default function Home1() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <SurveyPopup />
+
+      {/* Optional: Enable if you want the survey popup */}
+      {/* <SurveyPopup /> */}
+
+      {/* Home Layout */}
       <Home />
     </div>
   );

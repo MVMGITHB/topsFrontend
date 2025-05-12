@@ -1,8 +1,7 @@
 import Navbar from "@/components/navbar/Navbar";
-import "./globals.css";  // Assuming your global CSS file is linked here
+import "./globals.css";
 import Footer from "@/components/footer/Footer";
 import { AuthProvider } from "@/components/context/auth";
-import Breadcrumb from "@/components/breadcrumb/breadcrumb";
 import Ticker from "@/components/moving ticker/ticker";
 import { newsItems } from "@/components/constants/constants";
 
@@ -18,16 +17,26 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <meta name="robots" content="noindex, nofollow"></meta>
+        <meta name="robots" content="noindex, nofollow" />
       </head>
-      <body className="bg-white text-black min-h-screen flex flex-col overflow-x-hidden">
+      <body className="bg-white text-black flex flex-col min-h-screen overflow-x-hidden">
         <AuthProvider>
           <Navbar />
-          {/* <Breadcrumb /> */}
-          <Ticker items={newsItems} className="p-10 ml-20 mt-15 mb-15" />
-          <main className="flex-grow w-full px-4 sm:px-8 mx-auto max-w-7xl bg-white text-black">
-            {children}
+
+          {/* Moving Ticker */}
+          <div className="w-full bg-gray-100 ">
+            <div >
+              <Ticker items={newsItems} />
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <main className="flex-grow w-full bg-white text-black">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              {children}
+            </div>
           </main>
+
           <Footer />
         </AuthProvider>
       </body>

@@ -46,7 +46,7 @@ export default function Navbar() {
         {/* Mobile Toggle Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-black text-2xl focus:outline-none"
+          className="md:hidden text-black text-3xl focus:outline-none"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
         >

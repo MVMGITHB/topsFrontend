@@ -1,22 +1,17 @@
-
 import base_url from "@/components/helper/baseurl";
 import parse from "html-react-parser";
-
 import generateBlogSchema from "@/components/helper/blogschema";
 import Link from "next/link";
 import AutoCarousel from "@/components/carousel/AutoCarousel";
+import SeoMeta from "@/components/helper/jsonld/seo";
 
 export const dynamic = "force-dynamic";
 
-// Dynamic metadata
 export async function generateMetadata({ params }) {
   const { slug } = await params;
 
   try {
-    const res = await fetch(`${base_url}/blogs/${slug}`, {
-      cache: "no-store",
-    });
-
+    const res = await fetch(`${base_url}/blogs/${slug}`, { cache: "no-store" });
     if (!res.ok) return { title: "Blog Not Found | Top5Shots" };
 
     const blog = await res.json();
@@ -53,13 +48,10 @@ export async function generateMetadata({ params }) {
       },
     };
   } catch {
-    return {
-      title: "Error Loading Blog | Top5Shots",
-    };
+    return { title: "Error Loading Blog | Top5Shots" };
   }
 }
 
-// Helper function to wrap tables in a responsive div
 function wrapTablesInDiv(htmlString) {
   return htmlString.replace(
     /<table(.*?)>([\s\S]*?)<\/table>/g,
@@ -67,23 +59,17 @@ function wrapTablesInDiv(htmlString) {
   );
 }
 
-// Page content
 export default async function Article({ params }) {
   const { slug } = await params;
   let blog = null;
-  var author = null;
+  let author = null;
 
   try {
-    const res = await fetch(`${base_url}/blogs/${slug}`, {
-      cache: "no-store",
-    });
-
+    const res = await fetch(`${base_url}/blogs/${slug}`, { cache: "no-store" });
     if (!res.ok) throw new Error("Blog not found");
 
     blog = await res.json();
-    console.log(blog);
 
-    // Handle ObjectId or raw string
     const userId =
       typeof blog.postedBy === "object" && blog.postedBy.$oid
         ? blog.postedBy.$oid
@@ -95,12 +81,6 @@ export default async function Article({ params }) {
       });
       if (userRes.ok) {
         author = await userRes.json();
-
-        // {
-        //   _id: '68072bb750f0dcc61c301c23',
-        //   email: 'anushka@gmail.com',
-        //   username: 'anuskasharma'
-        // }
       }
     }
   } catch (error) {
@@ -111,44 +91,52 @@ export default async function Article({ params }) {
       </div>
     );
   }
+
   const blogSchema = generateBlogSchema(blog, author);
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-14 text-white">
+      <SeoMeta
+        title={blog.mtitle || blog.title}
+        description={blog.mdesc || "Read the latest insights on Top5Shots"}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Blogs", url: "/blogs" },
+          { name: blog.title, url: `/blogs/${blog.slug}` },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
+
       <div className="flex flex-col lg:flex-row gap-10">
-        {/* Left Sidebar */}
-        <aside className="w-full lg:w-1/4 flex flex-col gap-6">
+        {/* Left Sidebar (Ads) */}
+        <aside className="hidden lg:flex w-1/5 flex-col gap-6">
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
-              className="bg-gradient-to-br from-indigo-700/30 to-indigo-900/30 border border-white/10 rounded-2xl p-5 shadow-lg transition hover:scale-105 duration-300 text-center backdrop-blur-sm"
+              className="bg-gradient-to-br from-indigo-700/30 to-indigo-900/30 border border-white/10 rounded-2xl p-4 shadow-lg text-center"
             >
               <img
                 src="https://cdn.logojoy.com/wp-content/uploads/20250107124119/nike-shoe-logo.webp"
-                alt="Special Offer"
-                className="aspect-video object-cover rounded-xl shadow-md"
+                alt="Ad"
+                className="aspect-video object-cover rounded-xl"
               />
-              <p className="text-white font-semibold text-base mt-4 tracking-wide">
+              <p className="text-white font-medium text-sm mt-3">
                 Special Offer
               </p>
-              <button className="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Buy now
-              </button>
             </div>
           ))}
         </aside>
 
-        {/* Blog Main Content */}
-        <main className="w-full lg:w-2/3 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-xl space-y-8">
+        {/* Main Content */}
+        <main className="w-full lg:w-3/5 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-xl space-y-8">
           <header className="border-b pb-4 mb-6 border-gray-200">
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
               {blog.mtitle || blog.title}
             </h1>
-            <div className="text-sm text-gray-600 space-y-3">
+            <div className="text-sm text-gray-600 space-y-3 mt-2">
               <p>
                 <strong className="text-gray-800">Posted:</strong>{" "}
                 {new Date(blog.updatedAt).toLocaleDateString("en-US", {
@@ -157,26 +145,19 @@ export default async function Article({ params }) {
                   day: "numeric",
                 })}
               </p>
-              {/* {blog?.postedBy && (
-              <p className="mt-2 text-sm text-black bg-red">
-                <span className="font-medium text-black bg-white text-transform: uppercase">
-                  {" "}
-                  Author: {blog?.postedBy.username}
-                </span>
-              </p>
-            )} */}
               {blog?.postedBy && (
-                <p className="mt-2 text-sm text-black bg-red">
+                <p className="text-sm">
                   <Link
-                    href={`/author/${blog?.postedBy.username}`}
+                    href={`/author/${blog?.postedBy.slug}`}
                     className="text-indigo-600 hover:underline"
                   >
                     Author: {blog?.postedBy.username}
                   </Link>
+                  <br />
+                  Category: {blog?.categories.name}
                 </p>
               )}
             </div>
-
             {blog.mdesc && (
               <p className="mt-3 text-lg text-gray-600 max-w-3xl">
                 {blog.mdesc}
@@ -193,9 +174,9 @@ export default async function Article({ params }) {
           )}
 
           <article
-            className="prose prose-lg max-w-4xl w-full px-4 sm:px-6 text-gray-800 
-                       prose-headings:font-semibold prose-img:rounded-xl 
-                       prose-a:text-indigo-600 hover:prose-a:underline mx-auto"
+            className="prose prose-lg max-w-4xl w-full px-4 sm:px-6 text-gray-800 \
+            prose-headings:font-semibold prose-img:rounded-xl \
+            prose-a:text-indigo-600 hover:prose-a:underline mx-auto"
           >
             {parse(wrapTablesInDiv(blog.body))}
           </article>
@@ -205,28 +186,42 @@ export default async function Article({ params }) {
           </div>
         </main>
 
-        {/* Right Sidebar */}
-        <aside className="w-full lg:w-1/4 flex flex-col gap-6">
+        {/* Right Sidebar (Ads) */}
+        <aside className="hidden lg:flex w-1/5 flex-col gap-6">
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
-              className="bg-white border border-gray-200 rounded-xl p-4 shadow-md hover:shadow-xl transition duration-300 text-center"
+              className="bg-white border border-gray-200 rounded-xl p-4 shadow-md hover:shadow-xl text-center"
             >
               <img
                 src="https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg"
-                alt="New Arrival"
-                className="aspect-video object-cover rounded-lg shadow-sm"
+                alt="Ad"
+                className="aspect-video object-cover rounded-lg"
               />
-              <p className="text-gray-900 font-semibold text-base mt-4 tracking-wide">
+              <p className="text-gray-900 font-medium text-sm mt-3">
                 New Arrival
               </p>
-              <button className="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-md text-sm font-medium transition">
-                Shop now
-              </button>
             </div>
           ))}
         </aside>
       </div>
+
+      {/* Mobile Ads Section */}
+      <div className=" lg:hidden mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {[1, 2, 3].map((_, i) => (
+          <div
+            key={i}
+            className="bg-white border border-gray-200 rounded-xl p-4 shadow-md text-center"
+          >
+            <img
+              src="https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg"
+              alt="Ad"
+              className="aspect-video object-cover rounded-lg"
+            />
+            <p className="text-gray-900 font-medium text-sm mt-3">Ad</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
-} ///in this component check i have added comment what is the problem //and fix it please
+}

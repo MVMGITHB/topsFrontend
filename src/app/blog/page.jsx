@@ -3,6 +3,7 @@
 import base_url from "@/components/helper/baseurl";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SeoMeta from "@/components/helper/jsonld/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -47,16 +48,30 @@ export default function BlogListingPage() {
         {blogs.map((blog, index) => (
           <div
             key={index}
-
-            className= " h-full bg-white text-gray-900 rounded-2xl shadow-lg p-6 duration-300 flex flex-col border border-gray-200 transition hover:shadow-lg hover:scale-[1.01]"
+            className=" h-full bg-white text-gray-900 rounded-2xl shadow-lg p-6 duration-300 flex flex-col border border-gray-200 transition hover:shadow-lg hover:scale-[1.01]"
           >
+            <SeoMeta
+              title={blog.mtitle || blog.title}
+              description={
+                blog.mdesc || "Read the latest insights on Top5Shots"
+              }
+              breadcrumbs={[
+                { name: "Home", url: "/" },
+                { name: "Blogs", url: "/blogs" },
+                { name: blog.title, url: `/blogs/${blog.slug}` },
+              ]}
+            />
             <img
-              src={typeof blog.image === "string" ? blog.image : blog.image?.url}
+              src={
+                typeof blog.image === "string" ? blog.image : blog.image?.url
+              }
               alt={blog.title}
               className="w-full aspect-video object-top rounded-xl mb-4"
             />
 
-            <h2 className="text-2xl font-bold mb-2">{blog.mtitle || blog.title}</h2>
+            <h2 className="text-2xl font-bold mb-2">
+              {blog.mtitle || blog.title}
+            </h2>
             {blog.mdesc && (
               <p className="text-sm text-gray-600 mb-3">{blog.mdesc}</p>
             )}
