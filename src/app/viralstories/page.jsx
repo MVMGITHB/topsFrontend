@@ -1,14 +1,17 @@
 "use client";
+import base_url from "@/components/helper/baseurl";
 import React, { useEffect, useState } from "react";
 
 const categories = [
-  "business",
-  "entertainment",
-  "general",
-  "health",
-  "science",
+  "automobile",
+  "ecommerce",
+  "education",
+  "fashion-and-lifestyle",
+  "finance",
+  "gaming",
+  "real-estate",
   "sports",
-  "technology",
+  "travel",
 ];
 
 const NewsPage = () => {
@@ -18,14 +21,13 @@ const NewsPage = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      try {
-        const apiKey = "59c5ca4183b4437e9c98887afb700ac4"; // Replace with your actual News API key
+      try {      
         const fetchedArticles = {};
 
         for (const category of categories) {
-          const response = await fetch(
-            `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}`
-          );
+          const response = await fetch(`${base_url}/getAllViralStories`, {
+            cache: "no-store",
+          });
           const data = await response.json();
 
           if (data.status === "ok") {

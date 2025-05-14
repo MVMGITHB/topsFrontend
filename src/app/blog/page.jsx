@@ -14,7 +14,7 @@ export default function BlogListingPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch(`${base_url}/blogs`, {
+        const res = await fetch(`${base_url}/getAllArticle`, {
           cache: "no-store",
         });
 
