@@ -113,10 +113,17 @@ export default function AutoCarousel() {
                 <Link href={`/${blog?.subcategories?.slug}/${blog.slug}`}>
                   <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 transition-transform duration-300 transform hover:-translate-y-1 cursor-pointer h-64 flex flex-col">
                     <img
-                      src={blog.image}
+                      src={
+                        typeof blog.image === "string"
+                          ? blog.image.includes("res")
+                            ? blog.image
+                            : `${base_url}${blog.image}`
+                          : blog.image?.url
+                      }
                       alt={blog.title}
                       className="w-full h-36 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
+
                     <div className="p-4 text-center text-gray-800 font-medium text-sm sm:text-base line-clamp-2 flex-1">
                       {blog.title}
                     </div>

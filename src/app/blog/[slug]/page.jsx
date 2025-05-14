@@ -167,7 +167,13 @@ export default async function Article({ params }) {
 
           {blog.image && (
             <img
-              src={typeof blog.image === "string" ? blog.image : blog.image.url}
+              src={
+                typeof blog.image === "string"
+                  ? blog.image.includes("res")
+                    ? blog.image
+                    : `${base_url}${blog.image}`
+                  : blog.image?.url
+              }
               alt={blog.title}
               className="w-full h-auto max-h-96 object-cover rounded-xl shadow-lg"
             />

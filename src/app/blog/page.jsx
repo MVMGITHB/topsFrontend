@@ -21,6 +21,7 @@ export default function BlogListingPage() {
         if (!res.ok) throw new Error("Failed to fetch blogs");
 
         const data = await res.json();
+        console.log(data);
         setBlogs(data);
       } catch (err) {
         setError(err.message);
@@ -63,7 +64,11 @@ export default function BlogListingPage() {
             />
             <img
               src={
-                typeof blog.image === "string" ? blog.image : blog.image?.url
+                typeof blog.image === "string"
+                  ? blog.image.includes("res")
+                    ? blog.image
+                    : `${base_url}${blog.image}`
+                  : blog.image?.url
               }
               alt={blog.title}
               className="w-full aspect-video object-top rounded-xl mb-4"

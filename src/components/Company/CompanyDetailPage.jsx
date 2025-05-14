@@ -40,17 +40,30 @@ export default function CompanyDetailPage({ slug }) {
     }));
   };
 
-  if (loading) return <p className="text-center py-10 text-black">Loading company details...</p>;
-  if (!company) return <p className="text-center py-10 text-black">No company found for ID "{slug}"</p>;
+  if (loading)
+    return (
+      <p className="text-center py-10 text-black">Loading company details...</p>
+    );
+  if (!company)
+    return (
+      <p className="text-center py-10 text-black">
+        No company found for ID "{slug}"
+      </p>
+    );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 bg-white text-black">
       <div className="bg-white p-6 rounded-2xl border border-black shadow-md space-y-10 text-black">
-
         {/* Header Section */}
         <div className="flex flex-col md:flex-row gap-6 items-center">
           <img
-            src={company.logo}
+            src={
+              typeof company.logo === "string"
+                ? company.logo.includes("res")
+                  ? company.logo
+                  : `${base_url}${company.logo}`
+                : company.logo?.url
+            }
             alt={company.websiteName}
             className="w-40 h-40 object-contain"
           />
@@ -64,7 +77,11 @@ export default function CompanyDetailPage({ slug }) {
         </div>
 
         {/* Accordion Sections */}
-        <Section title="Benefits Overview" isOpen={openSections.benefits} onToggle={() => toggleSection("benefits")}>
+        <Section
+          title="Benefits Overview"
+          isOpen={openSections.benefits}
+          onToggle={() => toggleSection("benefits")}
+        >
           <div className="grid md:grid-cols-2 gap-4">
             {company.benifits?.map((benefit, i) => (
               <div key={i} className="flex items-start gap-2">
@@ -75,7 +92,11 @@ export default function CompanyDetailPage({ slug }) {
           </div>
         </Section>
 
-        <Section title="Key Features" isOpen={openSections.features} onToggle={() => toggleSection("features")}>
+        <Section
+          title="Key Features"
+          isOpen={openSections.features}
+          onToggle={() => toggleSection("features")}
+        >
           <ol className="list-decimal list-inside space-y-1">
             {company.features?.map((feature, idx) => (
               <li key={idx}>{feature}</li>
@@ -83,25 +104,46 @@ export default function CompanyDetailPage({ slug }) {
           </ol>
         </Section>
 
-        <Section title="Description" isOpen={openSections.description} onToggle={() => toggleSection("description")}>
+        <Section
+          title="Description"
+          isOpen={openSections.description}
+          onToggle={() => toggleSection("description")}
+        >
           <p>{company.Description}</p>
         </Section>
 
-        <Section title="Expert Review" isOpen={openSections.review} onToggle={() => toggleSection("review")}>
+        <Section
+          title="Expert Review"
+          isOpen={openSections.review}
+          onToggle={() => toggleSection("review")}
+        >
           <p>{company.review}</p>
         </Section>
 
-        <Section title="Pros & Cons" isOpen={openSections.prosCons} onToggle={() => toggleSection("prosCons")}>
+        <Section
+          title="Pros & Cons"
+          isOpen={openSections.prosCons}
+          onToggle={() => toggleSection("prosCons")}
+        >
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-300">
               <thead className="bg-white">
                 <tr>
-                  <th className="text-left p-3 border-b border-gray-300 text-green-600">Pros</th>
-                  <th className="text-left p-3 border-b border-gray-300 text-red-600">Cons</th>
+                  <th className="text-left p-3 border-b border-gray-300 text-green-600">
+                    Pros
+                  </th>
+                  <th className="text-left p-3 border-b border-gray-300 text-red-600">
+                    Cons
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {Array.from({ length: Math.max(company.pros?.length || 0, company.cons?.length || 0) }).map((_, i) => (
+                {Array.from({
+                  length: Math.max(
+                    company.pros?.length || 0,
+                    company.cons?.length || 0
+                  ),
+                }).map((_, i) => (
                   <tr key={i} className="border-t border-gray-300">
                     <td className="p-3">{company.pros?.[i] || ""}</td>
                     <td className="p-3">{company.cons?.[i] || ""}</td>
@@ -136,7 +178,11 @@ function Section({ title, isOpen, onToggle, children }) {
         className="flex justify-between items-center w-full text-left text-xl font-semibold text-black mb-2"
       >
         <span>{title}</span>
-        {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+        {isOpen ? (
+          <ChevronUp className="w-5 h-5" />
+        ) : (
+          <ChevronDown className="w-5 h-5" />
+        )}
       </button>
       {isOpen && <div className="pl-1 text-black">{children}</div>}
     </div>

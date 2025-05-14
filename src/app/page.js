@@ -1,5 +1,6 @@
 import Home from "@/components/home/Home";
 import SurveyPopup from "@/components/popupsurvey/popupsurvey";
+import SurveyPopup2 from "@/components/popupsurvey/popupsurvey2";
 
 export const metadata = {
   title: "Top 5 Shots - Latest Trends, Reviews & Insights",
@@ -118,7 +119,7 @@ export default function Page() {
       />
 
       {/* Optional: Enable if you want the survey popup */}
-      {/* <SurveyPopup /> */}
+      <SurveyPopup2 />
 
       {/* Home Layout */}
       <Home />

@@ -13,7 +13,7 @@ const TopShorts = () => {
           "https://api.top5shots.com/api/trending-shorts/getAllTrendnig"
         );
         const data = await res.json();
-        console.log("Top Shorts Raw Data:", data);
+        // console.log("Top Shorts Raw Data:", data);
 
         if (Array.isArray(data) && data.length > 0) {
           const allCompBlogs = data.flatMap((item) => item.compBlog || []);

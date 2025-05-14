@@ -16,7 +16,7 @@ export default function AuthorPage({ slug }) {
         );
         if (!res.ok) throw new Error("Failed to fetch data");
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         setAuthor(data[0]);
       } catch (err) {
         setError("Failed to load author data.");
@@ -95,7 +95,13 @@ export default function AuthorPage({ slug }) {
               >
                 <div className="flex flex-col lg:flex-row gap-4">
                   <img
-                    src={post.image}
+                    src={
+                      typeof post.image === "string"
+                        ? post.image.includes("res")
+                          ? post.image
+                          : `${base_url}${post.image}`
+                        : post.image?.url
+                    }
                     alt={post.title}
                     className="w-full lg:w-48 h-32 object-cover rounded-xl"
                   />

@@ -4,7 +4,6 @@ import AutoPlay from "@/components/carousel/Carousel";
 import AdsSection from "@/components/adsection/adsection";
 
 import Crousel from "@/components/carousel/Carousel2";
-import { CardBody, CardContainer } from "@/components/ui/Card3d";
 
 
 function Page() {

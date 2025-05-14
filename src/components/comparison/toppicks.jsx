@@ -17,6 +17,7 @@ export default function ComparisonPage({ id }) {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${base_url}/getOnecompblogs/${id}`);
+      console.log(response)
 
       setData(response.data);
       const sorted = [...(response.data?.company || [])].sort(
@@ -45,10 +46,29 @@ export default function ComparisonPage({ id }) {
 
   return (
     <div className="bg-white text-black py-3 px-2 sm:px-6 lg:px-8 mt-4">
+      {/* Descriptions Section Above Top 3 Picks
+      {filteredCompanies?.some((card) => card.Description) && (
+        <div className="bg-gray-50 p-6 rounded-xl shadow mb-10">
+          <h3 className="text-2xl font-bold mb-4 text-center">Overview</h3>
+          <div className="space-y-4 text-gray-700 text-sm leading-relaxed">
+            {filteredCompanies.map(
+              (card, index) =>
+                card.Description && (
+                  <div key={index}>
+                    <h4 className="text-lg font-semibold text-black mb-1">
+                      {card.websiteName}
+                    </h4>
+                    <p>{card.Description}</p>
+                  </div>
+                )
+            )}
+          </div>
+        </div>
+      )} */}
+
       {/* Top 3 Picks */}
       <div className="max-w-7xl mx-auto mb-10">
         <div className="mb-8 text-center">
-          {/* <p className="text-sm text-gray-600">Last Updated: Apr 2025</p> */}
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Our Top 3 Picks
           </h2>
@@ -68,7 +88,13 @@ export default function ComparisonPage({ id }) {
 
               <div className="flex items-center justify-between mb-4">
                 <img
-                  src={app.logo || "/images/placeholder.png"}
+                  src={
+                    typeof app.logo === "string"
+                      ? app.logo.includes("res")
+                        ? app.logo
+                        : `${base_url}${app.logo}`
+                      : app.logo?.url
+                  }
                   alt={app.websiteName}
                   className="w-30 h-20 object-contain"
                 />
@@ -124,20 +150,16 @@ export default function ComparisonPage({ id }) {
 
               <div className="flex items-center gap-4 min-w-[220px]">
                 <img
-                  src={card.logo}
+                  src={
+                    typeof card.logo === "string"
+                      ? card.logo.includes("res")
+                        ? card.logo
+                        : `${base_url}${card.logo}`
+                      : card.logo?.url
+                  }
                   alt={card.websiteName}
                   className="w-24 h-16 object-contain rounded-md"
                 />
-                {/* <Link
-                  href={`/subCatergory/${card.slug}`}
-                  className="text-xl font-semibold text-gray-900 hover:text-blue-600"
-                > */}
-                {/* <Link
-                  href={`/company/${card.slug}`}
-                  className="text-xl font-semibold text-gray-900 hover:text-blue-600"
-                >
-                  {card.websiteName}
-                </Link> */}
                 <Link href={`/company/${card.slug}`}>{card.websiteName}</Link>
               </div>
 
@@ -204,13 +226,18 @@ export default function ComparisonPage({ id }) {
                   Visit Site →
                 </Link>
               </div>
+
+              {/* Description Section */}
+              {/* <div>{card.Description}</div> */}
             </div>
           ))}
         </div>
 
         {/* Mobile View */}
         <div className="md:hidden space-y-4 mt-6">
+          {console.log(filteredCompanies)}
           {filteredCompanies?.map((card, index) => (
+
             <div
               key={index}
               className="bg-white p-4 rounded-xl shadow-md space-y-3 border border-gray-100"
@@ -218,7 +245,13 @@ export default function ComparisonPage({ id }) {
               <div className="flex items-center justify-between gap-4 text-black">
                 <div className="flex flex-col">
                   <img
-                    src={card.logo}
+                    src={
+                      typeof card.logo === "string"
+                        ? card.logo.includes("res")
+                          ? card.logo
+                          : `${base_url}${card.logo}`
+                        : card.logo?.url
+                    }
                     alt={card.websiteName}
                     className="w-32 h-16 object-contain rounded"
                   />
@@ -294,6 +327,8 @@ export default function ComparisonPage({ id }) {
           ))}
         </div>
       </div>
+
+      {/* FAQ Section */}
       <div className="bg-white text-black">
         {Array.isArray(data.faqs) && data.faqs.length > 0 && (
           <FAQ data={data.faqs} />

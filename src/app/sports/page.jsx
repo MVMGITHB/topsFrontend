@@ -2,7 +2,7 @@ import { Subcategory } from "@/components/finance/Subcategory";
 import axios from "axios";
 
 import base_url from "@/components/helper/baseurl";
-const category = "sport";
+const category = "sports";
 
 const page = async () => {
   try {

@@ -1,6 +1,6 @@
 import { Subcategory } from "@/components/finance/Subcategory";
 
-const category = "travel";
+const category = "real-estate";
 
 const Page = () => {
   return <Subcategory category={category} />;

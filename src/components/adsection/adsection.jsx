@@ -69,7 +69,7 @@ export default function TopShotsAndPopularSection() {
           "https://api.top5shots.com/api/trending-shorts/getAllTrendnig"
         );
         const data = await res.json();
-        console.log("Top Shorts Raw Data:", data);
+        // console.log("Top Shorts Raw Data:", data);
 
         if (Array.isArray(data) && data.length > 0) {
           const allCompBlogs = data.flatMap((item) => item.compBlog || []);
@@ -102,17 +102,16 @@ export default function TopShotsAndPopularSection() {
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 500,             // Transition duration (0.5 seconds)
+    speed: 500, // Transition duration (0.5 seconds)
     slidesToShow: 1,
     autoplay: true,
-    autoplaySpeed: 4000,    // Wait 4 seconds before autoplaying to next
+    autoplaySpeed: 4000, // Wait 4 seconds before autoplaying to next
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     pauseOnHover: true,
-    swipe: true,            // Enables swipe on mobile
-    touchMove: true,        // Touch responsiveness
+    swipe: true, // Enables swipe on mobile
+    touchMove: true, // Touch responsiveness
   };
-  
 
   return (
     <section className="w-full bg-white py-4 px-4">
@@ -133,7 +132,13 @@ export default function TopShotsAndPopularSection() {
                     className="block"
                   >
                     <CardLayout
-                      image={shot.image}
+                      image={
+                        typeof shot.image === "string"
+                          ? shot.image.includes("res")
+                            ? shot.image
+                            : `${base_url}${shot.image}`
+                          : shot.image?.url
+                      }
                       title={shot.title}
                       label={shot.label}
                       date={shot.date}
@@ -154,7 +159,13 @@ export default function TopShotsAndPopularSection() {
                 className="block"
               >
                 <CardLayout
-                  image={card.image}
+                  image={
+                    typeof card.image === "string"
+                      ? card.image.includes("res")
+                        ? card.image
+                        : `${base_url}${card.image}`
+                      : card.image?.url
+                  }
                   title={card.title}
                   cta={card.cta}
                 />

@@ -3,6 +3,8 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import base_url from "../helper/baseurl";
+
 
 const categories = [
   {
@@ -82,7 +84,15 @@ export default function AutoCarousel({children}) {
           <div key={index} className="px-3">
             <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:scale-105">
               <img
-                src={item.image}
+                
+                src={
+                     typeof item.image === "string"
+                       ? item.image.includes("res")                   
+                         ? item.image
+                         : `${base_url}${item.image}`
+                       : item.image?.url
+                   }
+
                 alt={item.title}
                 className="w-full h-[140px] object-cover"
               />
