@@ -239,6 +239,7 @@ export default function ComparisonPage({ id }) {
         </div>
 
         {/* Mobile View */}
+        {/* Mobile View */}
         <div className="md:hidden space-y-6 mt-6">
           {filteredCompanies?.map((card, index) => (
             <div
@@ -249,8 +250,9 @@ export default function ComparisonPage({ id }) {
                 {index + 1}
               </div>
 
-              <div className="flex items-center justify-between">
-                <div>
+              <div className="flex items-center justify-between gap-4">
+                {/* Logo and Name side by side */}
+                <div className="flex items-center gap-4">
                   <img
                     src={
                       typeof card.logo === "string"
@@ -264,11 +266,13 @@ export default function ComparisonPage({ id }) {
                   />
                   <Link
                     href={`/company/${card.slug}`}
-                    className="block mt-2 text-sm font-semibold text-blue-600"
+                    className="text-sm font-semibold text-blue-600"
                   >
                     {card.websiteName}
                   </Link>
                 </div>
+
+                {/* Rating */}
                 <div className="text-right">
                   <span className="text-2xl font-bold">
                     {card.rating.toFixed(1)}
