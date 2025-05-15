@@ -6,7 +6,7 @@ const categories = [
   "automobile",
   "ecommerce",
   "education",
-  "fashion-and-lifestyle",
+  "lifestyle",
   "finance",
   "gaming",
   "real-estate",

@@ -137,7 +137,8 @@ import base_url from "../helper/baseurl";
 // Fallback icons
 const fallbackIcons = {
   Automobile: "/newicons/Automobile2.png",
-  "Fashion and lifestyle": "/newicons/Fashion3.png",
+  Lifestyle: "/newicons/Fashion3.png",
+  Fashion: "/newicons/Fashion3.png",
   Fitness: "/newicons/fitness.svg",
   Ecommerce: "/newicons/Ecommerce3.png",
   Finance: "/newicons/Finance2.png",
@@ -151,7 +152,8 @@ const fallbackIcons = {
 
 const fallbackIconsleft = {
   Automobile: "/newicons/bikeicon1.png",
-  "Fashion and lifestyle": "/newicons/Fashion1.png",
+  Lifestyle: "/newicons/Fashion1.png",
+  Fashion: "/newicons/Fashion1.png",
   Fitness: "/newicons/fitness.svg",
   Ecommerce: "/newicons/Ecommerce1.png",
   Finance: "/newicons/Finance1.png",
@@ -165,7 +167,8 @@ const fallbackIconsleft = {
 
 const fallbackIconsright = {
   Automobile: "/newicons/Caricon1.png",
-  "Fashion and lifestyle": "/newicons/Fashion2.png",
+  Lifestyle: "/newicons/Fashion2.png",
+  Fashion: "/newicons/Fashion3.png",
   Fitness: "/newicons/fitness.svg",
   Ecommerce: "/newicons/Ecommerce2.png",
   Finance: "/newicons/Finance3.png",
@@ -203,7 +206,7 @@ export default function CategoryPage() {
   return (
     <div className="max-w-7xl mx-auto h-auto px-2 ">
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-7">
-        {categories.map((cat, index) => {
+        {categories.slice(0, 9).map((cat, index) => {
           const title = cat.title || cat.name || "Unnamed";
           const icon = cat.icon || fallbackIcons[title];
           const leftIcon = fallbackIconsleft[title];
@@ -223,7 +226,7 @@ export default function CategoryPage() {
                 <img
                   src={icon}
                   alt={`${title} center icon`}
-                  className="absolute  bottom-6 left-1/2 transform -translate-x-1/2 w-6 h-6 sm:w-10 sm:h-10 object-contain z-10"
+                  className="absolute  bottom-6 left-1/2 transform -translate-x-1/2 w-8 h-8 sm:w-10 sm:h-10 object-contain z-10"
                 />
               )}
 
@@ -233,14 +236,14 @@ export default function CategoryPage() {
                   <img
                     src={leftIcon}
                     alt={`${title} left icon`}
-                    className="absolute bottom-2 left-2 w-6 h-6 sm:w-10 sm:h-10 object-contain"
+                    className="absolute bottom-2 left-2 w-8 h-8 sm:w-10 sm:h-10 object-contain"
                   />
                 )}
                 {rightIcon && (
                   <img
                     src={rightIcon}
                     alt={`${title} right icon`}
-                    className="absolute bottom-2 right-2 w-6 h-6 sm:w-10 sm:h-10 object-contain"
+                    className="absolute bottom-2 right-2 w-8 h-8 sm:w-10 sm:h-10 object-contain"
                   />
                 )}
               </div>

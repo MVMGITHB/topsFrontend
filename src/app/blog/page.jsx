@@ -62,17 +62,19 @@ export default function BlogListingPage() {
                 { name: blog.title, url: `/blogs/${blog.slug}` },
               ]}
             />
-            <img
-              src={
-                typeof blog.image === "string"
-                  ? blog.image.includes("res")
-                    ? blog.image
-                    : `${base_url}${blog.image}`
-                  : blog.image?.url
-              }
-              alt={blog.title}
-              className="w-full aspect-video object-top rounded-xl mb-4"
-            />
+            <Link href={`/blog/${blog.slug}`} className="border-black">
+              <img
+                src={
+                  typeof blog.image === "string"
+                    ? blog.image.includes("res")
+                      ? blog.image
+                      : `${base_url}${blog.image}`
+                    : blog.image?.url
+                }
+                alt={blog.title}
+                className="w-full aspect-video object-top rounded-xl mb-4 cursor-pointer border-black"
+              />
+            </Link>
 
             <h2 className="text-2xl font-bold mb-2">
               {blog.mtitle || blog.title}

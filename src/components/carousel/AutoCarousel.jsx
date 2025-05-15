@@ -8,23 +8,6 @@ import base_url from "../helper/baseurl";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const categories = [
-  {
-    title: "Fashion and Lifestyle",
-    image: "/images/fash.jpg",
-    slug: "fashion-and-lifestyle",
-  },
-  { title: "Home", image: "/images/home.jpg", slug: "home" },
-  { title: "Fitness", image: "/images/fit.jpg", slug: "fitness" },
-  { title: "Ecommerce", image: "/images/ecom.jpg", slug: "ecommerce" },
-  { title: "Finance", image: "/images/fin.jpg", slug: "finance" },
-  { title: "Real Estate", image: "/images/real.jpg", slug: "real-estate" },
-  { title: "Gaming", image: "/images/game.jpg", slug: "gaming" },
-  { title: "Politics", image: "/images/poli.jpg", slug: "politics" },
-  { title: "Education", image: "/images/educ.jpg", slug: "education" },
-  { title: "Travel", image: "/images/trav.jpg", slug: "travel" },
-];
-
 export default function AutoCarousel() {
   const settings = {
     dots: false,
@@ -95,23 +78,21 @@ export default function AutoCarousel() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-r bg-white py-2 px-2 sm:px-10 ">
+    <section className="w-full bg-white ">
       <h2 className="text-3xl font-bold font-serif text-center text-gray-800 mb-4">
         Top Shots
       </h2>
 
-      <div className="max-w-8xl mx-auto ">
+      <div className="max-w-10xl mx-auto px-4 sm:px-6 md:px-8">
         <Slider {...settings}>
           {shorts.map((item, index) => {
             const blog = blogs[item.slug];
             if (!blog) return null;
 
-            // console.log("From carousel:", blog.subcategories.slug);
-
             return (
-              <div key={index} className="px-4 mb-3">
+              <div key={index} className="px-2 sm:px-4">
                 <Link href={`/${blog?.subcategories?.slug}/${blog.slug}`}>
-                  <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 transition-transform duration-300 transform hover:-translate-y-1 cursor-pointer h-64 flex flex-col">
+                  <div className="group bg-white rounded-xl overflow-hidden shadow hover:shadow-lg border border-gray-200 transition duration-300 hover:-translate-y-1 cursor-pointer h-64 flex flex-col">
                     <img
                       src={
                         typeof blog.image === "string"
@@ -123,7 +104,6 @@ export default function AutoCarousel() {
                       alt={blog.title}
                       className="w-full h-36 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
-
                     <div className="p-4 text-center text-gray-800 font-medium text-sm sm:text-base line-clamp-2 flex-1">
                       {blog.title}
                     </div>

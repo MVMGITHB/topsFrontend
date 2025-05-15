@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AuthorJsonLd from "@/components/helper/jsonld/authorjsonld"; // adjust path if needed
+import base_url from "../helper/baseurl";
 
 export default function AuthorPage({ slug }) {
   const [author, setAuthor] = useState(null);

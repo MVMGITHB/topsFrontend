@@ -1,29 +1,49 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
-import { useAuth } from "../context/auth";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/context/auth";
+import useCategories from "@/components/helper/useCategorieshook";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
   const [auth, setAuth] = useAuth();
+  const categories = useCategories();
+  const router = useRouter();
 
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = () => setIsOpen(false);
+
+  const handleCategoryClick = (slug) => {
     setIsOpen(false);
+    setShowDropdown(false);
+    router.push(`/${slug}`);
+  };
+
+  const handleSearch = () => {
+    if (search.trim()) {
+      router.push(`/search?query=${encodeURIComponent(search.trim())}`);
+      setSearch("");
+      setIsOpen(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
   };
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 w-full">
       <div className="max-w-8xl mx-auto px-3 py-3 flex justify-between items-center w-full">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-2xl font-bold text-blue-600 flex items-center"
-        >
+        <Link href="/" onClick={handleLinkClick} className="flex items-center">
           <img
             src="/images/Top5Logo1.png"
             alt="Top5Shots Logo"
@@ -31,29 +51,32 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div className="hidden md:flex items-center bg-white border rounded-lg px-3 py-2 shadow-sm max-w-md w-relative mr-8 mt-1">
           <input
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Search..."
             className="outline-none bg-transparent text-xs px-2 w-full text-gray-800 placeholder:text-gray-500"
           />
-          <button className="text-gray-500 dark:text-gray-300 text-sm">
+          <button onClick={handleSearch} className="text-gray-500 text-sm">
             🔍
           </button>
         </div>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-black text-3xl focus:outline-none"
+          className="md:hidden text-black text-3xl"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
         >
           {isOpen ? "✕" : "☰"}
         </button>
 
-        {/* Navigation Links */}
+        {/* Menu Items */}
         <ul
           id="mobile-menu"
           className={`${
@@ -66,25 +89,48 @@ export default function Navbar() {
             { name: "Viral Stories", path: "/viralstories" },
             { name: "Results", path: "/results" },
             { name: "Match Score", path: "/matchscore" },
-            { name: "Contest", path: "/contest" },
-          ].map((item, index) => (
-            <li key={index} className="group">
+          ].map((item) => (
+            <li key={item.path} className="group">
               <Link
                 href={item.path}
                 onClick={handleLinkClick}
-                className="relative inline-block text-black dark:text-gray-900 text-xl font-serif whitespace-nowrap transition duration-200 hover:text-purple-600 dark:hover:text-purple-400"
+                className="relative inline-block text-black dark:text-gray-900 text-xl font-serif transition duration-200 hover:text-purple-600"
               >
                 {item.name}
-                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-purple-600 transition-all duration-300 group-hover:w-full" />
               </Link>
             </li>
           ))}
+
+          {/* Category Dropdown */}
+          <li
+            className="relative group"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            <button className="text-xl font-serif text-black transition duration-200 hover:text-purple-600">
+              Category ▾
+            </button>
+            {showDropdown && (
+              <ul className="absolute top-full left-0 w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-50 py-2">
+                {categories.map((cat) => (
+                  <li
+                    key={cat.slug}
+                    onClick={() => handleCategoryClick(cat.slug)}
+                    className="px-4 py-2 text-sm text-black hover:bg-purple-50 hover:text-purple-700 cursor-pointer transition-colors duration-150"
+                  >
+                    {cat.title || cat.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
 
           {/* Auth Buttons */}
           {auth?.user ? (
             <li className="flex items-center space-x-3">
               <Link href="/profile">
-                <button className="text-black-600 border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-400 dark:hover:bg-white transition">
+                <button className="border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-200">
                   {auth.user.firstName}
                 </button>
               </Link>
@@ -98,11 +144,11 @@ export default function Navbar() {
           ) : (
             <li className="flex items-center space-x-2">
               <Link href="/login">
-                <button className="text-blue-600 border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-900 transition">
+                <button className="text-blue-600 border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-50 transition">
                   Login
                 </button>
               </Link>
-              <span className="text-3xl mb-2">|</span>
+              <span className="text-2xl">|</span>
               <Link href="/signup">
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition">
                   Signup

@@ -24,17 +24,13 @@ export default function RootLayout({ children }) {
           <Navbar />
 
           {/* Moving Ticker */}
-          <div className="w-full bg-gray-100 ">
-            <div >
-              <Ticker items={newsItems} />
-            </div>
+          <div className="w-full bg-gray-100">
+            <Ticker items={newsItems} />
           </div>
 
           {/* Main Content */}
           <main className="flex-grow w-full bg-white text-black">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
+            {children}
           </main>
 
           <Footer />

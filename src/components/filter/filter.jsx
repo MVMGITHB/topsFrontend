@@ -1,3 +1,4 @@
+// FilterComponent.js
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -35,7 +36,7 @@ const FilterComponent = () => {
   ];
 
   return (
-    <div className=" items-center justify-between bg-white text-black shadow-md rounded-2xl p-4 sm:p-6 max-w-6xl my-10 border border-gray-200 transition hover:shadow-lg hover:scale-[1.01]">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg hover:scale-[1.01] transition">
       <div className="flex justify-between items-center mb-4 sm:mb-6">
         <h3 className="text-xl sm:text-2xl font-semibold text-center sm:text-left w-full">
           Improve your results for better rates
@@ -55,7 +56,6 @@ const FilterComponent = () => {
         </button>
       </div>
 
-      {/* Filters Grid */}
       <div
         className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-300 ${
           showFilters ? "block" : "hidden"

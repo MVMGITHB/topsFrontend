@@ -6,7 +6,6 @@ import { Star, StarHalf } from "lucide-react";
 import Link from "next/link";
 import base_url from "../helper/baseurl";
 import FAQ from "../faq/faq";
-import { faqData } from "../constants/constants";
 import FilterComponent from "../filter/filter";
 
 export default function ComparisonPage({ id }) {
@@ -17,9 +16,8 @@ export default function ComparisonPage({ id }) {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${base_url}/getOnecompblogs/${id}`);
-      console.log(response)
-
       setData(response.data);
+
       const sorted = [...(response.data?.company || [])].sort(
         (a, b) => b.rating - a.rating
       );
@@ -37,7 +35,7 @@ export default function ComparisonPage({ id }) {
     item.websiteName?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getLabel = (rating) => {
+  const getRatingLabel = (rating) => {
     if (rating >= 9.5) return "Exceptional";
     if (rating >= 9.0) return "Excellent";
     if (rating >= 8.0) return "Very Good";
@@ -45,40 +43,57 @@ export default function ComparisonPage({ id }) {
   };
 
   return (
-    <div className="bg-white text-black py-3 px-2 sm:px-6 lg:px-8 mt-4">
-      {/* Descriptions Section Above Top 3 Picks
-      {filteredCompanies?.some((card) => card.Description) && (
-        <div className="bg-gray-50 p-6 rounded-xl shadow mb-10">
-          <h3 className="text-2xl font-bold mb-4 text-center">Overview</h3>
-          <div className="space-y-4 text-gray-700 text-sm leading-relaxed">
-            {filteredCompanies.map(
-              (card, index) =>
-                card.Description && (
-                  <div key={index}>
-                    <h4 className="text-lg font-semibold text-black mb-1">
-                      {card.websiteName}
-                    </h4>
-                    <p>{card.Description}</p>
-                  </div>
-                )
+    <div className="bg-white text-black px-4 sm:px-6 lg:px-8 py-2">
+      {/* Header */}
+      {data.heading && (
+        <section className="flex flex-col lg:flex-row items-center justify-between bg-[#f7f8fd] rounded-xl p-6  shadow-sm">
+          <div className="flex-1 text-center lg:text-left">
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+              {data.heading}
+            </h1>
+            {data.subHeading && (
+              <h2 className="text-lg sm:text-xl text-gray-700 font-medium mb-3">
+                {data.subHeading}
+              </h2>
+            )}
+            {data.para && (
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                {data.para}
+              </p>
             )}
           </div>
-        </div>
-      )} */}
+
+          {data.image && (
+            <div
+              className="flex-shrink-0 mt-6 lg:mt-0 lg:ml-6 w-[300px] h-[200px] object-cover rounded-xl shadow-md bg-contain bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('${
+                  typeof data.image === "string"
+                    ? data.image.includes("res")
+                      ? data.image
+                      : `${base_url}${data.image}`
+                    : data.image?.url
+                }')`,
+              }}
+            ></div>
+          )}
+        </section>
+      )}
 
       {/* Top 3 Picks */}
       <div className="max-w-7xl mx-auto mb-10">
-        <div className="mb-8 text-center">
-          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
+        <div className="mb-3 mt-2 text-center">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             Our Top 3 Picks
           </h2>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
+          {/* {console.log(topPicks)} */}
           {topPicks.map((app, i) => (
             <div
               key={i}
-              className="relative bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition hover:shadow-md hover:scale-[1.02]"
+              className="relative bg-white border border-gray-200 rounded-xl p-3 shadow-sm transition hover:shadow-md hover:scale-[1.02]"
             >
               {i === 0 && (
                 <span className="absolute -top-3 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
@@ -98,9 +113,12 @@ export default function ComparisonPage({ id }) {
                   alt={app.websiteName}
                   className="w-30 h-20 object-contain"
                 />
-                <div className="text-lg font-semibold text-gray-900">
+                <Link
+                  href={`/company/${app.slug}`}
+                  className=" font-semibold text-xl text-blue-700 hover:underline"
+                >
                   {app.websiteName}
-                </div>
+                </Link>
                 <div className="text-right">
                   <div className="flex items-center justify-end gap-1 text-black font-semibold text-2xl">
                     <Star
@@ -110,20 +128,20 @@ export default function ComparisonPage({ id }) {
                     />
                     {app.rating?.toFixed(1)}
                   </div>
-                  <div className="text-md font-medium text-gray-600">
+                  <div className="text-md font-medium text-black">
                     Our score
                   </div>
                 </div>
               </div>
 
-              <p className="text-sm text-gray-800 mb-6 text-center">
+              <p className="text-sm text-gray-800 mb-3 text-center">
                 {app.features?.[0] || "Trusted by thousands"}
               </p>
 
               <div className="flex justify-center">
                 <a
                   href={app.visitSiteUrl}
-                  className="inline-block bg-blue-600 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-blue-700 transition shadow-md"
+                  className="inline-block bg-blue-600 text-white text-sm font-semibold px-15 py-2 rounded-md hover:bg-blue-700 transition shadow-md"
                 >
                   Visit Site
                 </a>
@@ -133,18 +151,19 @@ export default function ComparisonPage({ id }) {
         </div>
       </div>
 
+      {/* Filter */}
       <FilterComponent />
 
       {/* Comparison Table */}
-      <div className="max-w-7xl mx-auto">
-        {/* Desktop Horizontal Card View */}
+      <section className="max-w-7xl mx-auto mt-10">
+        {/* Desktop View */}
         <div className="hidden md:flex flex-col gap-6">
           {filteredCompanies?.map((card, index) => (
             <div
               key={index}
-              className="relative flex flex-wrap items-center justify-between border border-gray-200 rounded-2xl shadow p-6 transition hover:shadow-lg hover:scale-[1.01]"
+              className="relative flex flex-wrap items-center justify-between gap-4 border rounded-2xl p-6 shadow hover:shadow-lg transition hover:scale-[1.01]"
             >
-              <div className="absolute top-0 left-0 w-10 h-10 bg-blue-600 rounded-br-full flex items-center justify-center text-white text-sm font-bold shadow-md z-10">
+              <div className="absolute top-0 left-0 rounded-tl-xl  bg-blue-600 px-3 py-1 text-white text-sm font-bold shadow z-10">
                 {index + 1}
               </div>
 
@@ -158,43 +177,35 @@ export default function ComparisonPage({ id }) {
                       : card.logo?.url
                   }
                   alt={card.websiteName}
-                  className="w-24 h-16 object-contain rounded-md"
+                  className="w-24 h-16 object-contain"
                 />
-                <Link href={`/company/${card.slug}`}>{card.websiteName}</Link>
+                <Link
+                  href={`/company/${card.slug}`}
+                  className=" font-semibold text-xl text-blue-700 hover:underline"
+                >
+                  {card.websiteName}
+                </Link>
               </div>
-
-              <div className="flex flex-col items-center justify-center min-w-[160px] px-4 py-2">
-                <span className="text-3xl font-bold text-gray-900 leading-tight">
+              <div className="flex flex-col items-center w-36">
+                <span className="text-3xl font-bold">
                   {card.rating.toFixed(1)}
                 </span>
-
-                <div className="flex items-center mt-1 mb-1 text-yellow-400 gap-1">
+                <div className="flex items-center text-yellow-400">
                   {[...Array(Math.floor(card.rating))].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={18}
-                      fill="currentColor"
-                      className=" transition-transform duration-200 hover:scale-110"
-                    />
+                    <Star key={i} size={18} fill="currentColor" />
                   ))}
-
                   {card.rating % 1 >= 0.5 && (
                     <StarHalf size={18} fill="currentColor" />
                   )}
                 </div>
-
-                <span className="text-sm text-gray-600 uppercase tracking-wide font-medium">
+                <span className="text-xs font-medium text-gray-600 uppercase">
                   Our Rating
                 </span>
               </div>
-
-              <ul className="flex-1 mx-6 space-y-2">
+              <ul className="flex-1 mx-4 space-y-1 text-sm text-gray-700">
                 {card.features?.slice(0, 4).map((feature, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-sm text-gray-700"
-                  >
-                    <span className="text-green-500 mt-[2px]">
+                  <li key={i} className="flex gap-2">
+                    <span className="text-green-500">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4"
@@ -210,40 +221,36 @@ export default function ComparisonPage({ id }) {
                         />
                       </svg>
                     </span>
-                    <span>{feature}</span>
+                    {feature}
                   </li>
                 ))}
               </ul>
-
-              <div className="flex flex-col items-start justify-center gap-2 min-w-[180px] text-left">
-                <span className="ml-7 text-base text-black font-medium">
-                  Get Exclusive Offer
-                </span>
+              <div className="flex flex-col min-w-[180px] gap-2 text-left">
+                <span className="text-sm font-medium">Get Exclusive Offer</span>
                 <Link
                   href={card.visitSiteUrl}
-                  className="ml-8 inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow hover:bg-blue-700 text-sm"
+                  className="inline-flex bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
                 >
                   Visit Site →
                 </Link>
               </div>
-
-              {/* Description Section */}
-              {/* <div>{card.Description}</div> */}
             </div>
           ))}
         </div>
 
         {/* Mobile View */}
-        <div className="md:hidden space-y-4 mt-6">
-          {console.log(filteredCompanies)}
+        <div className="md:hidden space-y-6 mt-6">
           {filteredCompanies?.map((card, index) => (
-
             <div
               key={index}
-              className="bg-white p-4 rounded-xl shadow-md space-y-3 border border-gray-100"
+              className="relative bg-white border rounded-xl p-4 shadow space-y-4"
             >
-              <div className="flex items-center justify-between gap-4 text-black">
-                <div className="flex flex-col">
+              <div className="absolute top-0 left-0 rounded-tr-xl rounded-bl-xl bg-blue-600 px-2.5 py-1 text-white text-xs font-bold shadow">
+                {index + 1}
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
                   <img
                     src={
                       typeof card.logo === "string"
@@ -253,45 +260,37 @@ export default function ComparisonPage({ id }) {
                         : card.logo?.url
                     }
                     alt={card.websiteName}
-                    className="w-32 h-16 object-contain rounded"
+                    className="w-28 h-16 object-contain"
                   />
                   <Link
                     href={`/company/${card.slug}`}
-                    className="mt-2 ml-8 text-base font-semibold text-gray-900 hover:text-blue-600"
+                    className="block mt-2 text-sm font-semibold text-blue-600"
                   >
                     {card.websiteName}
                   </Link>
                 </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-3xl font-bold text-gray-900 leading-tight">
+                <div className="text-right">
+                  <span className="text-2xl font-bold">
                     {card.rating.toFixed(1)}
                   </span>
-
-                  <div className="flex items-center gap-1 text-yellow-400">
+                  <div className="flex justify-end text-yellow-400">
                     {[...Array(Math.floor(card.rating))].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={18}
-                        fill="currentColor"
-                        className="transition-transform duration-200 hover:scale-110"
-                      />
+                      <Star key={i} size={18} fill="currentColor" />
                     ))}
-
                     {card.rating % 1 >= 0.5 && (
                       <StarHalf size={18} fill="currentColor" />
                     )}
                   </div>
-
-                  <span className="text-sm text-gray-600 uppercase tracking-wide font-medium">
+                  <span className="text-xs text-gray-600 font-medium uppercase">
                     Our Rating
                   </span>
                 </div>
               </div>
 
-              <ul className="space-y-2 text-sm text-gray-700">
+              <ul className="text-sm text-gray-700 space-y-1">
                 {card.features?.map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-green-500 mt-[2px]">
+                    <span className="text-green-500">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4"
@@ -312,13 +311,11 @@ export default function ComparisonPage({ id }) {
                 ))}
               </ul>
 
-              <div className="flex flex-col items-center justify-center gap-2 mt-4">
-                <span className="text-base text-black font-medium text-center">
-                  Get Exclusive Offer
-                </span>
+              <div className="text-center">
+                <p className="text-sm font-medium mb-2">Get Exclusive Offer</p>
                 <Link
                   href={card.visitSiteUrl}
-                  className="inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-blue-700 text-sm"
+                  className="inline-block bg-blue-600 text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-blue-700"
                 >
                   Visit Site →
                 </Link>
@@ -326,14 +323,14 @@ export default function ComparisonPage({ id }) {
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* FAQ Section */}
-      <div className="bg-white text-black">
-        {Array.isArray(data.faqs) && data.faqs.length > 0 && (
+      {/* FAQ */}
+      {Array.isArray(data.faqs) && data.faqs.length > 0 && (
+        <div className="mt-8 mb-10">
           <FAQ data={data.faqs} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

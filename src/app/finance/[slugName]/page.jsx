@@ -1,4 +1,6 @@
 import ComparisonPage from "@/components/comparison/toppicks";
+
+
 const page = async ({ params }) => {
   const { slugName } = await params;
 
