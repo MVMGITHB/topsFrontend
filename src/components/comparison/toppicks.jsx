@@ -46,9 +46,9 @@ export default function ComparisonPage({ id }) {
     <div className="bg-white text-black px-4 sm:px-6 lg:px-8 py-2">
       {/* Header */}
       {data.heading && (
-        <section className="flex flex-col lg:flex-row items-center justify-between bg-[#f7f8fd] rounded-xl p-6  shadow-sm">
+        <section className="flex flex-col lg:flex-row items-center justify-evenly bg-[#f7f8fd] rounded-xl p-4  shadow-sm">
           <div className="flex-1 text-center lg:text-left">
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+            <h1 className="text-xl sm:text-5xl font-extrabold text-gray-900 mb-4 line-clamp-2">
               {data.heading}
             </h1>
             {data.subHeading && (
@@ -134,7 +134,7 @@ export default function ComparisonPage({ id }) {
                 </div>
               </div>
 
-              <p className="text-sm text-gray-800 mb-3 text-center">
+              <p className="text-sm text-gray-800 mb-3 text-center line-clamp-3">
                 {app.features?.[0] || "Trusted by thousands"}
               </p>
 
@@ -239,60 +239,56 @@ export default function ComparisonPage({ id }) {
         </div>
 
         {/* Mobile View */}
-        {/* Mobile View */}
         <div className="md:hidden space-y-6 mt-6">
           {filteredCompanies?.map((card, index) => (
             <div
               key={index}
-              className="relative bg-white border rounded-xl p-4 shadow space-y-4"
+              className="relative border rounded-2xl p-4 shadow hover:shadow-lg transition hover:scale-[1.01] bg-white"
             >
-              <div className="absolute top-0 left-0 rounded-tr-xl rounded-bl-xl bg-blue-600 px-2.5 py-1 text-white text-xs font-bold shadow">
+              {/* Rank Badge */}
+              <div className="absolute top-0 left-0 rounded-tl-xl bg-blue-600 px-3 py-1 text-white text-sm font-bold shadow z-10">
                 {index + 1}
               </div>
 
-              <div className="flex items-center justify-between gap-4">
-                {/* Logo and Name side by side */}
-                <div className="flex items-center gap-4">
-                  <img
-                    src={
-                      typeof card.logo === "string"
-                        ? card.logo.includes("res")
-                          ? card.logo
-                          : `${base_url}${card.logo}`
-                        : card.logo?.url
-                    }
-                    alt={card.websiteName}
-                    className="w-28 h-16 object-contain"
-                  />
-                  <Link
-                    href={`/company/${card.slug}`}
-                    className="text-sm font-semibold text-blue-600"
-                  >
-                    {card.websiteName}
-                  </Link>
-                </div>
+              {/* Header Row: Logo - Website Name - Rating */}
+              <div className="flex items-center justify-between mb-4">
+                <img
+                  src={
+                    typeof card.logo === "string"
+                      ? card.logo.includes("res")
+                        ? card.logo
+                        : `${base_url}${card.logo}`
+                      : card.logo?.url
+                  }
+                  alt={card.websiteName}
+                  className="w-20 h-14 object-contain"
+                />
 
-                {/* Rating */}
+                <Link
+                  href={`/company/${card.slug}`}
+                  className="text-lg font-semibold text-blue-700 hover:underline flex-1 text-center px-2"
+                >
+                  {card.websiteName}
+                </Link>
+
                 <div className="text-right">
-                  <span className="text-2xl font-bold">
+                  <div className="flex items-center justify-end gap-1 text-black font-semibold text-xl">
+                    <Star
+                      size={16}
+                      fill="currentColor"
+                      className="text-yellow-400"
+                    />
                     {card.rating.toFixed(1)}
-                  </span>
-                  <div className="flex justify-end text-yellow-400">
-                    {[...Array(Math.floor(card.rating))].map((_, i) => (
-                      <Star key={i} size={18} fill="currentColor" />
-                    ))}
-                    {card.rating % 1 >= 0.5 && (
-                      <StarHalf size={18} fill="currentColor" />
-                    )}
                   </div>
-                  <span className="text-xs text-gray-600 font-medium uppercase">
-                    Our Rating
-                  </span>
+                  <div className="text-md font-medium ml-2 text-gray-600">
+                    Our Score
+                  </div>
                 </div>
               </div>
 
-              <ul className="text-sm text-gray-700 space-y-1">
-                {card.features?.map((feature, i) => (
+              {/* Features */}
+              <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                {card.features?.slice(0, 4).map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="text-green-500">
                       <svg
@@ -315,11 +311,12 @@ export default function ComparisonPage({ id }) {
                 ))}
               </ul>
 
+              {/* CTA Button */}
               <div className="text-center">
-                <p className="text-sm font-medium mb-2">Get Exclusive Offer</p>
+                <p className="text-md font-medium mb-2">Get Exclusive Offer</p>
                 <Link
                   href={card.visitSiteUrl}
-                  className="inline-block bg-blue-600 text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-blue-700"
+                  className="inline-block bg-blue-600 text-white px-10 py-2 rounded-md text-sm font-semibold hover:bg-blue-700 transition"
                 >
                   Visit Site →
                 </Link>

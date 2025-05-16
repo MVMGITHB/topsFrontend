@@ -30,7 +30,7 @@ export const RightSideBar = ({ categorySlug }) => {
             {similarBlogs.map((blog, idx) => (
               <Link
                 key={idx}
-                href={`/${blog.category?.slug}/${blog.slug}`}
+                href={`/blog/${blog.slug}`}
                 className="flex flex-col hover:bg-gray-50 transition border border-transparent hover:border-gray-200 p-3"
               >
                 <div className="w-full h-40 overflow-hidden bg-gray-100 mb-3">

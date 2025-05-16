@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/context/auth";
 import useCategories from "@/components/helper/useCategorieshook";
+import SerachCategory from "./searchbar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,18 +53,8 @@ export default function Navbar() {
         </Link>
 
         {/* Search */}
-        <div className="hidden md:flex items-center bg-white border rounded-lg px-3 py-2 shadow-sm max-w-md w-relative mr-8 mt-1">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Search..."
-            className="outline-none bg-transparent text-xs px-2 w-full text-gray-800 placeholder:text-gray-500"
-          />
-          <button onClick={handleSearch} className="text-gray-500 text-sm">
-            🔍
-          </button>
+        <div className="relative hidden md:flex items-center bg-white border rounded-full px-2 py-1 shadow-sm w-[200px] max-w-xs  mt-1">
+          <SerachCategory />
         </div>
 
         {/* Mobile Toggle */}
@@ -117,7 +108,7 @@ export default function Navbar() {
                   <li
                     key={cat.slug}
                     onClick={() => handleCategoryClick(cat.slug)}
-                    className="px-4 py-2 text-sm text-black hover:bg-purple-50 hover:text-purple-700 cursor-pointer transition-colors duration-150"
+                    className="px-4 py-2 text-sm font-serif text-black hover:bg-purple-50 hover:text-purple-700 cursor-pointer transition-colors duration-150"
                   >
                     {cat.title || cat.name}
                   </li>
@@ -127,15 +118,19 @@ export default function Navbar() {
           </li>
 
           {/* Auth Buttons */}
+          {/* Auth Buttons */}
           {auth?.user ? (
             <li className="flex items-center space-x-3">
-              <Link href="/profile">
+              <Link href="/profile" onClick={handleLinkClick}>
                 <button className="border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-200">
                   {auth.user.firstName}
                 </button>
               </Link>
               <button
-                onClick={handleLogout}
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false); // ✅ Close mobile menu on logout
+                }}
                 className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition"
               >
                 Logout
@@ -143,13 +138,13 @@ export default function Navbar() {
             </li>
           ) : (
             <li className="flex items-center space-x-2">
-              <Link href="/login">
+              <Link href="/login" onClick={handleLinkClick}>
                 <button className="text-blue-600 border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-50 transition">
                   Login
                 </button>
               </Link>
-              <span className="text-2xl">|</span>
-              <Link href="/signup">
+              <span className="text-3xl mb-2">|</span>
+              <Link href="/signup" onClick={handleLinkClick}>
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition">
                   Signup
                 </button>

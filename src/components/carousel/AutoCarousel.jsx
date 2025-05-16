@@ -79,7 +79,7 @@ export default function AutoCarousel() {
 
   return (
     <section className="w-full bg-white ">
-      <h2 className="text-3xl font-bold font-serif text-center text-gray-800 mb-4">
+      <h2 className="text-3xl font-bold font-serif text-center text-gray-800 mb-4 mt-2">
         Top Shots
       </h2>
 
@@ -104,7 +104,7 @@ export default function AutoCarousel() {
                       alt={blog.title}
                       className="w-full h-36 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
-                    <div className="p-4 text-center text-gray-800 font-medium text-sm sm:text-base line-clamp-2 flex-1">
+                    <div className="p-4 text-center text-black font-medium text-md sm:text-base line-clamp-2 flex-1">
                       {blog.title}
                     </div>
                   </div>

@@ -32,6 +32,7 @@ export default function BlogArticle({ slug }) {
         });
         if (!res.ok) throw new Error("Blog not found");
         const data = await res.json();
+        console.log(data);
         setBlog(data);
 
         const userId =
@@ -151,7 +152,7 @@ export default function BlogArticle({ slug }) {
 
           {/* FAQ */}
           {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
-            <FAQ data={blog.faqs} />
+            <FAQ data={blog.faqs} conclusion={blog.conclusion} />
           )}
 
           {/* Carousel */}

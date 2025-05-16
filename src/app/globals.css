@@ -14,6 +14,8 @@
 body {
   background-color: #ffffff; /* White background */
   color: #333333; /* Dark text color */
+  font-family: sans-serif;
+
 }
 
 /* Override any default styles for themes or mobile */

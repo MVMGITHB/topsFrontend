@@ -166,7 +166,14 @@ const CardLayout = ({ image, title, label, cta, date, author }) => (
           {label}
         </span>
       )}
-      <h2 className="text-white text-lg font-semibold mb-1">{title}</h2>
+      <h2
+        className="
+          text-white text-[18px] sm:text-lg md:text-xl font-serif font-semibold 
+          leading-snug drop-shadow-md line-clamp-2 transition duration-300 group-hover:text-purple-300
+        "
+      >
+        {title}
+      </h2>
       {date && author && (
         <div className="flex items-center gap-2 text-xs text-gray-200">
           <span>{date}</span>
