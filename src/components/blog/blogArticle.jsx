@@ -100,7 +100,7 @@ export default function BlogArticle({ slug }) {
         <main className="w-full md:w-3/5 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-lg order-1 md:order-2 space-y-10">
           {/* Title & Meta */}
           <header className="border-b border-gray-200 pb-4">
-            <h1 className="text-4xl font-bold">{blog.mtitle || blog.title}</h1>
+            <h1 className="text-4xl font-bold">{blog.title}</h1>
             <div className="text-sm text-gray-600 mt-2 space-y-1">
               <p>
                 <strong className="text-gray-800">Posted:</strong>{" "}

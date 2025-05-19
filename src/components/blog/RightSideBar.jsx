@@ -13,7 +13,12 @@ export const RightSideBar = ({ categorySlug }) => {
     axios
       .get(`https://api.top5shots.com/similarBlog/${categorySlug}`)
       .then((res) => {
-        const blogs = res.data || [];
+        let blogs = res.data || [];
+
+        // Sort by date (latest first)
+        blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        // Set only top 3 latest blogs
         setSimilarBlogs(blogs.slice(0, 3));
       })
       .catch((err) => console.error("Error fetching similar blogs:", err));

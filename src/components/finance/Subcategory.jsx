@@ -98,11 +98,12 @@ export const Subcategory = ({ category }) => {
                       className="w-24 h-24 md:w-32 md:h-28 object-cover rounded-md flex-shrink-0"
                     />
 
-                    <div className="flex flex-col justify-top h-28 md:h-28 overflow-hidden gap-2">
-                      <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">
+                    <div className="flex flex-col justify-start gap-2 md:h-28 md:overflow-hidden">
+                      <h4 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
                         {compBlog?.title}
                       </h4>
-                      <p className="text-sm text-gray-700 line-clamp-3 mb-5">
+
+                      <p className="text-sm text-gray-700 whitespace-normal break-words mb-5">
                         {compBlog?.mdesc}
                       </p>
                     </div>
@@ -128,14 +129,15 @@ export const Subcategory = ({ category }) => {
                               : blog.image?.url
                           }
                           alt={blog.title}
-                          className="w-24 h-24 md:w-32 md:h-28 object-cover rounded-md flex-shrink-0"
+                          className="w-24 h-24 md:w-32 md:h-28 object-cover rounded-md flex-shrink-0 line-clamp-2"
                         />
 
-                        <div className="flex flex-col justify-top h-28 md:h-28 overflow-hidden gap-2">
-                          <h4 className="text-lg font-semibold text-gray-800 line-clamp-1">
+                        <div className="flex flex-col justify-start gap-2 md:h-full md:overflow-hidden">
+                          <h4 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
                             {blog.title}
                           </h4>
-                          <p className="text-sm text-gray-600 line-clamp-3 mb-5 ">
+
+                          <p className="text-sm text-gray-600 whitespace-normal break-words mb-5">
                             {blog.mdesc}
                           </p>
                         </div>

@@ -89,48 +89,50 @@ export default function AuthorPage({ slug }) {
               📝 Blog Posts by {fullName}
             </h2>
 
-            {author.blog.map((post) => (
-              <div
-                key={post._id}
-                className="bg-white rounded-2xl p-6 shadow-md border"
-              >
-                <div className="flex flex-col lg:flex-row gap-4">
-                  <img
-                    src={
-                      typeof post.image === "string"
-                        ? post.image.includes("res")
-                          ? post.image
-                          : `${base_url}${post.image}`
-                        : post.image?.url
-                    }
-                    alt={post.title}
-                    className="w-full lg:w-48 h-32 object-cover rounded-xl"
-                  />
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 mt-1">{post.mdesc}</p>
+            {[...author.blog]
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .map((post) => (
+                <div
+                  key={post._id}
+                  className="bg-white rounded-2xl p-6 shadow-md border"
+                >
+                  <div className="flex flex-col lg:flex-row gap-4">
+                    <img
+                      src={
+                        typeof post.image === "string"
+                          ? post.image.includes("res")
+                            ? post.image
+                            : `${base_url}${post.image}`
+                          : post.image?.url
+                      }
+                      alt={post.title}
+                      className="w-full lg:w-48 h-32 object-cover rounded-xl"
+                    />
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 mt-1">{post.mdesc}</p>
 
-                    <div className="flex flex-wrap mt-2 gap-2 text-sm">
-                      <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
-                        📂 {post.categories?.name}
-                      </span>
-                      <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full">
-                        🔖 {post.subcategories?.name}
-                      </span>
+                      <div className="flex flex-wrap mt-2 gap-2 text-sm">
+                        <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
+                          📂 {post.categories?.name}
+                        </span>
+                        <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full">
+                          🔖 {post.subcategories?.name}
+                        </span>
+                      </div>
+
+                      <a
+                        href={`/blog/${post.slug}`}
+                        className="inline-block mt-4 text-blue-600 hover:underline text-sm font-medium"
+                      >
+                        Read More →
+                      </a>
                     </div>
-
-                    <a
-                      href={`/blog/${post.slug}`}
-                      className="inline-block mt-4 text-blue-600 hover:underline text-sm font-medium"
-                    >
-                      Read More →
-                    </a>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </section>

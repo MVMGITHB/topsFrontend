@@ -9,9 +9,12 @@ const NewsPage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch("https://api.top5shots.com/getAllViralStories", {
-          cache: "no-store",
-        });
+        const response = await fetch(
+          "https://api.top5shots.com/getAllViralStories",
+          {
+            cache: "no-store",
+          }
+        );
         const data = await response.json();
 
         if (!Array.isArray(data)) {
@@ -30,8 +33,12 @@ const NewsPage = () => {
     fetchArticles();
   }, []);
 
-  if (loading) return <div className="text-center py-20 text-xl font-medium">Loading...</div>;
-  if (error) return <div className="text-center py-20 text-red-600">{error}</div>;
+  if (loading)
+    return (
+      <div className="text-center py-20 text-xl font-medium">Loading...</div>
+    );
+  if (error)
+    return <div className="text-center py-20 text-red-600">{error}</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
@@ -48,13 +55,15 @@ const NewsPage = () => {
           >
             {article.image?.endsWith(".mp4") ? (
               <video
-                src={article.image}
                 className="w-full h-48 object-cover"
                 muted
-                playsInline
-                autoPlay
                 controls
-              />
+                playsInline
+                crossOrigin="anonymous"
+              >
+                <source src={article.image} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             ) : (
               <img
                 src={article.image || "/images/default-image.jpg"}

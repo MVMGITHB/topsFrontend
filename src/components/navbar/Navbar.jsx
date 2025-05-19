@@ -118,10 +118,12 @@ export default function Navbar() {
           </li>
 
           {/* Auth Buttons */}
-          {/* Auth Buttons */}
           {auth?.user ? (
             <li className="flex items-center space-x-3">
-              <Link href="/profile" onClick={handleLinkClick}>
+              <Link
+                href={`/profile/${auth.user.firstName}-${auth.user.lastName}`}
+                onClick={handleLinkClick}
+              >
                 <button className="border border-blue-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-200">
                   {auth.user.firstName}
                 </button>

@@ -4,13 +4,14 @@ import parse from "html-react-parser";
 import Link from "next/link";
 import AutoCarousel from "@/components/carousel/AutoCarousel";
 import { RightSideBar } from "@/components/blog/RightSideBar";
-import { SideBar } from "@/components/blog/SideBar"; // 👈 Create or import this component
+import { SideBar } from "@/components/blog/SideBar";
 import base_url from "../helper/baseurl";
 
 function wrapTablesInDiv(htmlString) {
+  if (typeof htmlString !== "string") return ""; // Guard against undefined or non-string
   return htmlString.replace(
     /<table(.*?)>([\s\S]*?)<\/table>/g,
-    `<div class="overflow-x-auto my-6"><table class="min-w-full border border-gray-300 text-sm"$1>$2</table></div>`
+    `<div class="overflow-x-auto my-6"><table class="min-w-full table-auto border border-gray-300 text-sm"$1>$2</table></div>`
   );
 }
 
@@ -26,108 +27,139 @@ export default function ArticleContent({ blog }) {
       : blog.image?.url || "/images/default-image.jpg";
 
   return (
-    <section className="max-w-screen-xl mx-auto px-4 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
-      {/* Left Sidebar */}
-      <aside className="lg:col-span-2 hidden lg:block">
-        <SideBar
-          categorySlug={blog?.categories?.slug || blog?.category?.slug || ""}
-        />
-      </aside>
+    <section className="max-w-8xl mx-auto text-white">
+      <div className="flex flex-col md:flex-row gap-2">
+        {/* Left Sidebar */}
+        <aside className="w-full md:w-1/6 order-2 md:order-1">
+          <SideBar
+            categorySlug={blog?.categories?.slug || blog?.category?.slug || ""}
+          />
+        </aside>
 
-      {/* Main Content */}
-      <main className="lg:col-span-8 space-y-10">
-        {/* Header */}
-        <header className="space-y-4 border-b pb-6">
-          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight text-gray-900">
-            {blog.mtitle || blog.title}
-          </h1>
-          {blog.mdesc && (
-            <p className="text-lg text-gray-600 italic">{blog.mdesc}</p>
-          )}
-
-          <div className="text-sm text-gray-500 space-y-1">
-            <p>
-              <span className="font-medium">Category:</span>{" "}
-              {blog.categories?.name}
-              {blog.subcategories?.name ? ` / ${blog.subcategories.name}` : ""}
-            </p>
-            <p>
-              <span className="font-medium">Posted on:</span>{" "}
-              {new Date(blog.updatedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-            {blog.postedBy?.slug && (
+        {/* Main Content */}
+        <main className="w-full md:w-3/5 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-lg order-1 md:order-2 space-y-10">
+          {/* Header */}
+          <header className="border-b border-gray-200 pb-4">
+            <h1 className="text-4xl font-bold">{blog.mtitle || blog.title}</h1>
+            {blog.mdesc && (
+              <p className="mt-3 text-base text-gray-600">{blog.mdesc}</p>
+            )}
+            <div className="text-sm text-gray-600 mt-2 space-y-1">
               <p>
-                <span className="font-medium">Author:</span>{" "}
-                <Link
-                  href={`/author/${blog.postedBy.slug}`}
-                  className="text-indigo-600 hover:underline"
-                >
-                  {blog.postedBy.username}
-                </Link>
+                <strong className="text-gray-800">Posted:</strong>{" "}
+                {blog.updatedAt
+                  ? new Date(blog.updatedAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : "Unknown"}
               </p>
+              {blog.postedBy?.slug && (
+                <p>
+                  <Link
+                    href={`/author/${blog.postedBy.slug}`}
+                    className="text-indigo-600 hover:underline"
+                  >
+                    Author: {blog.postedBy.username}
+                  </Link>
+                  <br />
+                  Category: {blog.categories?.name || blog.category?.name}
+                </p>
+              )}
+            </div>
+          </header>
+
+          {/* Featured Media */}
+          <div className="w-full max-h-[500px] overflow-hidden rounded-xl bg-gray-100">
+            {isVideo ? (
+              <video
+                src={imageSrc}
+                controls
+                autoPlay
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <img
+                src={imageSrc}
+                alt={blog.title}
+                className="w-full h-auto object-cover"
+                onError={(e) => {
+                  e.target.src = "/images/default-image.jpg";
+                }}
+              />
             )}
           </div>
-        </header>
 
-        {/* Media */}
-        <div className="aspect-video rounded-xl overflow-hidden shadow-md bg-black">
-          {isVideo ? (
-            <video
-              src={imageSrc}
-              controls
-              autoPlay
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <img
-              src={imageSrc}
-              alt={blog.title}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.src = "/images/default-image.jpg";
-              }}
-            />
+          {/* Blog Content */}
+          <article className="prose prose-lg max-w-full text-gray-800 prose-headings:font-semibold prose-img:rounded-xl prose-a:text-indigo-600 hover:prose-a:underline">
+            {blog.body ? (
+              parse(wrapTablesInDiv(blog.body))
+            ) : (
+              <p>No content available.</p>
+            )}
+          </article>
+
+          {/* FAQ Section */}
+          {blog.faqs?.length > 0 && (
+            <section>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {blog.faqs.map((faq) => (
+                  <details
+                    key={faq._id}
+                    className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+                  >
+                    <summary className="cursor-pointer font-medium text-gray-800">
+                      {faq.ques}
+                    </summary>
+                    <p className="mt-2 text-gray-700">{faq.ans}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
           )}
-        </div>
 
-        {/* Body */}
-        <article className="prose prose-lg max-w-none text-gray-800 prose-headings:font-semibold prose-a:text-indigo-600 hover:prose-a:underline prose-img:rounded-xl">
-          {parse(wrapTablesInDiv(blog.body))}
-        </article>
+          {/* Conclusion */}
+          {blog.conclusion && (
+            <section className="pt-6 border-t border-gray-200">
+              <h2 className="text-2xl font-bold mb-2">Conclusion</h2>
+              <div className="text-base text-gray-700 leading-relaxed">
+                {parse(blog.conclusion)}
+              </div>
+            </section>
+          )}
 
-        {/* FAQs */}
-        {blog.faqs?.length > 0 && (
-          <section>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-3">
-              {blog.faqs.map((faq) => (
-                <details
-                  key={faq._id}
-                  className="border border-gray-300 rounded-lg p-4 bg-gray-50"
-                >
-                  <summary className="cursor-pointer font-medium text-gray-800">
-                    {faq.ques}
-                  </summary>
-                  <p className="mt-2 text-gray-700">{faq.ans}</p>
-                </details>
-              ))}
-            </div>
-          </section>
-        )}
-      </main>
+          {/* Carousel */}
+          <AutoCarousel />
+        </main>
 
-      {/* Right Sidebar */}
-      <aside className="lg:col-span-2 hidden lg:block">
-        <RightSideBar
-          categorySlug={blog?.categories?.slug || blog?.category?.slug || ""}
-        />
-      </aside>
+        {/* Right Sidebar */}
+        <aside className="w-full md:w-1/4 order-3">
+          <RightSideBar
+            categorySlug={blog?.categories?.slug || blog?.category?.slug || ""}
+          />
+        </aside>
+      </div>
+
+      {/* Mobile Ads */}
+      <div className="md:hidden mt-12 grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {[1, 2, 3].map((_, i) => (
+          <div
+            key={i}
+            className="bg-white border border-gray-200 rounded-xl p-4 shadow text-center"
+          >
+            <img
+              src="https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg"
+              alt="Ad"
+              className="aspect-video object-cover rounded-lg"
+            />
+            <p className="text-gray-900 font-medium text-sm mt-3">Ad</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
