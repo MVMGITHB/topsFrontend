@@ -77,7 +77,7 @@ export default function BlogListingPage() {
             </Link>
 
             <h2 className="text-2xl font-bold mb-2">
-              {blog.mtitle || blog.title}
+              {blog.title}
             </h2>
             {blog.mdesc && (
               <p className="text-sm text-gray-600 mb-3">{blog.mdesc}</p>

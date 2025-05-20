@@ -1,30 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/context/auth";
-import useCategories from "@/components/helper/useCategorieshook";
 import SerachCategory from "./searchbar";
+
+// Lazy useCategories for client-only
+let useCategories = () => [];
+if (typeof window !== "undefined") {
+  useCategories = require("@/components/helper/useCategorieshook").default;
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [auth, setAuth] = useAuth();
+  const mobileSearchRef = useRef(null);
+
   const categories = useCategories();
   const router = useRouter();
+
+  // Use ref safely in client component
+  const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    if (showMobileSearch && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showMobileSearch]);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        showMobileSearch &&
+        mobileSearchRef.current &&
+        !mobileSearchRef.current.contains(e.target)
+      ) {
+        setShowMobileSearch(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMobileSearch]);
 
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
+    setIsOpen(false);
   };
 
-  const handleLinkClick = () => setIsOpen(false);
+  const handleLinkClick = () => {
+    setIsOpen(false);
+    setShowMobileSearch(false);
+  };
 
   const handleCategoryClick = (slug) => {
     setIsOpen(false);
     setShowDropdown(false);
+    setShowMobileSearch(false);
     router.push(`/${slug}`);
   };
 
@@ -33,6 +71,7 @@ export default function Navbar() {
       router.push(`/search?query=${encodeURIComponent(search.trim())}`);
       setSearch("");
       setIsOpen(false);
+      setShowMobileSearch(false);
     }
   };
 
@@ -41,7 +80,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 w-full">
+    <nav className="bg-gray-100 shadow-sm sticky top-0 z-50 border-b border-gray-600 dark:border-gray-800 w-full">
       <div className="max-w-8xl mx-auto px-3 py-3 flex justify-between items-center w-full">
         {/* Logo */}
         <Link href="/" onClick={handleLinkClick} className="flex items-center">
@@ -52,14 +91,44 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Search */}
-        <div className="relative hidden md:flex items-center bg-white border rounded-full px-2 py-1 shadow-sm w-[200px] max-w-xs  mt-1">
+        {/* Desktop Search */}
+        <div className="relative hidden md:flex items-center bg-white border rounded-full px-2 py-1 shadow-sm w-[200px] max-w-xs mt-1">
           <SerachCategory />
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Search Icon */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            if (showMobileSearch) {
+              setShowMobileSearch(false);
+              setSearch(""); // clear input if needed
+            } else {
+              setShowMobileSearch(true);
+              setIsOpen(false);
+            }
+          }}
+          className="md:hidden text-black text-2xl ml-40"
+          aria-label="Toggle search"
+        >
+          {showMobileSearch ? "✖️" : "🔍"}
+        </button>
+
+        {/* Mobile Search Input */}
+        {showMobileSearch && (
+          <div
+            ref={mobileSearchRef}
+            className="absolute top-full left-0 w-full bg-white border-t border-gray-300 px-4 py-3 z-40 shadow-md md:hidden"
+          >
+            <SerachCategory />
+          </div>
+        )}
+
+        {/* Mobile Toggle (Hamburger) */}
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+            setShowMobileSearch(false);
+          }}
           className="md:hidden text-black text-3xl"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
@@ -72,7 +141,7 @@ export default function Navbar() {
           id="mobile-menu"
           className={`${
             isOpen ? "flex" : "hidden"
-          } md:flex md:items-center md:space-x-8 absolute md:static left-0 top-16 md:top-0 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 flex-col md:flex-row space-y-4 md:space-y-0 transition-all duration-300 z-40`}
+          } md:flex md:items-center md:space-x-8 absolute md:static left-0 top-16 md:top-0 w-full md:w-auto bg-gray-100 shadow-md md:shadow-none p-4 md:p-0 flex-col md:flex-row space-y-4 md:space-y-0 transition-all duration-300 z-40`}
         >
           {[
             { name: "Home", path: "/" },
@@ -131,7 +200,7 @@ export default function Navbar() {
               <button
                 onClick={() => {
                   handleLogout();
-                  setIsOpen(false); // ✅ Close mobile menu on logout
+                  setIsOpen(false);
                 }}
                 className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-500 transition"
               >

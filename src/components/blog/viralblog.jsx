@@ -40,7 +40,7 @@ export default function ArticleContent({ blog }) {
         <main className="w-full md:w-3/5 bg-white text-gray-900 rounded-3xl p-6 md:p-10 shadow-lg order-1 md:order-2 space-y-10">
           {/* Header */}
           <header className="border-b border-gray-200 pb-4">
-            <h1 className="text-4xl font-bold">{blog.mtitle || blog.title}</h1>
+            <h1 className="text-4xl font-bold">{blog.title}</h1>
             {blog.mdesc && (
               <p className="mt-3 text-base text-gray-600">{blog.mdesc}</p>
             )}

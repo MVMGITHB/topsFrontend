@@ -187,21 +187,29 @@ export default function ComparisonPage({ id }) {
                 </Link>
               </div>
               <div className="flex flex-col items-center w-36">
-                <span className="text-3xl font-bold">
+                <span className="text-3xl md:text-3xl font-bold">
                   {card.rating.toFixed(1)}
                 </span>
-                <div className="flex items-center text-yellow-400">
+                <div className="flex items-center text-yellow-400 space-x-0.5 md:space-x-1">
                   {[...Array(Math.floor(card.rating))].map((_, i) => (
-                    <Star key={i} size={18} fill="currentColor" />
+                    <Star
+                      key={i}
+                      className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-200 hover:scale-110 hover:text-yellow-300 cursor-pointer"
+                      fill="currentColor"
+                    />
                   ))}
                   {card.rating % 1 >= 0.5 && (
-                    <StarHalf size={18} fill="currentColor" />
+                    <StarHalf
+                      className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-200 hover:scale-110 hover:text-yellow-300 cursor-pointer"
+                      fill="currentColor"
+                    />
                   )}
                 </div>
-                <span className="text-xs font-medium text-gray-600 uppercase">
+                <span className="text-xs md:text-sm font-medium text-gray-600 uppercase">
                   Our Rating
                 </span>
               </div>
+
               <ul className="flex-1 mx-4 space-y-1 text-sm text-gray-700">
                 {card.features?.slice(0, 4).map((feature, i) => (
                   <li key={i} className="flex gap-2">
@@ -226,7 +234,9 @@ export default function ComparisonPage({ id }) {
                 ))}
               </ul>
               <div className="flex flex-col min-w-[180px] gap-2 text-left">
-                <span className="text-sm font-medium">Get Exclusive Offer</span>
+                <span className="text-md font-semibold">
+                  Get Exclusive Offer
+                </span>
                 <Link
                   href={card.visitSiteUrl}
                   className="inline-flex bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
@@ -272,7 +282,7 @@ export default function ComparisonPage({ id }) {
                 </Link>
 
                 <div className="text-right">
-                  <div className="flex items-center justify-end gap-1 text-black font-semibold text-xl">
+                  <div className="flex items-center justify-end gap-1 text-black font-semibold text-2xl">
                     <Star
                       size={16}
                       fill="currentColor"
@@ -280,7 +290,7 @@ export default function ComparisonPage({ id }) {
                     />
                     {card.rating.toFixed(1)}
                   </div>
-                  <div className="text-md font-medium ml-2 text-gray-600">
+                  <div className="text-md font-medium ml-2 text-black">
                     Our Score
                   </div>
                 </div>
@@ -313,7 +323,9 @@ export default function ComparisonPage({ id }) {
 
               {/* CTA Button */}
               <div className="text-center">
-                <p className="text-md font-medium mb-2">Get Exclusive Offer</p>
+                <p className="text-md font-semibold mb-2">
+                  Get Exclusive Offer
+                </p>
                 <Link
                   href={card.visitSiteUrl}
                   className="inline-block bg-blue-600 text-white px-10 py-2 rounded-md text-sm font-semibold hover:bg-blue-700 transition"

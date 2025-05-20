@@ -17,6 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" sizes="16x16" />
+
         <meta name="robots" content="noindex, nofollow" />
       </head>
       <body className="bg-white text-black flex flex-col min-h-screen overflow-x-hidden">

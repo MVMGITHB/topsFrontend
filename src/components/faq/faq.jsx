@@ -23,7 +23,7 @@ export default function FAQ({ data, conclusion }) {
         {conclusion && (
           <div className="mt-12 bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-xl shadow-md border border-indigo-100">
             <h5 className="text-2xl font-semibold text-indigo-800 text-center mb-2">
-              Final Thoughts
+              Conclusion
             </h5>
             <p className="text-gray-800 text-base leading-relaxed text-center max-w-3xl mx-auto">
               {conclusion}

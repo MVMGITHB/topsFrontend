@@ -1,5 +1,4 @@
 import Home from "@/components/home/Home";
-import SurveyPopup from "@/components/popupsurvey/popupsurvey";
 import SurveyPopup2 from "@/components/popupsurvey/popupsurvey2";
 
 export const metadata = {
@@ -8,7 +7,7 @@ export const metadata = {
     "Explore the top 5 trends, reviews, and insights across various industries. Stay updated with Top5Shots.",
   metadataBase: new URL("https://top5shots.com"),
   alternates: {
-    canonical: "/",
+    canonical: "./",
   },
   openGraph: {
     title: "Top 5 Shots",
@@ -17,7 +16,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://top5shots.com/images/logo.png",
+        url: "https://top5shots.com/images/Top5Logo1.png",
         width: 500,
         height: 200,
         alt: "Top 5 Shots Logo",
@@ -26,15 +25,15 @@ export const metadata = {
   },
   other: {
     language: "en",
-    "geo.region": "US",
-    "geo.placename": "United States",
+    "geo.region": "IN",
+    "geo.placename": "India",
     robots: "index, follow",
     "application/ld+json": JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
       name: "Top5Shots",
       url: "https://top5shots.com",
-      logo: "https://top5shots.com/images/logo.png",
+      logo: "https://top5shots.com/images/Top5Logo1.png",
       contactPoint: {
         "@type": "ContactPoint",
         email: "contact@top5shots.com",

@@ -56,9 +56,9 @@ export default function SerachCategory() {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative z-50">
       {/* Input Bar */}
-      <div className="relative w-full bg-white text-gray-800 rounded-md px-3 py-1 text-sm flex items-center">
+      <div className="relative w-full bg-white text-gray-800 rounded-md px-3 py-1 text-sm flex items-center border shadow-sm">
         <input
           type="text"
           placeholder="Search..."
@@ -72,17 +72,14 @@ export default function SerachCategory() {
             Loading...
           </span>
         ) : query ? (
-          // Show X button at the search icon position when text is present
-
           <button
             onClick={clearInput}
             className="absolute right-3 text-gray-600 font-semibold hover:text-gray-900 focus:outline-none cursor-pointer"
             aria-label="Clear search"
           >
-            X
+            ✕
           </button>
         ) : (
-          // Show search icon when no text
           <button
             type="submit"
             className="absolute right-3 text-gray-600 text-sm flex items-center justify-center cursor-pointer"
@@ -97,16 +94,12 @@ export default function SerachCategory() {
       {results && (
         <div
           className="
-          absolute z-50 top-12 left-0
-          w-full max-w-2xl
-          bg-white border border-gray-200 shadow-md rounded-lg mt-1
-          p-4 space-y-4 text-sm font-serif
-          mx-auto
-          sm:left-auto sm:right-0
-          sm:min-w-[320px]
-          overflow-y-auto max-h-80
-        "
-          style={{ minWidth: "280px" }}
+            absolute top-full left-0 mt-2
+            w-full sm:max-w-2xl bg-white
+            border border-gray-200 rounded-lg shadow-lg
+            max-h-80 overflow-y-auto p-4 space-y-4
+            text-sm font-serif z-50
+          "
         >
           <h3 className="font-semibold text-gray-900 text-base">Results</h3>
 

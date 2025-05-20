@@ -74,10 +74,10 @@ const NewsPage = () => {
             )}
 
             <div className="p-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
                 {article.title}
               </h3>
-              <p className="text-gray-600 text-sm flex-grow line-clamp-3">
+              <p className="text-gray-600 text-sm flex-grow">
                 {article.mdesc || "No description available."}
               </p>
               <span className="mt-3 inline-block text-indigo-600 font-medium text-sm">
