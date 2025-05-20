@@ -3,7 +3,7 @@ import base_url from "@/components/helper/baseurl";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
-  const slug = params?.slug;
+  const slug = await params?.slug;
   if (!slug) {
     return {
       title: "Invalid story - Top5Shots",

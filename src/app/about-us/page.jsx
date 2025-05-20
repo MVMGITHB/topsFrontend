@@ -1,34 +1,41 @@
-// This is a server component with dynamic metadata
+// app/about-us/page.jsx
 import React from "react";
 
-export const metadata = {
-  title: "About Us | Top5Shots - Your Daily Dose of Top 5s",
-  description:
-    "Top5Shots delivers the top 5 insights, tips, and trends across tech, startups, and productivity. Learn more about our mission, team, and values.",
-  openGraph: {
-    title: "About Us | Top5Shots",
+export async function generateMetadata() {
+  const baseUrl = "https://top5shots.com";
+
+  return {
+    title: "About Us | Top5Shots - Your Daily Dose of Top 5s",
     description:
-      "Top5Shots delivers daily top 5 picks in tech, trends, and tips. Meet the team behind the content.",
-    url: "https://top5shots.com/about-us",
-    siteName: "Top5Shots",
-    images: [
-      {
-        url: "/images/top5shots-banner.png",
-        width: 1200,
-        height: 630,
-        alt: "Top5Shots Banner",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us | Top5Shots",
-    description:
-      "Learn about the vision and people behind Top5Shots – your go-to place for quick, curated insights.",
-    images: ["/images/top5shots-banner.png"],
-  },
-};
+      "Top5Shots delivers the top 5 insights, tips, and trends across tech, startups, and productivity. Learn more about our mission, team, and values.",
+    alternates: {
+      canonical: `${baseUrl}/about-us`,
+    },
+    openGraph: {
+      title: "About Us | Top5Shots",
+      description:
+        "Top5Shots delivers daily top 5 picks in tech, trends, and tips. Meet the team behind the content.",
+      url: `${baseUrl}/about-us`,
+      siteName: "Top5Shots",
+      images: [
+        {
+          url: `${baseUrl}/images/top5shots-banner.png`,
+          width: 1200,
+          height: 630,
+          alt: "Top5Shots Banner",
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "About Us | Top5Shots",
+      description:
+        "Learn about the vision and people behind Top5Shots – your go-to place for quick, curated insights.",
+      images: [`${baseUrl}/images/top5shots-banner.png`],
+    },
+  };
+}
 
 export default function AboutUs() {
   return (

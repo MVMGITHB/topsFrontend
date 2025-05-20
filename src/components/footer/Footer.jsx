@@ -33,7 +33,7 @@ const Footer = () => {
     {
       label: "Resources",
       items: [
-        { href: "/terms", name: "Terms of Service" },
+        { href: "/terms-of-service", name: "Terms of Service" },
         { href: "/faq", name: "FAQs" },
         { href: "/support", name: "Support" },
         { href: "/advertising", name: "Advertising" },

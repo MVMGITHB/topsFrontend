@@ -4,7 +4,8 @@ import SupportContent from '@/components/pages/support';
 
 export const metadata = {
   title: 'Support - Top5Shots',
-  description: 'Need help? Contact our support team at Top5Shots for assistance. Browse FAQs or send us a message directly for faster help.',
+  description:
+    'Need help? Contact our support team at Top5Shots for assistance. Browse FAQs or send us a message directly for faster help.',
   keywords: ['Support', 'Top5Shots', 'help', 'contact', 'FAQs', 'customer service'],
   openGraph: {
     title: 'Support - Top5Shots',
@@ -17,6 +18,9 @@ export const metadata = {
         alt: 'Top5Shots Support Page',
       },
     ],
+  },
+  alternates: {
+    canonical: 'https://www.top5shots.com/support',
   },
 };
 

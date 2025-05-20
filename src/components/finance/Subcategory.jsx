@@ -39,9 +39,9 @@ export const Subcategory = ({ category }) => {
 
   return (
     <div className="bg-white text-black">
-      <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-5 mt-5 text-gray-800 tracking-wide">
+      <h1 className="text-center text-4xl md:text-5xl font-extrabold mb-5 mt-5 text-gray-800 tracking-wide">
         {category.toUpperCase()}
-      </h2>
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-16">
         {data.map((item, idx) => {
@@ -73,9 +73,9 @@ export const Subcategory = ({ category }) => {
               key={idx}
               className="bg-white rounded-3xl shadow-lg p-2 border border-gray-100 hover:shadow-xl transition overflow-hidden"
             >
-              <h3 className="text-2xl font-bold text-center text-gray-800 border-b pb-2 mb-4">
+              <h2 className="text-2xl font-bold text-center text-gray-800 border-b pb-2 mb-4">
                 {item?.subcategory?.name || "Unnamed Subcategory"}
-              </h3>
+              </h2>
 
               <div className="space-y-2 border-gray-500">
                 {/* Show visible compBlogs */}
@@ -99,9 +99,9 @@ export const Subcategory = ({ category }) => {
                     />
 
                     <div className="flex flex-col justify-start gap-2 md:h-28 md:overflow-hidden">
-                      <h4 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
+                      <h3 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
                         {compBlog?.title}
-                      </h4>
+                      </h3>
 
                       <p className="text-sm text-gray-700 whitespace-normal break-words mb-5">
                         {compBlog?.mdesc}
@@ -133,9 +133,9 @@ export const Subcategory = ({ category }) => {
                         />
 
                         <div className="flex flex-col justify-start gap-2 md:h-full md:overflow-hidden">
-                          <h4 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
+                          <h3 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
                             {blog.title}
-                          </h4>
+                          </h3>
 
                           <p className="text-sm text-gray-600 whitespace-normal break-words mb-5">
                             {blog.mdesc}

@@ -1,8 +1,6 @@
-import ComparisonPage from "@/components/comparison/toppicks";
-
 export async function generateMetadata({ params }) {
-  const baseUrl = "https://www.top5shots.com";
-  const { subcategory, slug } = params;
+  const baseUrl = "https://www.top5shots.com"; // Your actual domain
+  const slug = params?.id;
 
   try {
     const res = await fetch(`${baseUrl}/getOnecompblogs/${slug}`, {
@@ -10,6 +8,7 @@ export async function generateMetadata({ params }) {
     });
     const data = await res.json();
 
+    // Handle image URL properly
     const imageUrl =
       typeof data?.image === "string"
         ? data.image.includes("res")
@@ -22,7 +21,7 @@ export async function generateMetadata({ params }) {
       data?.subHeading ||
       data?.para?.slice(0, 155) ||
       "Compare top companies based on expert reviews, ratings, and features.";
-    const canonicalUrl = `${baseUrl}/${subcategory}/${slug}`;
+    const canonicalUrl = `${baseUrl}/category/compblogs/${slug}`;
 
     return {
       title,
@@ -59,20 +58,8 @@ export async function generateMetadata({ params }) {
       title: "Comparison | Top5Shots",
       description: "Compare top-rated platforms side-by-side.",
       alternates: {
-        canonical: `${baseUrl}/${subcategory}/${slug}`,
+        canonical: `${baseUrl}/category/compblogs/${slug}`,
       },
     };
   }
 }
-
-const Page = async ({ params }) => {
-  const { slug } = params;
-
-  return (
-    <div className="text-black">
-      <ComparisonPage id={slug} />
-    </div>
-  );
-};
-
-export default Page;

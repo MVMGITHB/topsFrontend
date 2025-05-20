@@ -2,11 +2,13 @@
 
 import parse from "html-react-parser";
 import Link from "next/link";
+import { useState } from "react";
 import AutoCarousel from "@/components/carousel/AutoCarousel";
 import { RightSideBar } from "@/components/blog/RightSideBar";
 import { SideBar } from "@/components/blog/SideBar";
 import base_url from "../helper/baseurl";
-
+import SeoMeta from "../helper/jsonld/seo";
+import generateBlogSchema from "../helper/blogschema";
 function wrapTablesInDiv(htmlString) {
   if (typeof htmlString !== "string") return ""; // Guard against undefined or non-string
   return htmlString.replace(
@@ -16,6 +18,13 @@ function wrapTablesInDiv(htmlString) {
 }
 
 export default function ArticleContent({ blog }) {
+   const [author, setAuthor] = useState(null);
+  const blogSchema = generateBlogSchema(blog, author);
+
+  if (blog.createdAt && blog.updatedAt) {
+    blogSchema.datePublished = new Date(blog.createdAt).toISOString();
+    blogSchema.dateModified = new Date(blog.updatedAt).toISOString();
+  }
   const isVideo =
     typeof blog.image === "string" && blog.image.toLowerCase().endsWith(".mp4");
 
@@ -28,6 +37,19 @@ export default function ArticleContent({ blog }) {
 
   return (
     <section className="max-w-8xl mx-auto text-white">
+      <SeoMeta
+        title={blog.mtitle || blog.title}
+        description={blog.mdesc || "Read the latest insights on Top5Shots"}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "ViralStories", url: "/blogs" },
+          { name: blog.title, url: `/viralstories/${blog.slug}` },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
       <div className="flex flex-col md:flex-row gap-2">
         {/* Left Sidebar */}
         <aside className="w-full md:w-1/6 order-2 md:order-1">

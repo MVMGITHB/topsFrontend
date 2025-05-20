@@ -1,94 +1,69 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import ViralStoriesListing from "@/components/blog/viralist";
 
-const NewsPage = () => {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const base_url = "https://api.top5shots.com";
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch(
-          "https://api.top5shots.com/getAllViralStories",
-          {
-            cache: "no-store",
-          }
-        );
-        const data = await response.json();
+export async function generateMetadata() {
+  try {
+    const res = await fetch(`${base_url}/getAllViralStories`, {
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error("Failed to fetch viral stories");
 
-        if (!Array.isArray(data)) {
-          throw new Error("Invalid data format");
-        }
+    const stories = await res.json();
 
-        setArticles(data);
-      } catch (err) {
-        setError("Failed to load viral stories. Please try again later.");
-        console.error("Fetch error:", err);
-      } finally {
-        setLoading(false);
-      }
+    return {
+      title: "Viral Stories - Top5Shots",
+      description:
+        "Browse all viral stories on Top5Shots. Stay updated with trending stories, videos, and more.",
+      alternates: {
+        canonical: `https://www.top5shots.com/viralstories`,
+      },
+      openGraph: {
+        title: "Viral Stories - Top5Shots",
+        description:
+          "Browse all viral stories on Top5Shots. Stay updated with trending stories, videos, and more.",
+        url: `https://www.top5shots.com/viralstories`,
+        siteName: "Top5Shots",
+        type: "website",
+        images: stories.length
+          ? [
+              {
+                url:
+                  typeof stories[0].image === "string" &&
+                  stories[0].image.startsWith("http")
+                    ? stories[0].image
+                    : stories[0].image || "/images/default-og.jpg",
+                alt: stories[0].title || "Viral Story",
+                width: 1200,
+                height: 630,
+              },
+            ]
+          : [],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Viral Stories - Top5Shots",
+        description:
+          "Browse all viral stories on Top5Shots. Stay updated with trending stories, videos, and more.",
+        images: stories.length
+          ? [
+              typeof stories[0].image === "string" &&
+              stories[0].image.startsWith("http")
+                ? stories[0].image
+                : stories[0].image || "/images/default-og.jpg",
+            ]
+          : [],
+      },
     };
+  } catch (error) {
+    return {
+      title: "Viral Stories - Top5Shots",
+      description:
+        "Browse all viral stories on Top5Shots. Stay updated with trending stories, videos, and more.",
+    };
+  }
+}
 
-    fetchArticles();
-  }, []);
-
-  if (loading)
-    return (
-      <div className="text-center py-20 text-xl font-medium">Loading...</div>
-    );
-  if (error)
-    return <div className="text-center py-20 text-red-600">{error}</div>;
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-4">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-4 font-serif">
-        All Viral Stories
-      </h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {articles.map((article) => (
-          <a
-            key={article._id}
-            href={`/viralstories/${article.slug}`}
-            className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border overflow-hidden flex flex-col"
-          >
-            {article.image?.endsWith(".mp4") ? (
-              <video
-                className="w-full h-48 object-cover"
-                muted
-                controls
-                playsInline
-                crossOrigin="anonymous"
-              >
-                <source src={article.image} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img
-                src={article.image || "/images/default-image.jpg"}
-                alt={article.title}
-                className="w-full h-48 object-cover"
-                loading="lazy"
-              />
-            )}
-
-            <div className="p-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                {article.title}
-              </h3>
-              <p className="text-gray-600 text-sm flex-grow">
-                {article.mdesc || "No description available."}
-              </p>
-              <span className="mt-3 inline-block text-indigo-600 font-medium text-sm">
-                Read more →
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default NewsPage;
+export default function ViralStoriesPage() {
+  return <ViralStoriesListing />;
+}

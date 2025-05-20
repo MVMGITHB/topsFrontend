@@ -72,6 +72,11 @@ export default function BlogArticle({ slug }) {
 
   const blogSchema = generateBlogSchema(blog, author);
 
+  if (blog.createdAt && blog.updatedAt) {
+    blogSchema.datePublished = new Date(blog.createdAt).toISOString();
+    blogSchema.dateModified = new Date(blog.updatedAt).toISOString();
+  }
+
   return (
     <section className="max-w-8xl mx-auto   text-white">
       {/* Meta and Schema */}

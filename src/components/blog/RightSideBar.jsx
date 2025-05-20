@@ -28,9 +28,9 @@ export const RightSideBar = ({ categorySlug }) => {
     <aside className="w-full lg:max-w-xs flex flex-col gap-6 px-4 pt-6 sticky top-20 z-10">
       {similarBlogs.length > 0 && (
         <div className="bg-white p-6 shadow-xl border border-gray-200 transition-all duration-300">
-          <h2 className="text-center text-xl font-bold text-black mb-4 border-b border-gray-300 pb-2">
-            Similar Blogs
-          </h2>
+          <p className="text-center text-xl font-bold text-black mb-4 border-b border-gray-300 pb-2">
+            Similar Articles
+          </p>
           <div className="grid gap-6">
             {similarBlogs.map((blog, idx) => (
               <Link
