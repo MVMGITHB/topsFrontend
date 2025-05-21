@@ -1,6 +1,6 @@
 import ViralStoriesListing from "@/components/blog/viralist";
+import base_url from "@/components/helper/baseurl";
 
-const base_url = "https://api.top5shots.com";
 
 export async function generateMetadata() {
   try {

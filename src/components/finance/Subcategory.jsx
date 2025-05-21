@@ -99,11 +99,11 @@ export const Subcategory = ({ category }) => {
                     />
 
                     <div className="flex flex-col justify-start gap-2 md:h-28 md:overflow-hidden">
-                      <h3 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
+                      <h3 className="text-xl font-semibold text-gray-800 break-words whitespace-normal">
                         {compBlog?.title}
                       </h3>
 
-                      <p className="text-sm text-gray-700 whitespace-normal break-words mb-5">
+                      <p className="text-md tracking-wide text-gray-700 whitespace-normal break-words mb-5">
                         {compBlog?.mdesc}
                       </p>
                     </div>
@@ -133,11 +133,11 @@ export const Subcategory = ({ category }) => {
                         />
 
                         <div className="flex flex-col justify-start gap-2 md:h-full md:overflow-hidden">
-                          <h3 className="text-lg font-semibold text-gray-800 break-words whitespace-normal">
+                          <h3 className="text-xl font-semibold text-gray-800 break-words whitespace-normal">
                             {blog.title}
                           </h3>
 
-                          <p className="text-sm text-gray-600 whitespace-normal break-words mb-5">
+                          <p className="text-md tracking-wide text-gray-600 whitespace-normal break-words mb-5">
                             {blog.mdesc}
                           </p>
                         </div>

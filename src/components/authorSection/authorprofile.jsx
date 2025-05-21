@@ -12,9 +12,7 @@ export default function AuthorPage({ slug }) {
   useEffect(() => {
     async function fetchAuthor() {
       try {
-        const res = await fetch(
-          `https://api.top5shots.com/singleUserbyslug/${slug}`
-        );
+        const res = await fetch(`${base_url}/singleUserbyslug/${slug}`);
         if (!res.ok) throw new Error("Failed to fetch data");
         const data = await res.json();
         console.log(data);

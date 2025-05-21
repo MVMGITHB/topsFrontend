@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: [
+      "api.top5shots.com",
       "cardmaven.in",
       "www.icicibank.com",
       "www.axisbank.com",

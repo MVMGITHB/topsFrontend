@@ -20,12 +20,12 @@ export async function generateMetadata({ params }) {
       title: blog.mtitle || blog.title,
       description: blog.mdesc || "Read the latest insights on Top5Shots",
       alternates: {
-        canonical: `https://www.top5shots.com/blogs/${blog.slug}`,
+        canonical: `https://www.top5shots.com/blog/${blog.slug}`,
       },
       openGraph: {
         title: blog.mtitle || blog.title,
         description: blog.mdesc || "",
-        url: `https://www.top5shots.com/blogs/${blog.slug}`,
+        url: `https://www.top5shots.com/blog/${blog.slug}`,
         siteName: "Top5Shots",
         type: "article",
         images: [

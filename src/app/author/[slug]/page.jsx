@@ -1,17 +1,15 @@
 // app/author/[slug]/page.jsx
 
 import AuthorPage from "@/components/authorSection/authorprofile";
+import base_url from "@/components/helper/baseurl";
 
 export async function generateMetadata({ params }) {
   const slug = params.slug;
 
   try {
-    const res = await fetch(
-      `https://api.top5shots.com/singleUserbyslug/${slug}`,
-      {
-        next: { revalidate: 60 },
-      }
-    );
+    const res = await fetch(`${base_url}/singleUserbyslug/${slug}`, {
+      next: { revalidate: 60 },
+    });
 
     if (!res.ok) {
       return {

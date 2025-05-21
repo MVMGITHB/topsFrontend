@@ -92,7 +92,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Search */}
-        <div className="relative hidden md:flex items-center bg-white border rounded-full px-2 py-1 shadow-sm w-[200px] max-w-xs mt-1">
+        <div className="relative hidden md:flex items-center bg-white border rounded-full px-2 py-1 shadow-sm w-[230px] max-w-2xl mt-1">
           <SerachCategory />
         </div>
 
@@ -107,7 +107,7 @@ export default function Navbar() {
               setIsOpen(false);
             }
           }}
-          className="md:hidden text-black text-2xl ml-40"
+          className="md:hidden text-black bg-white text-2xl ml-40"
           aria-label="Toggle search"
         >
           {showMobileSearch ? "✖️" : "🔍"}

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import base_url from "../helper/baseurl";
 
 function debounce(func, delay) {
   let timeout;
@@ -29,7 +30,7 @@ export default function SerachCategory() {
 
     try {
       const res = await fetch(
-        `https://api.top5shots.com/search?q=${encodeURIComponent(searchTerm)}`
+        `${base_url}/search?q=${encodeURIComponent(searchTerm)}`
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to fetch results");
@@ -58,11 +59,11 @@ export default function SerachCategory() {
   return (
     <div className="w-full relative z-50">
       {/* Input Bar */}
-      <div className="relative w-full bg-white text-gray-800 rounded-md px-3 py-1 text-sm flex items-center border shadow-sm">
+      <div className="relative w-full bg-white text-gray-800 rounded-md px-3 py-1 text-sm flex items-center ">
         <input
           type="text"
           placeholder="Search..."
-          className="w-full pr-8 bg-transparent outline-none placeholder-gray-400 text-sm"
+          className="w-full pr-8  outline-none  text-sm"
           value={query}
           onChange={handleInputChange}
         />
@@ -94,21 +95,23 @@ export default function SerachCategory() {
       {results && (
         <div
           className="
-            absolute top-full left-0 mt-2
-            w-full sm:max-w-2xl bg-white
-            border border-gray-200 rounded-lg shadow-lg
-            max-h-80 overflow-y-auto p-4 space-y-4
-            text-sm font-serif z-50
-          "
+    absolute top-full left-0 mt-2
+    w-full max-w-full sm:max-w-3xl lg:max-w-5xl xl:max-w-6xl
+    bg-white rounded-lg shadow-lg
+    max-h-[32rem] overflow-y-auto p-4 space-y-4
+    text-sm font-serif z-50
+  "
         >
-          <h3 className="font-semibold text-gray-900 text-base">Results</h3>
+          <h3 className="font-semibold text-gray-900 text-base w-4xl">
+            Results
+          </h3>
 
           {results.blogs?.length > 0 && (
             <div>
               <h4 className="font-medium text-purple-600 mb-1">Blogs</h4>
               {results.blogs.map((item, index) => (
                 <Link key={item.id || index} href={`/blog/${item.slug}`}>
-                  <div className="px-2 py-1 rounded hover:bg-gray-100 cursor-pointer text-gray-800">
+                  <div className="px-2 py-1 rounded hover:bg-white cursor-pointer text-gray-800">
                     {item.title}
                   </div>
                 </Link>

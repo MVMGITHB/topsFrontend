@@ -43,9 +43,7 @@ export default function AutoCarousel() {
   useEffect(() => {
     const fetchTopShorts = async () => {
       try {
-        const res = await fetch(
-          "https://api.top5shots.com/api/tops-shorts/getAllTopShorts"
-        );
+        const res = await fetch(`${base_url}/api/tops-shorts/getAllTopShorts`);
         const data = await res.json();
         // console.log("Top Shorts Raw Data:", data);
 
@@ -79,7 +77,7 @@ export default function AutoCarousel() {
 
   return (
     <section className="w-full bg-white ">
-      <h2 className="text-3xl font-bold font-serif text-center text-gray-800 mb-4 mt-2">
+      <h2 className="text-4xl font-bold text-center text-gray-800 mb-4 mt-2">
         Top Shots
       </h2>
 
@@ -104,7 +102,7 @@ export default function AutoCarousel() {
                       alt={blog.title}
                       className="w-full h-36 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
-                    <div className="p-4 text-center text-black font-medium text-md sm:text-base line-clamp-2 flex-1">
+                    <div className="p-4 text-center text-black font-semibold text-2xl sm:text-xl  flex-1">
                       {blog.title}
                     </div>
                   </div>

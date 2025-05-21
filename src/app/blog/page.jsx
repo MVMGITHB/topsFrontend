@@ -13,13 +13,13 @@ export async function generateMetadata() {
       description:
         "Explore the latest insights, updates, and articles from Top5Shots. Stay informed with our newest blog posts.",
       alternates: {
-        canonical: `https://www.top5shots.com/blogs`,
+        canonical: `https://www.top5shots.com/blog`,
       },
       openGraph: {
         title: "Latest Blog Posts - Top5Shots",
         description:
           "Explore the latest insights, updates, and articles from Top5Shots. Stay informed with our newest blog posts.",
-        url: `https://www.top5shots.com/blogs`,
+        url: `https://www.top5shots.com/blog`,
         siteName: "Top5Shots",
         type: "website",
         images: blogs.length

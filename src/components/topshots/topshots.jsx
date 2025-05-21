@@ -1,94 +1,107 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
+import Image from "next/image";
 import base_url from "../helper/baseurl";
 
-const TopShorts = () => {
-  const [shorts, setShorts] = useState([]);
-  const [blogs, setBlogs] = useState({});
+const TopShorts = React.memo(({ subcategorySlug }) => {
+  const [allBlogs, setAllBlogs] = useState([]);
 
   useEffect(() => {
-    const fetchTopShorts = async () => {
+    const fetchAllCompBlogs = async () => {
       try {
-        const res = await fetch(
-          "https://api.top5shots.com/api/trending-shorts/getAllTrendnig"
-        );
-        const data = await res.json();
-        // console.log("Top Shorts Raw Data:", data);
-
-        if (Array.isArray(data) && data.length > 0) {
-          const allCompBlogs = data.flatMap((item) => item.compBlog || []);
-          setShorts(allCompBlogs);
-
-          const blogDetails = await Promise.all(
-            allCompBlogs.map(async (blog) => {
-              const res = await axios.get(
-                `${base_url}/getOnecompblogs/${blog.slug}`
-              );
-              return res.data;
-            })
-          );
-
-          const blogMap = {};
-          blogDetails.forEach((blog) => {
-            blogMap[blog.slug] = blog;
-          });
-
-          setBlogs(blogMap);
+        const res = await axios.get(`${base_url}/getALlcompblogs`);
+        if (Array.isArray(res.data)) {
+          setAllBlogs(res.data);
         }
-      } catch (err) {
-        console.error("Error fetching top shorts:", err);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
       }
     };
 
-    fetchTopShorts();
+    fetchAllCompBlogs();
   }, []);
 
+  const filteredBlogs = useMemo(() => {
+    if (!subcategorySlug) return [];
+    return allBlogs.filter((blog) => {
+      const sub = blog.subcategories;
+      if (Array.isArray(sub)) {
+        return sub.some((s) => s.slug === subcategorySlug);
+      } else {
+        return sub?.slug === subcategorySlug;
+      }
+    });
+  }, [allBlogs, subcategorySlug]);
+
+  const getImageUrl = (image) => {
+    if (!image) return null;
+    return typeof image === "string"
+      ? image.includes("res")
+        ? image
+        : `${base_url}${image}`
+      : image.url || null;
+  };
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 bg-white text-black">
-      <h2 className="text-2xl font-bold mb-6">Top Shorts</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {shorts.map((short) => {
-          const blog = blogs[short.slug];
-          if (!blog) return null;
+    <section className="max-w-7xl mx-auto px-6 py-5 bg-white rounded-3xl shadow-xl">
+      <h2 className="text-4xl font-extrabold text-black mb-6 text-center tracking-tight">
+        Compare Best Plans For{" "}
+        <span className="text-blue-600">{subcategorySlug}</span>
+      </h2>
 
-          return (
-            <div
-              key={short.slug}
-              className="border rounded-2xl p-6 shadow hover:shadow-lg transition bg-white"
-            >
-              <h3 className="text-xl font-semibold">{blog.title}</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                {blog.mtitle || blog.mdesc}
-              </p>
-              <a
-                href={`/${blog?.subcategories?.slug}/${blog.slug}`}
-                className="text-blue-600 mt-3 inline-block hover:underline"
+      {filteredBlogs.length === 0 ? (
+        <p className="text-center text-gray-600 text-lg font-medium">
+          No top shorts found for this subcategory.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {filteredBlogs.map((blog) => {
+            const imageUrl = getImageUrl(blog.image);
+
+            return (
+              <article
+                key={blog._id}
+                className="flex flex-col bg-white border border-gray-200 rounded-3xl shadow-md hover:shadow-xl transition-shadow duration-300 group overflow-hidden"
               >
-                Read more →
-              </a>
+                {imageUrl && (
+                  <div className="relative w-full h-56 overflow-hidden">
+                    <Image
+                      src={imageUrl}
+                      alt={blog.title}
+                      layout="fill"
+                      objectFit="cover"
+                      className="transition-transform duration-500 group-hover:scale-105"
+                      priority={false}
+                    />
+                  </div>
+                )}
 
-              {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
-                <div className="mt-6 border-t pt-4 space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-800">
-                    FAQs
-                  </h4>
-                  {blog.faqs.map((faq) => (
-                    <div
-                      key={faq._id}
-                      className="bg-gray-50 p-3 rounded-md border border-gray-200"
-                    >
-                      <h5 className="font-medium text-gray-900">{faq.ques}</h5>
-                      <p className="text-sm text-gray-700 mt-1">{faq.ans}</p>
-                    </div>
-                  ))}
+                <div className="flex flex-col flex-grow px-6 py-5">
+                  <h3 className="text-xl font-semibold text-black mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                    {blog.title}
+                  </h3>
+
+                  <p className="flex-grow text-gray-700 text-sm leading-relaxed line-clamp-4 mb-6">
+                    {blog.mdesc}
+                  </p>
+
+                  <a
+                    href={`/${blog.subcategories?.slug || subcategorySlug}/${blog.slug}`}
+                    className="inline-block bg-blue-600 text-white font-semibold rounded-full px-5 py-2 text-sm shadow-md hover:bg-blue-700 transition-colors duration-300 self-start"
+                    aria-label={`Read more about ${blog.title}`}
+                  >
+                    Read more &rarr;
+                  </a>
                 </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </section>
   );
-};
+});
 
 export default TopShorts;

@@ -44,7 +44,7 @@ export default function ComparisonPage({ id }) {
   };
 
   return (
-    <div className="bg-white text-black px-4 sm:px-6 lg:px-8 py-2">
+    <div className="bg-white text-black px-4 sm:px-6 lg:px-8 py-2 ">
       {/* Header */}
       {data.heading && (
         <section className="flex flex-col lg:flex-row items-center justify-evenly bg-[#f7f8fd] rounded-xl p-4  shadow-sm">
@@ -85,7 +85,7 @@ export default function ComparisonPage({ id }) {
       <div className="max-w-7xl mx-auto mb-10">
         <div className="mb-3 mt-2 text-center">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            Our Top 3 Picks
+            Top 3 Picks by users
           </h2>
         </div>
 
@@ -103,25 +103,22 @@ export default function ComparisonPage({ id }) {
               )}
 
               <div className="flex items-center justify-between mb-4">
-                <img
-                  src={
-                    typeof app.logo === "string"
-                      ? app.logo.includes("res")
-                        ? app.logo
-                        : `${base_url}${app.logo}`
-                      : app.logo?.url
-                  }
-                  alt={app.websiteName}
-                  className="w-30 h-20 object-contain"
-                />
-                <Link
-                  href={`/company/${app.slug}`}
-                  className=" font-semibold text-xl text-blue-700 hover:underline"
-                >
-                  {app.websiteName}
+                <Link href={`/company/${app.slug}`}>
+                  <img
+                    src={
+                      typeof app.logo === "string"
+                        ? app.logo.includes("res")
+                          ? app.logo
+                          : `${base_url}${app.logo}`
+                        : app.logo?.url
+                    }
+                    alt={app.websiteName}
+                    className="w-36 h-24 object-contain cursor-pointer"
+                  />
                 </Link>
+
                 <div className="text-right">
-                  <div className="flex items-center justify-end gap-1 text-black font-semibold text-2xl">
+                  <div className="flex items-center justify-end gap-1 text-black  text-3xl md:text-3xl font-bold">
                     <Star
                       size={16}
                       fill="currentColor"
@@ -130,14 +127,16 @@ export default function ComparisonPage({ id }) {
                     {app.rating?.toFixed(1)}
                   </div>
                   <div className="text-md font-medium text-black">
-                    Our score
+                    User Rating
                   </div>
                 </div>
               </div>
 
-              <p className="text-sm text-gray-800 mb-3 text-center line-clamp-3">
-                {app.features?.[0] || "Trusted by thousands"}
-              </p>
+              <ul className="text-md/6 tracking-wide text-black mb-3 text-left list-disc pl-4">
+                {app.features?.slice(0, 2).map((feature, i) => (
+                  <li key={i}>{feature}</li>
+                ))}
+              </ul>
 
               <div className="flex justify-center">
                 <a
@@ -169,23 +168,25 @@ export default function ComparisonPage({ id }) {
               </div>
 
               <div className="flex items-center gap-4 min-w-[220px]">
-                <img
-                  src={
-                    typeof card.logo === "string"
-                      ? card.logo.includes("res")
-                        ? card.logo
-                        : `${base_url}${card.logo}`
-                      : card.logo?.url
-                  }
-                  alt={card.websiteName}
-                  className="w-24 h-16 object-contain"
-                />
-                <Link
+                <Link href={`/company/${card.slug}`}>
+                  <img
+                    src={
+                      typeof card.logo === "string"
+                        ? card.logo.includes("res")
+                          ? card.logo
+                          : `${base_url}${card.logo}`
+                        : card.logo?.url
+                    }
+                    alt={card.websiteName}
+                    className="w-34 h-24 object-contain"
+                  />
+                </Link>
+                {/* <Link
                   href={`/company/${card.slug}`}
                   className=" font-semibold text-xl text-blue-700 hover:underline"
                 >
                   {card.websiteName}
-                </Link>
+                </Link> */}
               </div>
               <div className="flex flex-col items-center w-36">
                 <span className="text-3xl md:text-3xl font-bold">
@@ -206,13 +207,13 @@ export default function ComparisonPage({ id }) {
                     />
                   )}
                 </div>
-                <span className="text-xs md:text-sm font-medium text-gray-600 uppercase">
-                  Our Rating
+                <span className="text-xs md:text-sm font-medium text-black uppercase">
+                  User Rating
                 </span>
               </div>
 
-              <ul className="flex-1 mx-4 space-y-1 text-sm text-gray-700">
-                {card.features?.slice(0, 4).map((feature, i) => (
+              <ul className="flex-1 mx-4 space-y-1 text-md tracking-wide text-black">
+                {card.features?.slice(0, 3).map((feature, i) => (
                   <li key={i} className="flex gap-2">
                     <span className="text-green-500">
                       <svg
@@ -234,6 +235,7 @@ export default function ComparisonPage({ id }) {
                   </li>
                 ))}
               </ul>
+
               <div className="flex flex-col min-w-[180px] gap-2 text-left">
                 <span className="text-md font-semibold">
                   Get Exclusive Offer
@@ -263,24 +265,25 @@ export default function ComparisonPage({ id }) {
 
               {/* Header Row: Logo - Website Name - Rating */}
               <div className="flex items-center justify-between mb-4">
-                <img
-                  src={
-                    typeof card.logo === "string"
-                      ? card.logo.includes("res")
-                        ? card.logo
-                        : `${base_url}${card.logo}`
-                      : card.logo?.url
-                  }
-                  alt={card.websiteName}
-                  className="w-20 h-14 object-contain"
-                />
-
-                <Link
+                <Link href={`/company/${card.slug}`}>
+                  <img
+                    src={
+                      typeof card.logo === "string"
+                        ? card.logo.includes("res")
+                          ? card.logo
+                          : `${base_url}${card.logo}`
+                        : card.logo?.url
+                    }
+                    alt={card.websiteName}
+                    className="w-36 h-24 object-contain"
+                  />
+                </Link>
+                {/* <Link
                   href={`/company/${card.slug}`}
                   className="text-lg font-semibold text-blue-700 hover:underline flex-1 text-center px-2"
                 >
                   {card.websiteName}
-                </Link>
+                </Link> */}
 
                 <div className="text-right">
                   <div className="flex items-center justify-end gap-1 text-black font-semibold text-2xl">
@@ -292,14 +295,14 @@ export default function ComparisonPage({ id }) {
                     {card.rating.toFixed(1)}
                   </div>
                   <div className="text-md font-medium ml-2 text-black">
-                    Our Score
+                    User Rating
                   </div>
                 </div>
               </div>
 
               {/* Features */}
-              <ul className="text-sm text-gray-700 space-y-2 mb-4">
-                {card.features?.slice(0, 4).map((feature, i) => (
+              <ul className="text-sm text-black font-medium space-y-2 mb-4">
+                {card.features?.slice(0, 3).map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="text-green-500">
                       <svg

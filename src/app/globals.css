@@ -8,13 +8,14 @@
      1px  1px 0 black;
 }
 
+
 /* globals.css */
 
 /* Ensure consistent background and text color */
 body {
   background-color: #ffffff; /* White background */
   color: #333333; /* Dark text color */
-  font-family: sans-serif;
+  font-family: serif;
 
 }
 

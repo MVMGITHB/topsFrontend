@@ -1,14 +1,14 @@
+import base_url from "@/components/helper/baseurl";
 import { NextResponse } from "next/server";
 
-const BASE_URL = "https://top5shots.com";
-const API_BASE = "https://api.top5shots.com";
+
 
 export async function GET() {
   try {
     const [blogsRes, viralRes, categoriesRes] = await Promise.all([
-      fetch(`${API_BASE}/getAllArticle`, { cache: "no-store" }),
-      fetch(`${API_BASE}/getAllViralStories`, { cache: "no-store" }),
-      fetch(`${API_BASE}/category`, { cache: "no-store" }),
+      fetch(`${base_url}/getAllArticle`, { cache: "no-store" }),
+      fetch(`${base_url}/getAllViralStories`, { cache: "no-store" }),
+      fetch(`${base_url}/category`, { cache: "no-store" }),
     ]);
 
     if (!blogsRes.ok)
@@ -24,7 +24,7 @@ export async function GET() {
       categoriesRes.json(),
     ]);
 
-    const companiesRes = await fetch(`${API_BASE}/getAllCompany`, {
+    const companiesRes = await fetch(`${base_url}/getAllCompany`, {
       cache: "no-store",
     });
     let companies = [];
@@ -80,7 +80,7 @@ export async function GET() {
     const comparisonUrls = await Promise.all(
       categories.map(async (cat) => {
         try {
-          const res = await fetch(`${API_BASE}/filter1/${cat.slug}`, {
+          const res = await fetch(`${base_url}/filter1/${cat.slug}`, {
             cache: "no-store",
           });
           if (!res.ok) {

@@ -78,7 +78,7 @@ export default function BlogArticle({ slug }) {
   }
 
   return (
-    <section className="max-w-8xl mx-auto   text-white">
+    <section className="max-w-8xl mx-auto font-roboto  text-white">
       {/* Meta and Schema */}
       <SeoMeta
         title={blog.mtitle || blog.title}
@@ -106,9 +106,9 @@ export default function BlogArticle({ slug }) {
           {/* Title & Meta */}
           <header className="border-b border-gray-200 pb-4">
             <h1 className="text-4xl font-bold">{blog.title}</h1>
-            <div className="text-sm text-gray-600 mt-2 space-y-1">
+            <div className="text-sm text-black mt-2 space-y-1">
               <p>
-                <strong className="text-gray-800">Posted:</strong>{" "}
+                <strong className="text-black">Posted:</strong>{" "}
                 {new Date(blog.updatedAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -119,17 +119,23 @@ export default function BlogArticle({ slug }) {
                 <p>
                   <Link
                     href={`/author/${blog?.postedBy.slug}`}
-                    className="text-indigo-600 hover:underline"
+                    className="text-black hover:underline"
                   >
-                    Author: {blog?.postedBy.username}
+                    Author:{" "}
+                    <span className="text-indigo-600 hover:underline">
+                      {blog?.postedBy.username}
+                    </span>
                   </Link>
                   <br />
-                  Category: {blog?.categories?.name}
+                  Category:{" "}
+                  <span className="text-black hover:underline">
+                    {blog?.categories?.name}
+                  </span>
                 </p>
               )}
             </div>
             {blog.mdesc && (
-              <p className="mt-3 text-base text-gray-600">{blog.mdesc}</p>
+              <p className="mt-3 text-base text-black">{blog.mdesc}</p>
             )}
           </header>
 

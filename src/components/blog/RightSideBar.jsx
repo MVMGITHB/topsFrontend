@@ -11,7 +11,7 @@ export const RightSideBar = ({ categorySlug }) => {
     if (!categorySlug) return;
 
     axios
-      .get(`https://api.top5shots.com/similarBlog/${categorySlug}`)
+      .get(`${base_url}/similarBlog/${categorySlug}`)
       .then((res) => {
         let blogs = res.data || [];
 

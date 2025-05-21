@@ -168,7 +168,7 @@ const CardLayout = ({ image, title, label, cta, date, author }) => (
       )}
       <h2
         className="
-          text-white text-[18px] sm:text-lg md:text-xl font-serif font-semibold 
+          text-white text-[28px] sm:text-lg md:text-2xl 
           leading-snug drop-shadow-md line-clamp-2 transition duration-300 group-hover:text-purple-300
         "
       >
@@ -198,7 +198,7 @@ export default function TopShotsAndPopularSection() {
     const fetchTopShorts = async () => {
       try {
         const res = await fetch(
-          "https://api.top5shots.com/api/trending-shorts/getAllTrendnig"
+          `${base_url}/api/trending-shorts/getAllTrendnig`
         );
         const data = await res.json();
         // console.log("Top Shorts Raw Data:", data);
@@ -248,7 +248,7 @@ export default function TopShotsAndPopularSection() {
   return (
     <section className="w-full bg-white py-4 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold font-serif text-gray-800 text-center mb-4">
+        <h2 className="text-4xl font-bold  text-gray-800 text-center mb-4">
           Popular Shots
         </h2>
 

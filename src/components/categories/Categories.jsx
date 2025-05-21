@@ -8,13 +8,13 @@ import base_url from "../helper/baseurl";
 // Fallback icons
 const fallbackIcons = {
   Automobile: "/newicons/Automobile2.png",
-  Lifestyle: "/newicons/Lifestyle3.png",
-  Fashion: "/newicons/Fashion3.png",
+  Lifestyle: "/newicons/Lifestyle1.png",
+  Fashion: "/newicons/Fashion2.png",
   Fitness: "/newicons/fitness.svg",
-  Ecommerce: "/newicons/Ecommerce3.png",
-  Finance: "/newicons/Finance2.png",
-  "Real Estate": "/newicons/RealEst1.png",
-  Gaming: "/newicons/Gaming4.png",
+  Ecommerce: "/newicons/Ecommerce1.png",
+  Finance: "/newicons/Finance1.png",
+  "Real Estate": "/newicons/RealEst2.png",
+  Gaming: "/newicons/Gaming3.png",
   Politics: "/newicons/politics.png",
   Sports: "/newicons/Sports1.png",
   Education: "/newicons/Education3.png",
@@ -90,22 +90,22 @@ export default function CategoryPage() {
             <div
               key={index}
               onClick={() => handleCategoryClick(cat)}
-              className={`relative cursor-pointer ${responsiveClass} bg-gray-100 text-black rounded-2xl p-4 h-32 flex-col items-center justify-between text-center shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-[#2c003e] hover:to-[#4B0082] hover:text-white hover:shadow-lg hover:scale-105 font-serif`}
+              className={`relative cursor-pointer ${responsiveClass} bg-gray-100 text-black rounded-2xl p-4 h-32 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-[#2c003e] hover:to-[#4B0082] hover:text-white hover:shadow-lg hover:scale-105 font-sans`}
             >
-              {/* Title */}
-              <span className="text-lg sm:text-xl font-light">{title}</span>
-
-              {/* Center Bottom Icon */}
+              {/* Icon - Large and on top */}
               {icon && (
                 <img
                   src={icon}
-                  alt={`${title} center icon`}
-                  className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-8 h-8 sm:w-10 sm:h-10 object-contain z-10"
+                  alt={`${title} icon`}
+                  className="w-14 h-14 sm:w-20 sm:h-15 object-contain mb-2"
                 />
               )}
 
+              {/* Title - Below icon */}
+              <span className="text-base sm:text-2xl font-serif">{title}</span>
+
               {/* Left & Right Bottom Icons */}
-              <div className="relative w-full h-0">
+              {/* <div className="relative w-full h-0">
                 {leftIcon && (
                   <img
                     src={leftIcon}
@@ -120,7 +120,7 @@ export default function CategoryPage() {
                     className="absolute bottom-2 right-2 w-8 h-8 sm:w-10 sm:h-10 object-contain"
                   />
                 )}
-              </div>
+              </div> */}
             </div>
           );
         })}

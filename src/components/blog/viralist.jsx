@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import base_url from "../helper/baseurl";
 
 const ViralStoriesListing = () => {
   const [articles, setArticles] = useState([]);
@@ -10,10 +11,9 @@ const ViralStoriesListing = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch(
-          "https://api.top5shots.com/getAllViralStories",
-          { cache: "no-store" }
-        );
+        const response = await fetch(`${base_url}/getAllViralStories`, {
+          cache: "no-store",
+        });
         const data = await response.json();
 
         if (!Array.isArray(data)) {
