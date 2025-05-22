@@ -1,4 +1,5 @@
 import ComparisonPage from "@/components/comparison/toppicks";
+import EVPopup from "@/components/popup/page";
 
 export async function generateMetadata({ params }) {
   const baseUrl = "https://www.top5shots.com";
@@ -71,6 +72,7 @@ const Page = async ({ params }) => {
   return (
     <div className="text-black">
       <ComparisonPage id={slug} />
+      <EVPopup/>
     </div>
   );
 };

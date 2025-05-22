@@ -1,8 +1,8 @@
 // app/[subcategory]/page.jsx
 import TopShorts from "@/components/topshots/topshots";
 
-const Page = ({ params }) => {
-  const { subcategory } = params; // This catches dynamic slug like 'credit'
+const  Page = ({ params }) => {
+  const { subcategory } = params; 
 
   return (
     <div>
