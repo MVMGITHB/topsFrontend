@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
     return {
       title: "Blog not found - Top5Shots",
       description: "The blog you are looking for doesn't exist.",
-      robots: "noindex, follow",
+      robots: "index, follow",
     };
   }
 }
@@ -61,10 +61,7 @@ export default function BlogArticlePage({ params }) {
   return (
     <>
       <Head>
-        <link
-          rel="canonical"
-          href={`https://www.top5shots.com/blog/${slug}`}
-        />
+        <link rel="canonical" href={`https://www.top5shots.com/blog/${slug}`} />
         <meta name="robots" content="index, follow" />
       </Head>
       <BlogArticle slug={slug} />
