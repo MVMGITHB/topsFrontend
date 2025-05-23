@@ -1,7 +1,7 @@
 import base_url from "@/components/helper/baseurl";
 import { NextResponse } from "next/server";
 
-const BASE_URL = "https://www.top5shots.com";
+
 
 export async function GET() {
   try {
@@ -11,9 +11,12 @@ export async function GET() {
       fetch(`${base_url}/category`, { cache: "no-store" }),
     ]);
 
-    if (!blogsRes.ok) throw new Error(`Failed to fetch blogs`);
-    if (!viralRes.ok) throw new Error(`Failed to fetch viral stories`);
-    if (!categoriesRes.ok) throw new Error(`Failed to fetch categories`);
+    if (!blogsRes.ok)
+      throw new Error(`Failed to fetch blogs: ${blogsRes.status}`);
+    if (!viralRes.ok)
+      throw new Error(`Failed to fetch viral stories: ${viralRes.status}`);
+    if (!categoriesRes.ok)
+      throw new Error(`Failed to fetch categories: ${categoriesRes.status}`);
 
     const [blogs, viralStories, categories] = await Promise.all([
       blogsRes.json(),
@@ -24,7 +27,10 @@ export async function GET() {
     const companiesRes = await fetch(`${base_url}/getAllCompany`, {
       cache: "no-store",
     });
-    const companies = companiesRes.ok ? await companiesRes.json() : [];
+    let companies = [];
+    if (companiesRes.ok) {
+      companies = await companiesRes.json();
+    }
 
     const urls = [
       { loc: "/", priority: 1.0 },
@@ -77,9 +83,11 @@ export async function GET() {
           const res = await fetch(`${base_url}/filter1/${cat.slug}`, {
             cache: "no-store",
           });
-          if (!res.ok) return [];
-
+          if (!res.ok) {
+            return [];
+          }
           const items = await res.json();
+
           const urlsForCategory = [];
 
           items.forEach((item) => {
@@ -93,19 +101,6 @@ export async function GET() {
                   });
                 }
               });
-
-              // Add category-level URL (only once per category)
-              const firstCompBlog = item.compBlogs[0];
-              if (firstCompBlog?.subcategories?.slug) {
-                urlsForCategory.push({
-                  loc: `/${firstCompBlog.subcategories.slug}`,
-                  lastmod: safeDate(
-                    firstCompBlog.updatedAt,
-                    firstCompBlog.createdAt
-                  ),
-                  priority: 0.7,
-                });
-              }
             }
           });
 
@@ -136,8 +131,7 @@ ${urls
       status: 200,
       headers: { "Content-Type": "application/xml" },
     });
-  } catch (err) {
-    console.error("Sitemap generation error:", err);
+  } catch {
     return NextResponse.json("Sitemap generation error", { status: 500 });
   }
 }
@@ -147,6 +141,7 @@ function safeDate(updatedAt, createdAt) {
     if (updatedAt) return new Date(updatedAt).toISOString();
     if (createdAt) return new Date(createdAt).toISOString();
   } catch {
-    return "";
+    // Ignore invalid date
   }
+  return "";
 }
