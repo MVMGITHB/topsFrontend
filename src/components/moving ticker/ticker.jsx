@@ -42,14 +42,14 @@ export default function Ticker({ items, speed = 50 }) {
       <div className="flex items-center gap-12 text-base font-medium leading-6 h-8">
         <div
           ref={tickerRef}
-          className="flex items-center gap-6 whitespace-nowrap transition-transform duration-300 ease-linear"
+          className="flex items-center gap-1 whitespace-nowrap transition-transform duration-300 ease-linear"
         >
           {items.map((item, index) => (
             <span
               key={index}
-              className="flex-shrink-0 text-gray-200 tracking-wide hover:text-white transition-colors duration-200 cursor-pointer tracking-wide"
+              className="flex-shrink-0 text-gray-200  hover:text-white transition-colors duration-200 cursor-pointer tracking-wide"
             >
-              <span className=" text-gray-300">|</span> {item}
+              <span className=" text-gray-300 font-bold">|</span> {item}
             </span>
           ))}
         </div>

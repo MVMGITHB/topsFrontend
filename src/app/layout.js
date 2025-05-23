@@ -18,14 +18,44 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Standard favicon */}
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+
+        {/* Shortcut for IE */}
         <link
-          rel="icon"
+          rel="shortcut icon"
           href="/images/favicon.ico"
           type="image/x-icon"
-          sizes="16x16"
         />
+
+        {/* PNG favicons for modern browsers */}
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/images/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/images/favicon-16x16.png"
+        />
+
+        {/* Apple touch icon */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/images/apple-touch-icon.png"
+        />
+
+        {/* Optional: Manifest and theme color */}
+        <link rel="manifest" href="/images/site.webmanifest" />
+        {/* <meta name="theme-color" content="#ffffff" /> */}
+
         <meta name="robots" content="noindex, nofollow" />
       </head>
+
       <body className="bg-white text-black flex flex-col min-h-screen overflow-x-hidden">
         <AuthProvider>
           <Navbar />

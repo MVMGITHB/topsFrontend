@@ -1,4 +1,5 @@
 import BlogArticle from "@/components/blog/blogArticle";
+import Head from "next/head";
 import base_url from "@/components/helper/baseurl";
 
 export async function generateMetadata({ params }) {
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }) {
       alternates: {
         canonical: `https://www.top5shots.com/blog/${blog.slug}`,
       },
+      robots: "index, follow",
       openGraph: {
         title: blog.mtitle || blog.title,
         description: blog.mdesc || "",
@@ -48,6 +50,7 @@ export async function generateMetadata({ params }) {
     return {
       title: "Blog not found - Top5Shots",
       description: "The blog you are looking for doesn't exist.",
+      robots: "noindex, follow",
     };
   }
 }
@@ -55,5 +58,16 @@ export async function generateMetadata({ params }) {
 export default function BlogArticlePage({ params }) {
   const { slug } = params;
 
-  return <BlogArticle slug={slug} />;
+  return (
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href={`https://www.top5shots.com/blog/${slug}`}
+        />
+        <meta name="robots" content="index, follow" />
+      </Head>
+      <BlogArticle slug={slug} />
+    </>
+  );
 }

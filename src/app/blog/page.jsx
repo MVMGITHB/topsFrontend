@@ -1,5 +1,6 @@
 import BlogListing from "@/components/blog/bloglisting";
 import base_url from "@/components/helper/baseurl";
+import Head from "next/head";
 
 export async function generateMetadata() {
   try {
@@ -15,6 +16,7 @@ export async function generateMetadata() {
       alternates: {
         canonical: `https://www.top5shots.com/blog`,
       },
+      robots: "index, follow",
       openGraph: {
         title: "Latest Blog Posts - Top5Shots",
         description:
@@ -58,10 +60,22 @@ export async function generateMetadata() {
     return {
       title: "Blogs - Top5Shots",
       description: "Explore the latest insights and blog posts from Top5Shots.",
+      alternates: {
+        canonical: `https://www.top5shots.com/blog`,
+      },
     };
   }
 }
 
 export default function BlogsPage() {
-  return <BlogListing />;
+  return (
+    <>
+      <Head>
+        <link rel="canonical" href="https://www.top5shots.com/blog" />
+        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="index, follow" />
+      </Head>
+      <BlogListing />
+    </>
+  );
 }

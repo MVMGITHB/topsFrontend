@@ -110,15 +110,6 @@ export default function BlogArticle({ slug }) {
               <div className="text-xl text-gray-700 space-y-1">
                 <p className="text-xl text-gray-700">
                   <strong className="text-gray-900 font-medium">
-                    Created At:
-                  </strong>{" "}
-                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}{" "}
-                  <span className="text-gray-400 mx-2">|</span>
-                  <strong className="text-gray-900 font-medium">
                     Updated At:
                   </strong>{" "}
                   {new Date(blog.updatedAt).toLocaleDateString("en-US", {
@@ -126,6 +117,15 @@ export default function BlogArticle({ slug }) {
                     month: "long",
                     day: "numeric",
                   })}
+                  <span className="text-gray-400 mx-2">|</span>
+                  <strong className="text-gray-900 font-medium">
+                    Created At:
+                  </strong>{" "}
+                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}{" "}
                 </p>
               </div>
 
