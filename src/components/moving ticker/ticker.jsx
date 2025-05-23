@@ -30,7 +30,7 @@ export default function Ticker({ items, speed = 50 }) {
 
   return (
     <div
-      className="relative w-full overflow-hidden bg-[#0B1120] text-white py-2 px-2"
+      className="relative w-full overflow-hidden bg-[#0B1120] text-white  px-4"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -39,18 +39,17 @@ export default function Ticker({ items, speed = 50 }) {
       {/* Right fade */}
       <div className="absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#0B1120] to-transparent z-10" />
 
-      {/* <div className="flex items-center gap-8 text-sm font-small"> */}
-      <div className="flex items-center gap-8 text-sm font-medium h-6">
+      <div className="flex items-center gap-12 text-base font-medium leading-6 h-8">
         <div
           ref={tickerRef}
-          className="flex items-center gap-2 whitespace-nowrap transition-transform duration-300 ease-linear"
+          className="flex items-center gap-6 whitespace-nowrap transition-transform duration-300 ease-linear"
         >
           {items.map((item, index) => (
             <span
               key={index}
-              className="flex-shrink-0 text-gray-200 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="flex-shrink-0 text-gray-200 tracking-wide hover:text-white transition-colors duration-200 cursor-pointer tracking-wide"
             >
-              <span>|</span> {item}
+              <span className=" text-gray-300">|</span> {item}
             </span>
           ))}
         </div>

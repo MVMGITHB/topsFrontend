@@ -3,10 +3,33 @@ import React from "react";
 export default function FAQ({ data, conclusion }) {
   if (!Array.isArray(data) || data.length === 0) return null;
 
+  // Prepare FAQ schema JSON-LD including conclusion as CreativeWork if present
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: data.map((faq) => ({
+      "@type": "Question",
+      name: faq.ques,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.ans,
+      },
+    })),
+  };
+
+  // Add conclusion as a separate CreativeWork entity inside the same JSON-LD block
+  if (conclusion) {
+    faqSchema.conclusion = {
+      "@type": "CreativeWork",
+      name: "Conclusion",
+      text: conclusion,
+    };
+  }
+
   return (
     <div className="mt-3 border-t pt-6 px-4 flex justify-center mb-20">
       <div className="w-full max-w-8xl space-y-6">
-        <h4 className="text-4xl font-semibold text-gray-800 text-center">
+        <h4 className="text-4xl font-semibold  text-gray-800 text-center">
           FAQs
         </h4>
 
@@ -30,6 +53,12 @@ export default function FAQ({ data, conclusion }) {
             </p>
           </div>
         )}
+
+        {/* Inject JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
       </div>
     </div>
   );

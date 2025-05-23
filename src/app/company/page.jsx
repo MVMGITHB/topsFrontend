@@ -13,6 +13,7 @@ export default function AllCompaniesPage() {
       try {
         const res = await fetch(`${base_url}/getAllCompany`);
         const data = await res.json();
+        console.log(data);
         setCompanies(data);
       } catch (err) {
         console.error("Failed to fetch companies:", err);
@@ -24,8 +25,7 @@ export default function AllCompaniesPage() {
     fetchCompanies();
   }, []);
 
-  if (loading)
-    return <p className="text-center py-10">Loading companies...</p>;
+  if (loading) return <p className="text-center py-10">Loading companies...</p>;
   if (!companies || companies.length === 0)
     return <p className="text-center py-10">No companies found</p>;
 
@@ -34,7 +34,6 @@ export default function AllCompaniesPage() {
       {companies.map((company) => (
         // <CompanyCard key={company.slug} company={company} />
         <CompanyCard key={company.slug || company._id} company={company} />
-
       ))}
     </div>
   );

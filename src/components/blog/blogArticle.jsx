@@ -106,36 +106,50 @@ export default function BlogArticle({ slug }) {
           {/* Title & Meta */}
           <header className="border-b border-gray-200 pb-4">
             <h1 className="text-4xl font-bold">{blog.title}</h1>
-            <div className="text-sm text-black mt-2 space-y-1">
-              <p>
-                <strong className="text-black">Posted:</strong>{" "}
-                {new Date(blog.updatedAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
+            <div className="text-xl text-black mt-2 space-y-1">
+              <div className="text-xl text-gray-700 space-y-1">
+                <p className="text-xl text-gray-700">
+                  <strong className="text-gray-900 font-medium">
+                    Created At:
+                  </strong>{" "}
+                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}{" "}
+                  <span className="text-gray-400 mx-2">|</span>
+                  <strong className="text-gray-900 font-medium">
+                    Updated At:
+                  </strong>{" "}
+                  {new Date(blog.updatedAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+
               {blog?.postedBy && (
                 <p>
                   <Link
                     href={`/author/${blog?.postedBy.slug}`}
-                    className="text-black hover:underline"
+                    className="text-black hover:underline "
                   >
                     Author:{" "}
-                    <span className="text-indigo-600 hover:underline">
+                    <span className="text-indigo-600 hover:underline ">
                       {blog?.postedBy.username}
                     </span>
                   </Link>
                   <br />
                   Category:{" "}
-                  <span className="text-black hover:underline">
+                  <span className="text-black hover:underline ">
                     {blog?.categories?.name}
                   </span>
                 </p>
               )}
             </div>
             {blog.mdesc && (
-              <p className="mt-3 text-base text-black">{blog.mdesc}</p>
+              <p className="mt-3 text-xl text-black">{blog.mdesc}</p>
             )}
           </header>
 

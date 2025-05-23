@@ -90,11 +90,10 @@ export default function ComparisonPage({ id }) {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {/* {console.log(topPicks)} */}
           {topPicks.map((app, i) => (
             <div
               key={i}
-              className="relative bg-white border border-gray-200 rounded-xl p-3 shadow-sm transition hover:shadow-md hover:scale-[1.02]"
+              className="relative bg-white border border-gray-200 rounded-xl p-3 shadow-sm transition hover:shadow-md hover:scale-[1.02] h-[300px] flex flex-col"
             >
               {i === 0 && (
                 <span className="absolute -top-3 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
@@ -102,49 +101,51 @@ export default function ComparisonPage({ id }) {
                 </span>
               )}
 
-              <div className="flex items-center justify-between mb-4">
-                <Link href={`/company/${app.slug}`}>
-                  <img
-                    src={
-                      typeof app.logo === "string"
-                        ? app.logo.includes("res")
-                          ? app.logo
-                          : `${base_url}${app.logo}`
-                        : app.logo?.url
-                    }
-                    alt={app.websiteName}
-                    className="w-36 h-24 object-contain cursor-pointer"
-                  />
-                </Link>
-
-                <div className="text-right">
-                  <div className="flex items-center justify-end gap-1 text-black  text-3xl md:text-3xl font-bold">
-                    <Star
-                      size={16}
-                      fill="currentColor"
-                      className="text-green-600 size-5"
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <Link href={`/company/${app.slug}`}>
+                    <img
+                      src={
+                        typeof app.logo === "string"
+                          ? app.logo.includes("res")
+                            ? app.logo
+                            : `${base_url}${app.logo}`
+                          : app.logo?.url
+                      }
+                      alt={app.websiteName}
+                      className="w-36 h-24 object-contain cursor-pointer"
                     />
-                    {app.rating?.toFixed(1)}
-                  </div>
-                  <div className="text-md font-medium text-black">
-                    User Rating
+                  </Link>
+
+                  <div className="text-right">
+                    <div className="flex items-center justify-end gap-1 text-black text-3xl font-bold">
+                      <Star
+                        size={16}
+                        fill="currentColor"
+                        className="text-green-600 size-5"
+                      />
+                      {app.rating?.toFixed(1)}
+                    </div>
+                    <div className="text-md font-medium text-black">
+                      User Rating
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <ul className="text-md/6 tracking-wide text-black mb-3 text-left list-disc pl-4">
-                {app.features?.slice(0, 2).map((feature, i) => (
-                  <li key={i}>{feature}</li>
-                ))}
-              </ul>
+                <ul className="text-md tracking-wide text-black mb-3 text-left list-disc pl-4 h-[100px] overflow-hidden">
+                  {app.features?.slice(0, 2).map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
 
-              <div className="flex justify-center">
-                <a
-                  href={app.visitSiteUrl}
-                  className="inline-block bg-blue-600 text-white text-sm font-semibold px-15 py-2 rounded-md hover:bg-blue-700 transition shadow-md"
-                >
-                  Visit Site
-                </a>
+                <div className="flex justify-center">
+                  <a
+                    href={app.visitSiteUrl}
+                    className="inline-block bg-blue-600 text-white text-md font-medium px-6 py-2 rounded-md hover:bg-blue-700 transition shadow-md"
+                  >
+                    Visit Site →
+                  </a>
+                </div>
               </div>
             </div>
           ))}
@@ -237,12 +238,10 @@ export default function ComparisonPage({ id }) {
               </ul>
 
               <div className="flex flex-col min-w-[180px] gap-2 text-left">
-                <span className="text-md font-semibold">
-                  Get Exclusive Offer
-                </span>
+                <span className="text-xl font-medium">Get Exclusive Offer</span>
                 <Link
                   href={card.visitSiteUrl}
-                  className="inline-flex bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
+                  className="inline-flex bg-blue-600 text-white px-6 py-2 rounded-lg text-md font-medium hover:bg-blue-700"
                 >
                   Visit Site →
                 </Link>
@@ -301,7 +300,7 @@ export default function ComparisonPage({ id }) {
               </div>
 
               {/* Features */}
-              <ul className="text-sm text-black font-medium space-y-2 mb-4">
+              <ul className="text-md tracking-wide text-black font-medium space-y-2 mb-4">
                 {card.features?.slice(0, 3).map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="text-green-500">
@@ -327,12 +326,10 @@ export default function ComparisonPage({ id }) {
 
               {/* CTA Button */}
               <div className="text-center">
-                <p className="text-md font-semibold mb-2">
-                  Get Exclusive Offer
-                </p>
+                <p className="text-md font-medium mb-2">Get Exclusive Offer</p>
                 <Link
                   href={card.visitSiteUrl}
-                  className="inline-block bg-blue-600 text-white px-10 py-2 rounded-md text-sm font-semibold hover:bg-blue-700 transition"
+                  className="inline-block bg-blue-600 text-white px-15 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition"
                 >
                   Visit Site →
                 </Link>

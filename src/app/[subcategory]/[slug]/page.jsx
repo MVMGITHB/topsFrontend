@@ -9,6 +9,13 @@ export async function generateMetadata({ params }) {
     const res = await fetch(`${baseUrl}/getOnecompblogs/${slug}`, {
       cache: "force-cache",
     });
+
+    const contentType = res.headers.get("content-type");
+
+    if (!res.ok || !contentType?.includes("application/json")) {
+      throw new Error("Invalid JSON response");
+    }
+
     const data = await res.json();
 
     const imageUrl =
@@ -72,7 +79,7 @@ const Page = async ({ params }) => {
   return (
     <div className="text-black">
       <ComparisonPage id={slug} />
-      <EVPopup/>
+      <EVPopup />
     </div>
   );
 };

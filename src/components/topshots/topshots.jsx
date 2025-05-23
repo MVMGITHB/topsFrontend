@@ -43,13 +43,19 @@ const TopShorts = React.memo(({ subcategorySlug }) => {
         : `${base_url}${image}`
       : image.url || null;
   };
+  const capitalizeFirstLetter = (str) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-5 bg-white rounded-3xl shadow-xl">
-      <h2 className="text-4xl font-extrabold text-black mb-6 text-center tracking-tight">
+      <h1 className="text-4xl font-extrabold text-black mb-6 text-center tracking-tight">
         Compare Best Plans For{" "}
-        <span className="text-blue-600">{subcategorySlug}</span>
-      </h2>
+        <span className="text-blue-600">
+          {capitalizeFirstLetter(subcategorySlug)}
+        </span>
+      </h1>
 
       {filteredBlogs.length === 0 ? (
         <p className="text-center text-gray-600 text-lg font-medium">
@@ -79,16 +85,18 @@ const TopShorts = React.memo(({ subcategorySlug }) => {
                 )}
 
                 <div className="flex flex-col flex-grow px-6 py-5">
-                  <h3 className="text-xl font-semibold text-black mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                  <h2 className="text-xl font-semibold text-black mb-3 group-hover:text-blue-600 transition-colors duration-300">
                     {blog.title}
-                  </h3>
+                  </h2>
 
                   <p className="flex-grow text-gray-700 text-sm leading-relaxed line-clamp-4 mb-6">
                     {blog.mdesc}
                   </p>
 
                   <a
-                    href={`/${blog.subcategories?.slug || subcategorySlug}/${blog.slug}`}
+                    href={`/${blog.subcategories?.slug || subcategorySlug}/${
+                      blog.slug
+                    }`}
                     className="inline-block bg-blue-600 text-white font-semibold rounded-full px-5 py-2 text-sm shadow-md hover:bg-blue-700 transition-colors duration-300 self-start"
                     aria-label={`Read more about ${blog.title}`}
                   >
